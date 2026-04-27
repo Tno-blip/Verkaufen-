@@ -352,144 +352,42 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 <div id="notif-overlay" onclick="closeNotifDrop()" style="display:none;position:fixed;inset:0;z-index:998"></div>
 
 <script>
-
-// Firebase Konfiguration
+// ===================== FIREBASE INIT =====================
 const firebaseConfig = {
   apiKey: "AIzaSyAawulIvDd5T62gkz4U3LROLGJZaFPH6jo",
   authDomain: "kartenverkauf-60aad.firebaseapp.com",
   projectId: "kartenverkauf-60aad",
   storageBucket: "kartenverkauf-60aad.firebasestorage.app",
   messagingSenderId: "136190767018",
-  appId: "1:136190767018:web:4c1962f65df992f29645d3",
-  measurementId: "G-YV92190SVM"
+  appId: "1:136190767018:web:4c1962f65df992f29645d3"
 };
-
-// Initialisierung
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-// Globaler State
-let S = {
-  page: 'home',
-  user: null, 
-  cart: [],
-  wishlist: [],
-  notifs: []
-};
-
-// Auth Synchronisation
-auth.onAuthStateChanged(async (firebaseUser) => {
-  if (firebaseUser) {
-    const userDoc = await db.collection('users').doc(firebaseUser.uid).get();
-    if (userDoc.exists) {
-      S.user = { uid: firebaseUser.uid, ...userDoc.data() };
-    } else {
-      const newUser = { un: "Trainer", av: "👤", role: "user", bal: 0, joined: new Date().toISOString() };
-      await db.collection('users').doc(firebaseUser.uid).set(newUser);
-      S.user = { uid: firebaseUser.uid, ...newUser };
-    }
-  } else {
-    S.user = null;
-  }
-  render();
-  updateNav();
-});
-
-// Registrierung
-async /* OLD function doRegister REMOVED */);
-    notif("Konto erstellt!", "Willkommen bei PokéMarkt.", "ok");
-    go('home');
-  } catch (err) { alert("Fehler: " + err.message); }
+let _fbConfigured = false;
+let auth, db;
+try {
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.firestore();
+  _fbConfigured = true;
+} catch(e) {
+  console.warn("Firebase nicht verfügbar, Fallback auf localStorage.", e);
 }
 
-// Login
-async /* OLD function doLogin REMOVED */ catch (err) { alert("Login fehlgeschlagen: " + err.message); }
-}
-
-// Logout
-/* OLD function doLogout REMOVED */);
-}
-
-// Geld einzahlen
-async /* OLD function deposit REMOVED */);
-  S.user.bal = newBal;
-  notif("Guthaben aufgeladen", `+${amt}€ hinzugefügt.`, "ok");
-  render();
-}
-
-
-// Deine Konfiguration
-const firebaseConfig = {
-  apiKey: "AIzaSyAawulIvDd5T62gkz4U3LROLGJZaFPH6jo",
-  authDomain: "kartenverkauf-60aad.firebaseapp.com",
-  projectId: "kartenverkauf-60aad",
-  storageBucket: "kartenverkauf-60aad.firebasestorage.app",
-  messagingSenderId: "136190767018",
-  appId: "1:136190767018:web:4c1962f65df992f29645d3",
-  measurementId: "G-YV92190SVM"
-};
-
-// Initialisierung
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-// Globaler State (angepasst für Firebase)
-let S = {
-  page: 'home',
-  user: null, // Wird von Firebase gefüllt
-  cart: [],
-  wishlist: [],
-  notifs: []
-};
-
-// --- AUTH SYNCHRONISATION ---
-auth.onAuthStateChanged(async (firebaseUser) => {
-  if (firebaseUser) {
-    // Wenn eingeloggt, lade Profildaten aus Firestore
-    const userDoc = await db.collection('users').doc(firebaseUser.uid).get();
-    if (userDoc.exists) {
-      S.user = { uid: firebaseUser.uid, ...userDoc.data() };
-    } else {
-      // Falls Dokument noch nicht existiert (erster Login)
-      const newUser = { un: "Trainer", av: "👤", role: "user", bal: 0, joined: new Date().toISOString() };
-      await db.collection('users').doc(firebaseUser.uid).set(newUser);
-      S.user = { uid: firebaseUser.uid, ...newUser };
-    }
-  } else {
-    S.user = null;
-  }
-  render();
-  updateNav();
-});
-
-// --- FUNKTIONEN ÜBERSCHREIBEN ---
-
-// Registrierung
-async /* OLD function doRegister REMOVED */);
-    notif("Konto erstellt!", "Willkommen bei PokéMarkt.", "ok");
-    go('home');
-  } catch (err) {
-    alert("Fehler: " + err.message);
-  }
-}
-
-// Login
-async /* OLD function doLogin REMOVED */ catch (err) {
-    alert("Login fehlgeschlagen: " + err.message);
-  }
-}
-
-// Logout
-/* OLD function doLogout REMOVED */);
-}
-
-// Geld einzahlen (Cross-Device Speicherung)
-async /* OLD function deposit REMOVED */);
-  S.user.bal = newBal;
-  notif("Guthaben aufgeladen", `+${amt}€ hinzugefügt.`, "ok");
-  render();
+let _fsTimer = null;
+function _scheduleFirestoreSave() {
+  if (!_fbConfigured || !auth || !auth.currentUser) return;
+  clearTimeout(_fsTimer);
+  _fsTimer = setTimeout(async () => {
+    try {
+      const uid = auth.currentUser?.uid;
+      if (!uid) return;
+      await db.collection('users').doc(uid).set({
+        cart: S.cart,
+        wishlist: S.wishlist,
+        orders: S.orders,
+        bal: S.user?.bal || 0
+      }, { merge: true });
+    } catch(e) { console.warn("Firestore sync Fehler:", e); }
+  }, 1500);
 }
 
 // ===================== CONSTANTS =====================
@@ -1664,13 +1562,5 @@ function render(){
 renderNav();
 render();
 </script>
-
-<!-- Firebase App (Kern) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<!-- Firebase Auth (Benutzerverwaltung) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<!-- Firebase Firestore (Datenbank) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 </body>
 </html>
