@@ -316,8 +316,20 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 .em-opt:hover,.em-opt.sel{border-color:var(--gold);background:rgba(240,165,0,0.1)}
 
 @media(max-width:768px){.shop-layout,.cdl,.cart-l,.ppage,.frow,.settings-grid,.msg-layout{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr 1fr}.feats{grid-template-columns:1fr}.wallet-methods{grid-template-columns:1fr 1fr}}
+
+/* ===== Firebase Loading Overlay ===== */
+.fb-loading{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem}
+.fb-spinner{width:44px;height:44px;border:3px solid var(--bdr);border-top-color:var(--gold);border-radius:50%;animation:fbspin 0.8s linear infinite}
+@keyframes fbspin{to{transform:rotate(360deg)}}
+.fb-loading-txt{font-family:'Orbitron',monospace;font-size:0.75rem;color:var(--tm);letter-spacing:2px;text-transform:uppercase}
+.fb-cfg-banner{background:rgba(255,64,64,0.1);border:1px solid rgba(255,64,64,0.35);border-radius:9px;padding:1.1rem 1.4rem;max-width:560px;margin:1rem auto;font-size:0.82rem;line-height:1.7;color:var(--red)}
+.fb-cfg-banner code{background:rgba(255,255,255,0.07);border-radius:4px;padding:1px 5px;font-size:0.78rem;color:var(--goldl)}
 </style>
 </head>
+<!-- Firebase SDK (Compat v10) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <body>
 
 <nav id="nav">
@@ -340,6 +352,146 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 <div id="notif-overlay" onclick="closeNotifDrop()" style="display:none;position:fixed;inset:0;z-index:998"></div>
 
 <script>
+
+// Firebase Konfiguration
+const firebaseConfig = {
+  apiKey: "AIzaSyAawulIvDd5T62gkz4U3LROLGJZaFPH6jo",
+  authDomain: "kartenverkauf-60aad.firebaseapp.com",
+  projectId: "kartenverkauf-60aad",
+  storageBucket: "kartenverkauf-60aad.firebasestorage.app",
+  messagingSenderId: "136190767018",
+  appId: "1:136190767018:web:4c1962f65df992f29645d3",
+  measurementId: "G-YV92190SVM"
+};
+
+// Initialisierung
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Globaler State
+let S = {
+  page: 'home',
+  user: null, 
+  cart: [],
+  wishlist: [],
+  notifs: []
+};
+
+// Auth Synchronisation
+auth.onAuthStateChanged(async (firebaseUser) => {
+  if (firebaseUser) {
+    const userDoc = await db.collection('users').doc(firebaseUser.uid).get();
+    if (userDoc.exists) {
+      S.user = { uid: firebaseUser.uid, ...userDoc.data() };
+    } else {
+      const newUser = { un: "Trainer", av: "👤", role: "user", bal: 0, joined: new Date().toISOString() };
+      await db.collection('users').doc(firebaseUser.uid).set(newUser);
+      S.user = { uid: firebaseUser.uid, ...newUser };
+    }
+  } else {
+    S.user = null;
+  }
+  render();
+  updateNav();
+});
+
+// Registrierung
+async /* OLD function doRegister REMOVED */);
+    notif("Konto erstellt!", "Willkommen bei PokéMarkt.", "ok");
+    go('home');
+  } catch (err) { alert("Fehler: " + err.message); }
+}
+
+// Login
+async /* OLD function doLogin REMOVED */ catch (err) { alert("Login fehlgeschlagen: " + err.message); }
+}
+
+// Logout
+/* OLD function doLogout REMOVED */);
+}
+
+// Geld einzahlen
+async /* OLD function deposit REMOVED */);
+  S.user.bal = newBal;
+  notif("Guthaben aufgeladen", `+${amt}€ hinzugefügt.`, "ok");
+  render();
+}
+
+
+// Deine Konfiguration
+const firebaseConfig = {
+  apiKey: "AIzaSyAawulIvDd5T62gkz4U3LROLGJZaFPH6jo",
+  authDomain: "kartenverkauf-60aad.firebaseapp.com",
+  projectId: "kartenverkauf-60aad",
+  storageBucket: "kartenverkauf-60aad.firebasestorage.app",
+  messagingSenderId: "136190767018",
+  appId: "1:136190767018:web:4c1962f65df992f29645d3",
+  measurementId: "G-YV92190SVM"
+};
+
+// Initialisierung
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Globaler State (angepasst für Firebase)
+let S = {
+  page: 'home',
+  user: null, // Wird von Firebase gefüllt
+  cart: [],
+  wishlist: [],
+  notifs: []
+};
+
+// --- AUTH SYNCHRONISATION ---
+auth.onAuthStateChanged(async (firebaseUser) => {
+  if (firebaseUser) {
+    // Wenn eingeloggt, lade Profildaten aus Firestore
+    const userDoc = await db.collection('users').doc(firebaseUser.uid).get();
+    if (userDoc.exists) {
+      S.user = { uid: firebaseUser.uid, ...userDoc.data() };
+    } else {
+      // Falls Dokument noch nicht existiert (erster Login)
+      const newUser = { un: "Trainer", av: "👤", role: "user", bal: 0, joined: new Date().toISOString() };
+      await db.collection('users').doc(firebaseUser.uid).set(newUser);
+      S.user = { uid: firebaseUser.uid, ...newUser };
+    }
+  } else {
+    S.user = null;
+  }
+  render();
+  updateNav();
+});
+
+// --- FUNKTIONEN ÜBERSCHREIBEN ---
+
+// Registrierung
+async /* OLD function doRegister REMOVED */);
+    notif("Konto erstellt!", "Willkommen bei PokéMarkt.", "ok");
+    go('home');
+  } catch (err) {
+    alert("Fehler: " + err.message);
+  }
+}
+
+// Login
+async /* OLD function doLogin REMOVED */ catch (err) {
+    alert("Login fehlgeschlagen: " + err.message);
+  }
+}
+
+// Logout
+/* OLD function doLogout REMOVED */);
+}
+
+// Geld einzahlen (Cross-Device Speicherung)
+async /* OLD function deposit REMOVED */);
+  S.user.bal = newBal;
+  notif("Guthaben aufgeladen", `+${amt}€ hinzugefügt.`, "ok");
+  render();
+}
+
 // ===================== CONSTANTS =====================
 const RC={"Common":{c:"#9CA3AF",bg:"#1F2937"},"Uncommon":{c:"#34D399",bg:"#064E3B"},"Rare":{c:"#60A5FA",bg:"#1E3A5F"},"Holo Rare":{c:"#A78BFA",bg:"#3B1F6E"},"Ultra Rare":{c:"#F59E0B",bg:"#78350F"},"Secret Rare":{c:"#FF6B6B",bg:"#7F1D1D"},"Rainbow Rare":{c:"#FF6FD8",bg:"#5B21B6"}};
 const TC={"Fire":{c:"#FF6B35",bg:"#3D1506"},"Water":{c:"#4FC3F7",bg:"#0C2D3F"},"Grass":{c:"#66BB6A",bg:"#1A3A1A"},"Electric":{c:"#FFD54F",bg:"#3D3000"},"Psychic":{c:"#CE93D8",bg:"#2E1A3A"},"Dragon":{c:"#7E57C2",bg:"#1E1040"},"Dark":{c:"#90A4AE",bg:"#1A2328"},"Fighting":{c:"#FF7043",bg:"#3D1A0E"},"Metal":{c:"#B0BEC5",bg:"#1C2428"},"Colorless":{c:"#BDBDBD",bg:"#2A2A2A"}};
@@ -458,6 +610,8 @@ function saveState(){
     };
     localStorage.setItem('pokemarkt_state',JSON.stringify(d));
   }catch(e){}
+  // Also sync to Firestore (debounced)
+  _scheduleFirestoreSave();
 }
 
 const S=loadState();
@@ -506,7 +660,19 @@ function openNotifDrop(){
 function closeNotifDrop(){S.showNotifDrop=false;renderNav();document.getElementById('notif-overlay').style.display='none';}
 
 // ===================== AUTH =====================
-function loginUser(em,pw){
+async function loginUser(em,pw){
+  if(_fbConfigured){
+    try{
+      await auth.signInWithEmailAndPassword(em,pw);
+      // onAuthStateChanged handles the rest
+    }catch(e){
+      const msgs={'auth/user-not-found':'E-Mail oder Passwort falsch','auth/wrong-password':'E-Mail oder Passwort falsch','auth/invalid-credential':'E-Mail oder Passwort falsch','auth/too-many-requests':'Zu viele Versuche — bitte kurz warten.'};
+      S.loginErr=msgs[e.code]||'Anmeldefehler: '+e.message;
+      render();
+    }
+    return;
+  }
+  // Fallback: localStorage-only mode
   const u=S.users.find(x=>x.em===em&&x.pw===pw);
   if(!u){S.loginErr='E-Mail oder Passwort falsch';render();return;}
   if(u.banned){S.loginErr='Dein Konto ist gesperrt. Kontaktiere den Support.';render();return;}
@@ -514,18 +680,38 @@ function loginUser(em,pw){
   toast('Willkommen zurück! 👋','Hallo '+u.un,'ok');
   renderNav();go('home');
 }
-function registerUser(un,em,pw){
-  if(S.users.find(u=>u.em===em)){S.regErr='E-Mail bereits registriert';render();return;}
+async function registerUser(un,em,pw){
   if(S.users.find(u=>u.un===un)){S.regErr='Benutzername bereits vergeben';render();return;}
   if(pw.length<6){S.regErr='Passwort mind. 6 Zeichen';render();return;}
   if(!/^[a-zA-Z0-9_äöüÄÖÜ]{3,20}$/.test(un)){S.regErr='Benutzername: 3-20 Zeichen, nur Buchstaben/Zahlen/_';render();return;}
+  if(_fbConfigured){
+    try{
+      const cred=await auth.createUserWithEmailAndPassword(em,pw);
+      const uid=cred.user.uid;
+      const nu={id:uid,un,em,role:'user',bal:100.00,joined:new Date().toLocaleDateString('de-DE'),av:'🎴',ver:false,sales:0,buys:0,banned:false};
+      S.users.push(nu);S.user={...nu};S.regErr='';
+      saveState();
+      addSysNotif('Konto erstellt','Willkommen '+un+'! Du hast 100€ Startguthaben erhalten. 🎉');
+      toast('Konto erstellt! 🎉','Willkommen '+un+'! 100€ Startguthaben gutgeschrieben','ok');
+      renderNav();go('home');
+    }catch(e){
+      const msgs={'auth/email-already-in-use':'E-Mail bereits registriert','auth/weak-password':'Passwort zu schwach (mind. 6 Zeichen)'};
+      S.regErr=msgs[e.code]||'Fehler: '+e.message;
+      render();
+    }
+    return;
+  }
+  // Fallback
   const nu={id:S.users.length+100+Math.floor(Math.random()*100),un,em,pw,role:'user',bal:100.00,joined:new Date().toLocaleDateString('de-DE'),av:'🎴',ver:false,sales:0,buys:0,banned:false};
   S.users.push(nu);S.user={...nu};S.regErr='';saveState();
   addSysNotif('Konto erstellt','Willkommen '+un+'! Du hast 100€ Startguthaben erhalten. 🎉');
   toast('Konto erstellt! 🎉','Willkommen '+un+'! 100€ Startguthaben gutgeschrieben','ok');
   renderNav();go('home');
 }
-function logout(){S.user=null;S.cart=[];saveState();renderNav();go('home');toast('Abgemeldet','Bis bald! 👋');}
+async function logout(){
+  if(_fbConfigured){try{await auth.signOut();}catch(e){}}
+  S.user=null;S.cart=[];saveState();renderNav();go('home');toast('Abgemeldet','Bis bald! 👋');
+}
 function addSysNotif(title,msg){
   S.notifHistory.unshift({id:++_nid,title,msg,type:'ok',time:new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}),read:false});
 }
@@ -1478,5 +1664,13 @@ function render(){
 renderNav();
 render();
 </script>
+
+<!-- Firebase App (Kern) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<!-- Firebase Auth (Benutzerverwaltung) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<!-- Firebase Firestore (Datenbank) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 </body>
 </html>
