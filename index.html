@@ -559,24 +559,32 @@ function closeNotifDrop(){S.showNotifDrop=false;renderNav();document.getElementB
 
 // ===================== AUTH =====================
 async function loginUser(em,pw){
+  console.log("loginUser wurde aufgerufen mit:", em, pw); // NEU
   if(_fbConfigured){
     try{
+      console.log("Versuche Firebase signInWithEmailAndPassword..."); // NEU
       await auth.signInWithEmailAndPassword(em,pw);
+      console.log("Firebase signIn erfolgreich!"); // NEU
       // onAuthStateChanged handles the rest
+      // Stellen Sie sicher, dass Ihr onAuthStateChanged Listener existiert und render() aufruft
     }catch(e){
+      console.error("Firebase Auth Fehler:", e.code, e.message); // NEU und wichtig!
       const msgs={'auth/user-not-found':'E-Mail oder Passwort falsch','auth/wrong-password':'E-Mail oder Passwort falsch','auth/invalid-credential':'E-Mail oder Passwort falsch','auth/too-many-requests':'Zu viele Versuche — bitte kurz warten.'};
       S.loginErr=msgs[e.code]||'Anmeldefehler: '+e.message;
-      render();
+      console.log("S.loginErr gesetzt auf:", S.loginErr); // NEU
+      render(); // Dies sollte die Fehlermeldung anzeigen
     }
     return;
   }
   // Fallback: localStorage-only mode
+  console.log("Firebase ist nicht konfiguriert, verwende localStorage Fallback."); // NEU
   const u=S.users.find(x=>x.em===em&&x.pw===pw);
   if(!u){S.loginErr='E-Mail oder Passwort falsch';render();return;}
   if(u.banned){S.loginErr='Dein Konto ist gesperrt. Kontaktiere den Support.';render();return;}
   S.user={...u};S.loginErr='';saveState();
   toast('Willkommen zurück! 👋','Hallo '+u.un,'ok');
   renderNav();go('home');
+}
 }
 async function registerUser(un,em,pw){
   if(S.users.find(u=>u.un===un)){S.regErr='Benutzername bereits vergeben';render();return;}
