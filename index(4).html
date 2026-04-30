@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PokéMarkt DE — Premium TCG Marktplatz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg0:#060609;--bg1:#0d0d14;--bg2:#13131e;--bg3:#1a1a2a;--bg4:#222235;--gold:#F0A500;--goldd:#C87800;--goldl:#FFD060;--tp:#F0EDE8;--ts:#A09898;--tm:#5A5565;--bdr:rgba(240,165,0,0.15);--bdrh:rgba(240,165,0,0.4);--red:#FF4040;--green:#00C875;--blue:#4A90E2;--purple:#8B5CF6}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg1)}::-webkit-scrollbar-thumb{background:var(--goldd);border-radius:3px}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,6,9,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);height:60px;display:flex;align-items:center;padding:0 1.5rem;gap:1.5rem}
+.nlogo{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:900;color:var(--gold);cursor:pointer;letter-spacing:2px;flex-shrink:0}
+.nlogo span{color:var(--tp)}
+.nlinks{display:flex;gap:0.2rem;flex:1}
+.nl{padding:0.45rem 0.85rem;cursor:pointer;color:var(--ts);font-size:0.82rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:5px;transition:all 0.18s}
+.nl:hover,.nl.act{color:var(--gold);background:rgba(240,165,0,0.08)}
+.nright{display:flex;align-items:center;gap:0.6rem;flex-shrink:0}
+.btn{padding:0.45rem 1.1rem;border-radius:5px;border:none;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:1px;text-transform:uppercase;transition:all 0.18s}
+.btnp{background:var(--gold);color:#000}.btnp:hover{background:var(--goldl);transform:translateY(-1px)}
+.btno{background:transparent;color:var(--gold);border:1px solid var(--gold)}.btno:hover{background:rgba(240,165,0,0.1)}
+.btng{background:var(--bg3);color:var(--tp);border:1px solid var(--bdr)}.btng:hover{border-color:var(--bdrh)}
+.btnd{background:var(--red);color:#fff}.btnd:hover{filter:brightness(1.1)}
+.btns{background:var(--green);color:#000}.btns:hover{filter:brightness(1.1)}
+.cbadge{position:absolute;top:-7px;right:-7px;background:var(--red);color:#fff;font-size:9px;font-weight:800;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+#content{padding-top:60px;min-height:100vh}
+.hero{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(240,165,0,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(139,92,246,0.05) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(74,144,226,0.05) 0%,transparent 50%)}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(240,165,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,165,0,0.025) 1px,transparent 1px);background-size:60px 60px}
+.heyebrow{font-size:0.72rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;font-weight:600}
+.htitle{font-family:'Orbitron',monospace;font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:1.5rem}
+.htitle .g{color:var(--gold)}
+.hsub{font-size:1.1rem;color:var(--ts);max-width:580px;margin:0 auto 2.5rem;font-weight:400;line-height:1.6}
+.hacts{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem}
+.hbtnp{background:var(--gold);color:#000;padding:0.85rem 2.2rem;border-radius:7px;border:none;font-family:'Orbitron',monospace;font-weight:700;font-size:0.78rem;letter-spacing:2px;cursor:pointer;transition:all 0.2s}
+.hbtnp:hover{background:var(--goldl);transform:translateY(-2px)}
+.hbtns{background:transparent;color:var(--tp);padding:0.85rem 2.2rem;border-radius:7px;border:1px solid rgba(240,165,0,0.3);font-family:'Orbitron',monospace;font-weight:700;font-size:0.78rem;letter-spacing:2px;cursor:pointer;transition:all 0.2s}
+.hbtns:hover{border-color:var(--gold);color:var(--gold)}
+.sbar{display:flex;gap:3.5rem;justify-content:center;flex-wrap:wrap}
+.sitem{text-align:center}
+.snum{font-family:'Orbitron',monospace;font-size:1.7rem;font-weight:700;color:var(--gold)}
+.slbl{font-size:0.7rem;color:var(--tm);text-transform:uppercase;letter-spacing:2px;margin-top:0.25rem}
+.sec{padding:5rem 2rem;max-width:1400px;margin:0 auto}
+.sech{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem}
+.sect{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700} .sect span{color:var(--gold)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.1rem}
+.pcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;cursor:pointer;transition:all 0.22s;position:relative}
+.pcard:hover{transform:translateY(-5px);border-color:var(--bdrh);box-shadow:0 14px 45px rgba(240,165,0,0.13)}
+.cimg{height:155px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;position:relative;overflow:hidden}
+.cbody{padding:0.9rem}
+.cname{font-family:'Orbitron',monospace;font-size:0.68rem;font-weight:700;color:var(--tp);margin-bottom:0.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cset{font-size:0.72rem;color:var(--tm);margin-bottom:0.45rem}
+.ctags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-bottom:0.65rem}
+.tag{font-size:0.6rem;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px}
+.cftr{display:flex;align-items:center;justify-content:space-between}
+.cprice{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;color:var(--gold)}
+.ccond{font-size:0.68rem;color:var(--tm);font-weight:600}
+.fbadge{position:absolute;top:9px;left:9px;background:var(--gold);color:#000;font-size:0.58rem;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:1px;text-transform:uppercase}
+/* Wishlist heart button */
+.wl-btn{position:absolute;top:9px;right:9px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;transition:all 0.2s;z-index:2}
+.wl-btn:hover{background:rgba(255,64,64,0.2);border-color:rgba(255,64,64,0.4);transform:scale(1.15)}
+.wl-btn.active{background:rgba(255,64,64,0.25);border-color:rgba(255,64,64,0.5)}
+.shop-layout{display:grid;grid-template-columns:250px 1fr;gap:2rem;max-width:1400px;margin:0 auto;padding:1.5rem 2rem}
+.fpanel{background:var(--bg1);border:1px solid var(--bdr);border-radius:11px;padding:1.4rem;height:fit-content;position:sticky;top:78px}
+.ftitle{font-family:'Orbitron',monospace;font-size:0.65rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--bdr)}
+.ftitle:first-child{margin-top:0;padding-top:0;border-top:none}
+.fopt{display:flex;align-items:center;gap:0.45rem;padding:0.35rem 0.45rem;border-radius:5px;cursor:pointer;font-size:0.82rem;color:var(--ts);transition:all 0.13s}
+.fopt:hover,.fopt.act{background:rgba(240,165,0,0.08);color:var(--gold)}
+.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sbox{width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.7rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.92rem;outline:none;transition:border-color 0.18s}
+.sbox:focus{border-color:var(--gold)}.sbox::placeholder{color:var(--tm)}
+.shop-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.3rem;flex-wrap:wrap;gap:0.8rem}
+.rcnt{font-size:0.85rem;color:var(--ts)}
+.ssort{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.45rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.88rem;outline:none;cursor:pointer}
+.cdl{max-width:980px;margin:0 auto;padding:2.5rem 2rem;display:grid;grid-template-columns:1fr 1.4fr;gap:3rem}
+.cdisplay{background:var(--bg2);border-radius:15px;border:1px solid var(--bdr);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;gap:1rem}
+.cdisplay-em{font-size:8rem;filter:drop-shadow(0 0 30px rgba(240,165,0,0.25))}
+.ci-panel{padding:0.5rem 0}
+.cdn{font-family:'Orbitron',monospace;font-size:1.5rem;font-weight:900;margin-bottom:0.4rem;line-height:1.2}
+.cdset{color:var(--ts);margin-bottom:1.3rem;font-size:0.95rem}
+.cdprice{font-family:'Orbitron',monospace;font-size:2.3rem;font-weight:900;color:var(--gold);margin-bottom:0.3rem}
+.cdpnote{font-size:0.77rem;color:var(--tm);margin-bottom:1.8rem}
+.cspecs{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:1.8rem;background:var(--bg2);border-radius:9px;border:1px solid var(--bdr);padding:1rem}
+.spec-l{font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.15rem}
+.spec-v{font-size:0.88rem;font-weight:600;color:var(--tp)}
+.sinfo{background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem;display:flex;align-items:center;gap:0.9rem;margin-bottom:1.4rem;cursor:pointer;transition:border-color 0.18s}
+.sinfo:hover{border-color:var(--bdrh)}
+.sav{width:38px;height:38px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid var(--bdr)}
+.snm{font-weight:700;font-size:0.9rem}
+.smt{font-size:0.72rem;color:var(--tm)}
+.svbadge{font-size:0.65rem;color:var(--green);font-weight:700;background:rgba(0,200,117,0.1);padding:2px 6px;border-radius:3px;margin-left:auto}
+.cart-l{max-width:860px;margin:0 auto;padding:2.5rem 2rem;display:grid;grid-template-columns:1fr 320px;gap:2rem}
+.citem{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.1rem;display:flex;gap:1.1rem;align-items:center;margin-bottom:0.7rem}
+.citem-em{font-size:2.3rem;flex-shrink:0}
+.citem-info{flex:1}
+.citem-nm{font-family:'Orbitron',monospace;font-size:0.68rem;font-weight:700;margin-bottom:0.2rem}
+.citem-mt{font-size:0.77rem;color:var(--tm)}
+.citem-pr{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.osum{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.4rem;height:fit-content;position:sticky;top:78px}
+.osum-t{font-family:'Orbitron',monospace;font-size:0.72rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:1.3rem}
+.sline{display:flex;justify-content:space-between;margin-bottom:0.65rem;font-size:0.88rem}
+.sline.tot{margin-top:0.9rem;padding-top:0.9rem;border-top:1px solid var(--bdr);font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;color:var(--gold)}
+.auth-pg{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:2rem;background:radial-gradient(ellipse 60% 60% at 30% 50%,rgba(240,165,0,0.04) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 70% 50%,rgba(139,92,246,0.03) 0%,transparent 60%)}
+.acard{background:var(--bg1);border:1px solid var(--bdr);border-radius:15px;padding:2.3rem;width:100%;max-width:410px}
+.atitle{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;text-align:center;margin-bottom:0.4rem}
+.asub{text-align:center;color:var(--tm);font-size:0.82rem;margin-bottom:1.8rem}
+.fg{margin-bottom:1.1rem}
+.fl{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ts);margin-bottom:0.4rem}
+.fi{width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.7rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.18s}
+.fi:focus{border-color:var(--gold)}.fi::placeholder{color:var(--tm)}
+.aerr{background:rgba(255,64,64,0.1);border:1px solid rgba(255,64,64,0.3);border-radius:7px;padding:0.7rem 0.9rem;color:var(--red);font-size:0.82rem;margin-bottom:1.1rem}
+.aok{background:rgba(0,200,117,0.1);border:1px solid rgba(0,200,117,0.3);border-radius:7px;padding:0.7rem 0.9rem;color:var(--green);font-size:0.82rem;margin-bottom:1.1rem}
+.admin-l{max-width:1400px;margin:0 auto;padding:2rem}
+.admin-t{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:0.4rem}
+.atabs{display:flex;gap:0.4rem;border-bottom:1px solid var(--bdr);margin-bottom:2rem;flex-wrap:wrap}
+.atab{padding:0.7rem 1.3rem;cursor:pointer;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.18s}
+.atab:hover,.atab.act{color:var(--gold);border-bottom-color:var(--gold)}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:2rem}
+.sc{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.4rem}
+.sc-l{font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.65rem}
+.sc-n{font-family:'Orbitron',monospace;font-size:1.7rem;font-weight:700}
+.sc-c{font-size:0.77rem;margin-top:0.45rem}
+.dtbl{width:100%;border-collapse:collapse;font-size:0.82rem}
+.dtbl th{background:var(--bg2);padding:0.7rem 0.9rem;text-align:left;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--bdr)}
+.dtbl td{padding:0.85rem 0.9rem;border-bottom:1px solid rgba(240,165,0,0.04);color:var(--ts)}
+.dtbl tr:hover td{background:rgba(240,165,0,0.02)}
+.tblw{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;overflow-x:auto}
+.rbadge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.ra{background:rgba(240,165,0,0.15);color:var(--gold)}
+.rs{background:rgba(74,144,226,0.15);color:var(--blue)}
+.ru{background:rgba(160,152,152,0.15);color:var(--ts)}
+.abtn{padding:3px 9px;border-radius:3px;border:none;cursor:pointer;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:0.5px;transition:all 0.13s}
+.ab-ban{background:rgba(255,64,64,0.15);color:var(--red)}.ab-ban:hover{background:rgba(255,64,64,0.25)}
+.ab-ok{background:rgba(0,200,117,0.15);color:var(--green)}.ab-ok:hover{background:rgba(0,200,117,0.25)}
+.ab-ft{background:rgba(240,165,0,0.15);color:var(--gold)}.ab-ft:hover{background:rgba(240,165,0,0.25)}
+.ab-rm{background:rgba(255,64,64,0.12);color:var(--red)}.ab-rm:hover{background:rgba(255,64,64,0.22)}
+.ab-cr{background:rgba(139,92,246,0.15);color:var(--purple)}.ab-cr:hover{background:rgba(139,92,246,0.25)}
+#notifs{position:fixed;bottom:1.8rem;right:1.8rem;z-index:9999;display:flex;flex-direction:column;gap:0.65rem;pointer-events:none}
+.notif{background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem 1.1rem;max-width:300px;display:flex;align-items:flex-start;gap:0.65rem;pointer-events:all;animation:slin 0.28s ease;border-left:3px solid var(--gold)}
+.notif.ok{border-left-color:var(--green)}.notif.err{border-left-color:var(--red)}
+.ni{font-size:1rem;flex-shrink:0}.nt{font-size:0.82rem;flex:1}
+.ntit{font-weight:700;margin-bottom:0.12rem}.nmsg{color:var(--tm);font-size:0.77rem}
+@keyframes slin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.ppage{max-width:970px;margin:0 auto;padding:2.5rem 2rem;display:grid;grid-template-columns:270px 1fr;gap:2rem}
+.pcard2{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.8rem;text-align:center;margin-bottom:1.1rem}
+.pav{font-size:3.5rem;margin-bottom:0.9rem;cursor:pointer;transition:transform 0.2s}.pav:hover{transform:scale(1.1)}
+.pun{font-family:'Orbitron',monospace;font-size:0.9rem;font-weight:700;margin-bottom:0.2rem}
+.pem{font-size:0.77rem;color:var(--tm);margin-bottom:0.9rem}
+.pbal{font-family:'Orbitron',monospace;font-size:1.4rem;color:var(--gold);font-weight:700}
+.pbl{font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-top:0.2rem}
+.psgrid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:0.9rem}
+.ps{background:var(--bg3);border-radius:7px;padding:0.65rem;text-align:center}
+.ps-n{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700}
+.ps-l{font-size:0.62rem;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-top:0.18rem}
+.sell-pg{max-width:680px;margin:0 auto;padding:2.5rem 2rem}
+.sell-t{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;margin-bottom:0.4rem}
+.sell-s{color:var(--tm);margin-bottom:1.8rem}
+.sform{background:var(--bg1);border:1px solid var(--bdr);border-radius:15px;padding:1.8rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fsel{width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.7rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;cursor:pointer}
+.fsel:focus{border-color:var(--gold)}
+.opage{max-width:860px;margin:0 auto;padding:2.5rem 2rem}
+.ocrd{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.4rem;margin-bottom:0.9rem}
+.ohdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem;padding-bottom:0.9rem;border-bottom:1px solid var(--bdr)}
+.oid{font-family:'Orbitron',monospace;font-size:0.72rem;color:var(--gold)}
+.odt{font-size:0.77rem;color:var(--tm)}
+.ost{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 9px;border-radius:3px}
+.st-p{background:rgba(245,158,11,0.15);color:#F59E0B}
+.st-s{background:rgba(74,144,226,0.15);color:var(--blue)}
+.st-d{background:rgba(0,200,117,0.15);color:var(--green)}
+.empty{text-align:center;padding:5rem 2rem}
+.empty-ic{font-size:3.5rem;margin-bottom:1.3rem}
+.empty-t{font-family:'Orbitron',monospace;font-size:1.1rem;margin-bottom:0.65rem}
+.empty-tx{color:var(--tm);margin-bottom:1.8rem}
+.holo{background:linear-gradient(135deg,rgba(240,165,0,0.05) 0%,rgba(139,92,246,0.05) 25%,rgba(74,144,226,0.05) 50%,rgba(240,165,0,0.05) 75%,rgba(0,200,117,0.05) 100%);background-size:200% 200%;animation:holo 4s linear infinite}
+@keyframes holo{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.ldot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;margin-right:5px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+.feat{background:var(--bg2);border:1px solid var(--bdr);border-radius:15px;padding:1.8rem;text-align:center}
+.feat-ic{font-size:2.3rem;margin-bottom:0.9rem}
+.feat-t{font-family:'Orbitron',monospace;font-size:0.82rem;font-weight:700;margin-bottom:0.65rem}
+.feat-tx{font-size:0.82rem;color:var(--tm);line-height:1.6}
+footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem;text-align:center;color:var(--tm);font-size:0.78rem;margin-top:5rem}
+.fbrand{font-family:'Orbitron',monospace;font-size:0.95rem;color:var(--gold);margin-bottom:0.4rem;font-weight:700}
+.page-in{animation:fin 0.22s ease}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.rng{width:100%;accent-color:var(--gold);cursor:pointer}
+.rngl{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--tm);margin-top:0.45rem}
+.divl{border:none;border-top:1px solid var(--bdr);margin:1.3rem 0}
+
+/* Pagination */
+.pag{display:flex;gap:0.4rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.pag-btn{padding:0.4rem 0.8rem;border-radius:5px;border:1px solid var(--bdr);background:var(--bg2);color:var(--ts);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.82rem;font-weight:600;transition:all 0.15s}
+.pag-btn:hover{border-color:var(--bdrh);color:var(--gold)}
+.pag-btn.act{background:var(--gold);color:#000;border-color:var(--gold)}
+.pag-btn:disabled{opacity:0.3;cursor:not-allowed}
+
+/* Notification dropdown */
+.notif-bell{position:relative;cursor:pointer;padding:0.45rem;border-radius:5px;display:flex;align-items:center;transition:background 0.18s}
+.notif-bell:hover{background:rgba(240,165,0,0.08)}
+.notif-bell-ic{font-size:1.15rem}
+.notif-drop{position:absolute;top:calc(100% + 12px);right:0;width:320px;background:var(--bg1);border:1px solid var(--bdr);border-radius:11px;padding:0;overflow:hidden;z-index:999;box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:slin 0.2s ease}
+.notif-drop-hdr{padding:1rem 1.1rem;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center}
+.notif-drop-t{font-family:'Orbitron',monospace;font-size:0.72rem;font-weight:700;color:var(--gold)}
+.notif-drop-items{max-height:320px;overflow-y:auto}
+.ndrop-item{padding:0.85rem 1.1rem;border-bottom:1px solid rgba(240,165,0,0.05);display:flex;gap:0.7rem;align-items:flex-start;transition:background 0.13s}
+.ndrop-item:hover{background:rgba(240,165,0,0.04)}
+.ndrop-item.unread{background:rgba(240,165,0,0.03)}
+.ndrop-ic{font-size:1.1rem;flex-shrink:0;margin-top:0.1rem}
+.ndrop-body{flex:1}
+.ndrop-title{font-size:0.82rem;font-weight:700;margin-bottom:0.12rem}
+.ndrop-msg{font-size:0.75rem;color:var(--tm)}
+.ndrop-time{font-size:0.68rem;color:var(--tm);margin-top:0.2rem}
+
+/* Stars rating */
+.stars{display:flex;gap:0.2rem}
+.star{font-size:1.1rem;cursor:pointer;transition:transform 0.15s;line-height:1}
+.star:hover{transform:scale(1.2)}
+.star-sm{font-size:0.85rem}
+
+/* Promo code */
+.promo-row{display:flex;gap:0.5rem;margin-bottom:0.9rem}
+.promo-in{flex:1;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.6rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.18s}
+.promo-in:focus{border-color:var(--gold)}
+.promo-in::placeholder{color:var(--tm)}
+.promo-badge{background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:5px;padding:0.5rem 0.7rem;font-size:0.78rem;color:var(--purple);display:flex;justify-content:space-between;align-items:center;margin-bottom:0.9rem}
+
+/* Wallet page */
+.wallet-page{max-width:700px;margin:0 auto;padding:2.5rem 2rem}
+.wallet-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;margin-bottom:1.8rem}
+.pay-method{background:var(--bg2);border:2px solid var(--bdr);border-radius:11px;padding:1.1rem;text-align:center;cursor:pointer;transition:all 0.18s}
+.pay-method:hover,.pay-method.sel{border-color:var(--gold);background:rgba(240,165,0,0.05)}
+.pay-method-ic{font-size:1.8rem;margin-bottom:0.5rem}
+.pay-method-nm{font-size:0.78rem;font-weight:700;color:var(--ts)}
+.amounts{display:flex;gap:0.7rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.amount-btn{padding:0.55rem 1.1rem;border-radius:7px;border:1px solid var(--bdr);background:var(--bg2);color:var(--ts);cursor:pointer;font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;transition:all 0.15s}
+.amount-btn:hover,.amount-btn.sel{border-color:var(--gold);color:var(--gold);background:rgba(240,165,0,0.08)}
+
+/* Avatar picker */
+.av-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0.5rem;margin-top:0.7rem}
+.av-opt{font-size:1.6rem;padding:0.45rem;border-radius:7px;border:2px solid transparent;cursor:pointer;text-align:center;transition:all 0.15s}
+.av-opt:hover{border-color:var(--bdrh);background:rgba(240,165,0,0.07)}
+.av-opt.sel{border-color:var(--gold);background:rgba(240,165,0,0.12)}
+
+/* Seller page */
+.seller-hdr{background:linear-gradient(135deg,var(--bg1),var(--bg2));border:1px solid var(--bdr);border-radius:15px;padding:2rem;margin-bottom:2rem;display:flex;gap:1.5rem;align-items:center}
+.seller-av-big{font-size:3.5rem;width:80px;height:80px;border-radius:50%;background:var(--bg3);border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.seller-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-top:1rem}
+.seller-stat{text-align:center}
+.seller-stat-n{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;color:var(--gold)}
+.seller-stat-l{font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--tm)}
+
+/* Review section */
+.review-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.3rem;margin-bottom:0.8rem}
+.review-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.review-user{font-weight:700;font-size:0.85rem}
+.review-date{font-size:0.72rem;color:var(--tm)}
+.review-text{font-size:0.82rem;color:var(--ts);margin-top:0.5rem;line-height:1.5}
+.avg-stars{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem}
+.avg-num{font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:700;color:var(--gold)}
+
+/* Admin settings */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-bottom:2rem}
+.setting-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.3rem}
+.setting-label{font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.5rem}
+.setting-val{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;margin-bottom:0.7rem}
+.toggle{display:flex;align-items:center;gap:0.7rem;cursor:pointer}
+.toggle-track{width:44px;height:24px;border-radius:12px;background:var(--bg4);border:1px solid var(--bdr);position:relative;transition:background 0.2s;flex-shrink:0}
+.toggle-track.on{background:rgba(0,200,117,0.3);border-color:var(--green)}
+.toggle-thumb{width:18px;height:18px;border-radius:50%;background:var(--tm);position:absolute;top:2px;left:2px;transition:all 0.2s}
+.toggle-track.on .toggle-thumb{left:22px;background:var(--green)}
+.toggle-lbl{font-size:0.85rem;font-weight:600}
+
+/* Price sparkline */
+.sparkline{width:100%;height:60px;background:var(--bg3);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+
+/* Scrollable card row */
+.hscroll{display:flex;gap:1rem;overflow-x:auto;padding-bottom:0.5rem;scrollbar-width:thin;scrollbar-color:var(--goldd) var(--bg1)}
+.hscroll::-webkit-scrollbar{height:4px}
+.hscroll::-webkit-scrollbar-thumb{background:var(--goldd);border-radius:2px}
+.hscroll .pcard{flex-shrink:0;width:180px}
+
+/* Maintenance banner */
+.maint-banner{background:rgba(255,64,64,0.1);border-bottom:1px solid rgba(255,64,64,0.3);padding:0.5rem 1.5rem;text-align:center;font-size:0.82rem;color:var(--red);font-weight:600;letter-spacing:1px}
+
+/* Chat/messages */
+.msg-layout{max-width:880px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:260px 1fr;gap:1.3rem}
+.conv-list{background:var(--bg1);border:1px solid var(--bdr);border-radius:11px;overflow:hidden}
+.conv-item{padding:0.9rem 1rem;border-bottom:1px solid rgba(240,165,0,0.05);cursor:pointer;display:flex;gap:0.7rem;transition:background 0.13s}
+.conv-item:hover,.conv-item.act{background:rgba(240,165,0,0.05)}
+.conv-item.act{border-left:3px solid var(--gold)}
+.conv-av{font-size:1.4rem;flex-shrink:0}
+.conv-nm{font-size:0.82rem;font-weight:700;margin-bottom:0.15rem}
+.conv-prev{font-size:0.72rem;color:var(--tm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-area{background:var(--bg1);border:1px solid var(--bdr);border-radius:11px;display:flex;flex-direction:column;height:480px}
+.chat-hdr{padding:0.9rem 1.1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:0.7rem}
+.chat-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.7rem}
+.msg-bubble{max-width:70%;padding:0.65rem 0.9rem;border-radius:11px;font-size:0.85rem;line-height:1.4}
+.msg-mine{background:rgba(240,165,0,0.15);border:1px solid rgba(240,165,0,0.2);align-self:flex-end;border-bottom-right-radius:3px}
+.msg-theirs{background:var(--bg3);border:1px solid var(--bdr);align-self:flex-start;border-bottom-left-radius:3px}
+.msg-time{font-size:0.65rem;color:var(--tm);margin-top:0.25rem}
+.chat-input{padding:0.9rem;border-top:1px solid var(--bdr);display:flex;gap:0.7rem}
+.chat-in{flex:1;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.6rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.9rem;outline:none}
+.chat-in:focus{border-color:var(--gold)}
+
+/* Price alert */
+.alert-badge{background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.25);border-radius:7px;padding:0.6rem 0.9rem;font-size:0.78rem;color:var(--purple);display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem}
+
+/* Sell page preview */
+.card-preview{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;width:190px;flex-shrink:0}
+.em-picker{display:grid;grid-template-columns:repeat(7,1fr);gap:0.3rem;margin-top:0.5rem}
+.em-opt{font-size:1.3rem;padding:0.3rem;border-radius:5px;cursor:pointer;text-align:center;border:1px solid transparent;transition:all 0.13s}
+.em-opt:hover,.em-opt.sel{border-color:var(--gold);background:rgba(240,165,0,0.1)}
+
+@media(max-width:768px){.shop-layout,.cdl,.cart-l,.ppage,.frow,.settings-grid,.msg-layout{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr 1fr}.feats{grid-template-columns:1fr}.wallet-methods{grid-template-columns:1fr 1fr}}
+
+/* ===== Firebase Loading Overlay ===== */
+.fb-loading{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem}
+.fb-spinner{width:44px;height:44px;border:3px solid var(--bdr);border-top-color:var(--gold);border-radius:50%;animation:fbspin 0.8s linear infinite}
+@keyframes fbspin{to{transform:rotate(360deg)}}
+.fb-loading-txt{font-family:'Orbitron',monospace;font-size:0.75rem;color:var(--tm);letter-spacing:2px;text-transform:uppercase}
+.fb-cfg-banner{background:rgba(255,64,64,0.1);border:1px solid rgba(255,64,64,0.35);border-radius:9px;padding:1.1rem 1.4rem;max-width:560px;margin:1rem auto;font-size:0.82rem;line-height:1.7;color:var(--red)}
+.fb-cfg-banner code{background:rgba(255,255,255,0.07);border-radius:4px;padding:1px 5px;font-size:0.78rem;color:var(--goldl)}
+</style>
+</head>
+<!-- Firebase SDK (Compat v10) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<body>
+
+<nav id="nav">
+  <div class="nlogo" onclick="go('home')">POKÉ<span>MARKT</span></div>
+  <div class="nlinks">
+    <div class="nl" id="nl-home" onclick="go('home')">Home</div>
+    <div class="nl" id="nl-shop" onclick="go('shop')">Marktplatz</div>
+    <div class="nl" id="nl-wishlist" onclick="go('wishlist')">♥ Merkliste</div>
+    <div class="nl" id="nl-sell" onclick="go('sell')">Verkaufen</div>
+    <div class="nl" id="nl-orders" onclick="go('orders')">Bestellungen</div>
+    <div class="nl" id="nl-messages" onclick="go('messages')" style="display:none">Nachrichten</div>
+    <div class="nl" id="nl-admin" onclick="go('admin')" style="display:none">⚡ Admin</div>
+  </div>
+  <div class="nright" id="nright"></div>
+</nav>
+<div id="maint-bar" style="display:none" class="maint-banner">🔧 Wartungsarbeiten — Site im Wartungsmodus (nur für Admins sichtbar)</div>
+
+<div id="content"></div>
+<div id="notifs"></div>
+<div id="notif-overlay" onclick="closeNotifDrop()" style="display:none;position:fixed;inset:0;z-index:998"></div>
+
+<script>
+// ===================== FIREBASE INIT =====================
+const firebaseConfig = {
+  apiKey: "AIzaSyAawulIvDd5T62gkz4U3LROLGJZaFPH6jo",
+  authDomain: "kartenverkauf-60aad.firebaseapp.com",
+  projectId: "kartenverkauf-60aad",
+  storageBucket: "kartenverkauf-60aad.firebasestorage.app",
+  messagingSenderId: "136190767018",
+  appId: "1:136190767018:web:4c1962f65df992f29645d3"
+};
+let _fbConfigured = false;
+let auth, db;
+try {
+  firebase.initializeApp(firebaseConfig);
+  auth = firebase.auth();
+  db = firebase.firestore();
+  _fbConfigured = true;
+} catch(e) {
+  console.warn("Firebase nicht verfügbar, Fallback auf localStorage.", e);
+}
+
+let _fsTimer = null;
+function _scheduleFirestoreSave() {
+  if (!_fbConfigured || !auth || !auth.currentUser) return;
+  clearTimeout(_fsTimer);
+  _fsTimer = setTimeout(async () => {
+    try {
+      const uid = auth.currentUser?.uid;
+      if (!uid) return;
+      await db.collection('users').doc(uid).set({
+        cart: S.cart,
+        wishlist: S.wishlist,
+        orders: S.orders,
+        bal: S.user?.bal || 0
+      }, { merge: true });
+    } catch(e) { console.warn("Firestore sync Fehler:", e); }
+  }, 1500);
+}
+
+// ===================== CONSTANTS =====================
+const RC={"Common":{c:"#9CA3AF",bg:"#1F2937"},"Uncommon":{c:"#34D399",bg:"#064E3B"},"Rare":{c:"#60A5FA",bg:"#1E3A5F"},"Holo Rare":{c:"#A78BFA",bg:"#3B1F6E"},"Ultra Rare":{c:"#F59E0B",bg:"#78350F"},"Secret Rare":{c:"#FF6B6B",bg:"#7F1D1D"},"Rainbow Rare":{c:"#FF6FD8",bg:"#5B21B6"}};
+const TC={"Fire":{c:"#FF6B35",bg:"#3D1506"},"Water":{c:"#4FC3F7",bg:"#0C2D3F"},"Grass":{c:"#66BB6A",bg:"#1A3A1A"},"Electric":{c:"#FFD54F",bg:"#3D3000"},"Psychic":{c:"#CE93D8",bg:"#2E1A3A"},"Dragon":{c:"#7E57C2",bg:"#1E1040"},"Dark":{c:"#90A4AE",bg:"#1A2328"},"Fighting":{c:"#FF7043",bg:"#3D1A0E"},"Metal":{c:"#B0BEC5",bg:"#1C2428"},"Colorless":{c:"#BDBDBD",bg:"#2A2A2A"}};
+const CC={"PSA 10":"#F0A500","PSA 9":"#F0A500","PSA 8":"#4A90E2","PSA 7":"#4A90E2","NM":"#00C875","LP":"#A3A3A3","MP":"#FF7043","HP":"#FF4040"};
+const AVEMOJIS=['🎴','👑','🔥','⚡','💧','🌿','👻','🏆','🦊','🐉','✨','🌙','💎','🏅','🦅','🌱','💗','😱','💿','🏦','⚙️','👊','😴','🔮','🕊️'];
+
+const DEFAULT_CARDS=[
+  {id:1,name:"Charizard VMAX",set:"Champion's Path",rarity:"Rainbow Rare",type:"Fire",condition:"PSA 10",price:389.99,seller:"PokeVault_DE",sellerId:2,em:"🔥",hp:330,atk:"G-Max Wildfire",feat:true,stock:1,views:2840,likes:234},
+  {id:2,name:"Pikachu VMAX",set:"Vivid Voltage",rarity:"Ultra Rare",type:"Electric",condition:"PSA 9",price:124.99,seller:"ElectraCards",sellerId:3,em:"⚡",hp:310,atk:"Volt Crash",feat:true,stock:2,views:1920,likes:187},
+  {id:3,name:"Lugia V",set:"Silver Tempest",rarity:"Ultra Rare",type:"Colorless",condition:"NM",price:89.99,seller:"PokeVault_DE",sellerId:2,em:"🕊️",hp:220,atk:"Aero Tempest",feat:true,stock:3,views:1100,likes:98},
+  {id:4,name:"Mewtwo EX",set:"Base Set 2",rarity:"Holo Rare",type:"Psychic",condition:"PSA 8",price:299.99,seller:"RetroHolo",sellerId:4,em:"🔮",hp:160,atk:"Psyburn",feat:false,stock:1,views:890,likes:145},
+  {id:5,name:"Rayquaza VMAX",set:"Evolving Skies",rarity:"Secret Rare",type:"Dragon",condition:"PSA 10",price:199.99,seller:"SkyTrader",sellerId:3,em:"🐉",hp:320,atk:"Max Rebellion",feat:true,stock:1,views:1560,likes:201},
+  {id:6,name:"Umbreon VMAX",set:"Evolving Skies",rarity:"Rainbow Rare",type:"Dark",condition:"NM",price:449.99,seller:"DarkCards_DE",sellerId:2,em:"🌙",hp:310,atk:"Max Darkness",feat:true,stock:1,views:3200,likes:312},
+  {id:7,name:"Blastoise V",set:"Battle Styles",rarity:"Ultra Rare",type:"Water",condition:"NM",price:34.99,seller:"WaterPro",sellerId:5,em:"💧",hp:220,atk:"Hydro Splash",feat:false,stock:5,views:430,likes:44},
+  {id:8,name:"Venusaur EX",set:"XY Evolutions",rarity:"Holo Rare",type:"Grass",condition:"LP",price:79.99,seller:"RetroHolo",sellerId:4,em:"🌿",hp:180,atk:"Frog Whip",feat:false,stock:2,views:670,likes:67},
+  {id:9,name:"Giratina VSTAR",set:"Lost Origin",rarity:"Ultra Rare",type:"Dragon",condition:"PSA 9",price:164.99,seller:"SkyTrader",sellerId:3,em:"👻",hp:280,atk:"Star Requiem",feat:true,stock:2,views:1870,likes:178},
+  {id:10,name:"Arceus VSTAR",set:"Brilliant Stars",rarity:"Ultra Rare",type:"Colorless",condition:"NM",price:44.99,seller:"GodCards",sellerId:5,em:"✨",hp:280,atk:"Trinity Nova",feat:false,stock:4,views:780,likes:89},
+  {id:11,name:"Dialga VSTAR",set:"Astral Radiance",rarity:"Secret Rare",type:"Metal",condition:"NM",price:59.99,seller:"PokeVault_DE",sellerId:2,em:"⚙️",hp:270,atk:"Star Chronos",feat:false,stock:3,views:540,likes:51},
+  {id:12,name:"Eevee VMAX",set:"Fusion Strike",rarity:"Rainbow Rare",type:"Colorless",condition:"PSA 10",price:219.99,seller:"EeveeLover",sellerId:6,em:"🦊",hp:280,atk:"Max Evolutions",feat:true,stock:1,views:2100,likes:267},
+  {id:13,name:"Mew VMAX",set:"Fusion Strike",rarity:"Secret Rare",type:"Psychic",condition:"PSA 9",price:129.99,seller:"ElectraCards",sellerId:3,em:"💗",hp:270,atk:"Max Miracle",feat:false,stock:2,views:960,likes:112},
+  {id:14,name:"Gengar VMAX",set:"Fusion Strike",rarity:"Ultra Rare",type:"Psychic",condition:"NM",price:49.99,seller:"GhostType",sellerId:7,em:"😱",hp:310,atk:"G-Max Terror",feat:false,stock:6,views:510,likes:58},
+  {id:15,name:"Snorlax VMAX",set:"Sword & Shield",rarity:"Holo Rare",type:"Colorless",condition:"NM",price:29.99,seller:"WaterPro",sellerId:5,em:"😴",hp:340,atk:"G-Max Fall",feat:false,stock:8,views:320,likes:31},
+  {id:16,name:"Ho-Oh VSTAR",set:"Brilliant Stars",rarity:"Ultra Rare",type:"Fire",condition:"NM",price:74.99,seller:"FlameMaster",sellerId:8,em:"🦅",hp:240,atk:"Phoenix Burn",feat:false,stock:3,views:620,likes:72},
+  {id:17,name:"Celebi VMAX",set:"Chilling Reign",rarity:"Rainbow Rare",type:"Grass",condition:"PSA 9",price:179.99,seller:"GreenGarden",sellerId:6,em:"🌱",hp:300,atk:"Max Forest",feat:false,stock:2,views:870,likes:94},
+  {id:18,name:"Regieleki VMAX",set:"Chilling Reign",rarity:"Ultra Rare",type:"Electric",condition:"NM",price:39.99,seller:"ElectraCards",sellerId:3,em:"⚡",hp:330,atk:"Thunder Rondo",feat:false,stock:4,views:410,likes:37},
+  {id:19,name:"Machamp VMAX",set:"Champion's Path",rarity:"Holo Rare",type:"Fighting",condition:"LP",price:22.99,seller:"FightClub",sellerId:7,em:"👊",hp:320,atk:"G-Max Chi Strike",feat:false,stock:5,views:280,likes:22},
+  {id:20,name:"1st Ed. Charizard",set:"Base Set",rarity:"Holo Rare",type:"Fire",condition:"PSA 7",price:2499.99,seller:"GoldVault_PRO",sellerId:8,em:"🔥",hp:120,atk:"Fire Spin",feat:true,stock:1,views:18920,likes:1043}
+];
+const DEFAULT_USERS=[
+  {id:1,un:"admin",em:"admin@pokemarkt.de",pw:"admin123",role:"admin",bal:9999,joined:"01.01.2024",av:"👑",ver:true,sales:0,buys:0,banned:false},
+  {id:2,un:"PokeVault_DE",em:"vault@pokevault.de",pw:"seller123",role:"seller",bal:2340.50,joined:"15.02.2024",av:"🏦",ver:true,sales:47,buys:12,banned:false},
+  {id:3,un:"ElectraCards",em:"info@electracards.de",pw:"seller123",role:"seller",bal:1890.00,joined:"01.03.2024",av:"⚡",ver:true,sales:31,buys:8,banned:false},
+  {id:4,un:"RetroHolo",em:"retro@holo.de",pw:"seller123",role:"seller",bal:4200.75,joined:"20.11.2023",av:"💿",ver:true,sales:89,buys:23,banned:false},
+  {id:5,un:"WaterPro",em:"water@pro.de",pw:"user123",role:"user",bal:560.00,joined:"10.04.2024",av:"💧",ver:false,sales:15,buys:34,banned:false},
+  {id:6,un:"EeveeLover",em:"eevee@lovers.de",pw:"user123",role:"seller",bal:890.25,joined:"22.05.2024",av:"🦊",ver:true,sales:8,buys:19,banned:false},
+  {id:7,un:"GhostType",em:"ghost@type.de",pw:"user123",role:"user",bal:120.00,joined:"03.06.2024",av:"👻",ver:false,sales:3,buys:7,banned:false},
+  {id:8,un:"GoldVault_PRO",em:"gold@vault.de",pw:"seller123",role:"seller",bal:15600.00,joined:"05.09.2023",av:"🏅",ver:true,sales:134,buys:5,banned:false}
+];
+
+// ===================== STATE =====================
+function loadState(){
+  try{
+    const saved=localStorage.getItem('pokemarkt_state');
+    if(saved){
+      const d=JSON.parse(saved);
+      return {
+        page:'home',user:d.user||null,
+        users:d.users||DEFAULT_USERS.map(u=>({...u})),
+        cards:d.cards||DEFAULT_CARDS.map(c=>({...c})),
+        cart:d.cart||[],orders:d.orders||[],
+        wishlist:d.wishlist||[],
+        recentlyViewed:d.recentlyViewed||[],
+        reviews:d.reviews||[],
+        messages:d.messages||initMessages(),
+        notifHistory:d.notifHistory||[],
+        priceAlerts:d.priceAlerts||[],
+        promoCodes:d.promoCodes||[{code:'WELCOME10',discount:10,uses:99,active:true},{code:'POKEFREAK',discount:20,uses:5,active:true},{code:'HOLO50',discount:50,uses:1,active:true}],
+        settings:d.settings||{fee:5,banner:'',maintenanceMode:false,allowSellers:true,maxListPrice:9999},
+        appliedPromo:null,
+        selCard:null,selSeller:null,selConv:null,
+        q:'',fRarity:'all',fType:'all',fCond:'all',sort:'featured',priceMax:3000,shopPage:1,
+        adminTab:'overview',
+        loginErr:'',regErr:'',
+        showNotifDrop:false,
+        nid:d.nid||0,
+        tempAv:null,tempPw:'',tempPwOld:'',
+        creditTarget:null,creditAmt:'',
+        walletMethod:'card',walletAmt:10,
+        reviewTarget:null,reviewRating:5,reviewText:'',
+        promoTarget:'',
+        sellEm:'🎴',
+      };
+    }
+  }catch(e){}
+  return {
+    page:'home',user:null,
+    users:DEFAULT_USERS.map(u=>({...u})),
+    cards:DEFAULT_CARDS.map(c=>({...c})),
+    cart:[],orders:[],
+    wishlist:[],recentlyViewed:[],
+    reviews:[],
+    messages:initMessages(),
+    notifHistory:[],priceAlerts:[],
+    promoCodes:[{code:'WELCOME10',discount:10,uses:99,active:true},{code:'POKEFREAK',discount:20,uses:5,active:true},{code:'HOLO50',discount:50,uses:1,active:true}],
+    settings:{fee:5,banner:'',maintenanceMode:false,allowSellers:true,maxListPrice:9999},
+    appliedPromo:null,
+    selCard:null,selSeller:null,selConv:null,
+    q:'',fRarity:'all',fType:'all',fCond:'all',sort:'featured',priceMax:3000,shopPage:1,
+    adminTab:'overview',
+    loginErr:'',regErr:'',
+    showNotifDrop:false,
+    nid:0,
+    tempAv:null,tempPw:'',tempPwOld:'',
+    creditTarget:null,creditAmt:'',
+    walletMethod:'card',walletAmt:10,
+    reviewTarget:null,reviewRating:5,reviewText:'',
+    promoTarget:'',
+    sellEm:'🎴',
+  };
+}
+function initMessages(){
+  return [
+    {id:1,with:'PokeVault_DE',withAv:'🏦',msgs:[{from:'them',text:'Hey! Ich sehe du interessierst dich für meinen Charizard VMAX.',time:'14:32'},{from:'me',text:'Ja, ist der Preis noch verhandelbar?',time:'14:35'},{from:'them',text:'Für 370€ könnte ich einen Deal machen 🤝',time:'14:37'}]},
+    {id:2,with:'RetroHolo',withAv:'💿',msgs:[{from:'them',text:'Deine Bestellung wurde heute versendet! 📦',time:'09:15'}]}
+  ];
+}
+function saveState(){
+  try{
+    const d={
+      user:S.user,users:S.users,cards:S.cards,
+      cart:S.cart,orders:S.orders,
+      wishlist:S.wishlist,recentlyViewed:S.recentlyViewed,
+      reviews:S.reviews,messages:S.messages,
+      notifHistory:S.notifHistory,priceAlerts:S.priceAlerts,
+      promoCodes:S.promoCodes,settings:S.settings,nid:S.nid
+    };
+    localStorage.setItem('pokemarkt_state',JSON.stringify(d));
+  }catch(e){}
+  // Also sync to Firestore (debounced)
+  _scheduleFirestoreSave();
+}
+
+const S=loadState();
+const fmt=n=>n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+
+// ===================== NAV & ROUTING =====================
+function go(page){
+  S.page=page;S.loginErr='';S.regErr='';
+  render();window.scrollTo(0,0);
+  document.querySelectorAll('.nl').forEach(el=>{el.classList.remove('act');if(el.id==='nl-'+page)el.classList.add('act');});
+}
+function showCard(id){
+  S.selCard=id;
+  const c=S.cards.find(x=>x.id===id);
+  if(c){c.views++;if(S.user){S.recentlyViewed=[id,...S.recentlyViewed.filter(x=>x!==id)].slice(0,8);}}
+  saveState();go('card');
+}
+function showSeller(nm){S.selSeller=nm;go('seller');}
+
+// ===================== TOASTS & NOTIFICATIONS =====================
+let _nid=S.nid||0;
+function toast(title,msg,type='info'){
+  const id=++_nid;S.nid=_nid;
+  S.notifHistory.unshift({id,title,msg,type,time:new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}),read:false});
+  if(S.notifHistory.length>50)S.notifHistory=S.notifHistory.slice(0,50);
+  const icons={'info':'🔔','ok':'✅','err':'❌'};
+  const el=document.createElement('div');
+  el.className='notif'+(type==='ok'?' ok':type==='err'?' err':'');
+  el.innerHTML=`<span class="ni">${icons[type]||'🔔'}</span><div class="nt"><div class="ntit">${title}</div><div class="nmsg">${msg}</div></div>`;
+  document.getElementById('notifs').appendChild(el);
+  setTimeout(()=>el.remove(),4200);
+  updateBell();saveState();
+}
+function updateBell(){
+  const unread=S.notifHistory.filter(n=>!n.read).length;
+  const bell=document.getElementById('bell-badge');
+  if(bell)bell.textContent=unread>0?unread:'';
+  if(bell)bell.style.display=unread>0?'flex':'none';
+}
+function openNotifDrop(){
+  S.showNotifDrop=!S.showNotifDrop;
+  if(S.showNotifDrop){S.notifHistory.forEach(n=>n.read=true);saveState();}
+  renderNav();
+  document.getElementById('notif-overlay').style.display=S.showNotifDrop?'block':'none';
+}
+function closeNotifDrop(){S.showNotifDrop=false;renderNav();document.getElementById('notif-overlay').style.display='none';}
+
+// ===================== AUTH =====================
+async function loginUser(em,pw){
+  console.log("loginUser wurde aufgerufen mit:", em, pw); // NEU
+  if(_fbConfigured){
+    try{
+      console.log("Versuche Firebase signInWithEmailAndPassword..."); // NEU
+      await auth.signInWithEmailAndPassword(em,pw);
+      console.log("Firebase signIn erfolgreich!"); // NEU
+      // onAuthStateChanged handles the rest
+      // Stellen Sie sicher, dass Ihr onAuthStateChanged Listener existiert und render() aufruft
+    }catch(e){
+      console.error("Firebase Auth Fehler:", e.code, e.message); // NEU und wichtig!
+      const msgs={'auth/user-not-found':'E-Mail oder Passwort falsch','auth/wrong-password':'E-Mail oder Passwort falsch','auth/invalid-credential':'E-Mail oder Passwort falsch','auth/too-many-requests':'Zu viele Versuche — bitte kurz warten.'};
+      S.loginErr=msgs[e.code]||'Anmeldefehler: '+e.message;
+      console.log("S.loginErr gesetzt auf:", S.loginErr); // NEU
+      render(); // Dies sollte die Fehlermeldung anzeigen
+    }
+    return;
+  }
+  // Fallback: localStorage-only mode
+  console.log("Firebase ist nicht konfiguriert, verwende localStorage Fallback."); // NEU
+  const u=S.users.find(x=>x.em===em&&x.pw===pw);
+  if(!u){S.loginErr='E-Mail oder Passwort falsch';render();return;}
+  if(u.banned){S.loginErr='Dein Konto ist gesperrt. Kontaktiere den Support.';render();return;}
+  S.user={...u};S.loginErr='';saveState();
+  toast('Willkommen zurück! 👋','Hallo '+u.un,'ok');
+  renderNav();go('home');
+}
+async function registerUser(un,em,pw){
+  if(S.users.find(u=>u.un===un)){S.regErr='Benutzername bereits vergeben';render();return;}
+  if(pw.length<6){S.regErr='Passwort mind. 6 Zeichen';render();return;}
+  if(!/^[a-zA-Z0-9_äöüÄÖÜ]{3,20}$/.test(un)){S.regErr='Benutzername: 3-20 Zeichen, nur Buchstaben/Zahlen/_';render();return;}
+  if(_fbConfigured){
+    try{
+      const cred=await auth.createUserWithEmailAndPassword(em,pw);
+      const uid=cred.user.uid;
+      const nu={id:uid,un,em,role:'user',bal:100.00,joined:new Date().toLocaleDateString('de-DE'),av:'🎴',ver:false,sales:0,buys:0,banned:false};
+      S.users.push(nu);S.user={...nu};S.regErr='';
+      saveState();
+      addSysNotif('Konto erstellt','Willkommen '+un+'! Du hast 100€ Startguthaben erhalten. 🎉');
+      toast('Konto erstellt! 🎉','Willkommen '+un+'! 100€ Startguthaben gutgeschrieben','ok');
+      renderNav();go('home');
+    }catch(e){
+      const msgs={'auth/email-already-in-use':'E-Mail bereits registriert','auth/weak-password':'Passwort zu schwach (mind. 6 Zeichen)'};
+      S.regErr=msgs[e.code]||'Fehler: '+e.message;
+      render();
+    }
+    return;
+  }
+  // Fallback
+  const nu={id:S.users.length+100+Math.floor(Math.random()*100),un,em,pw,role:'user',bal:100.00,joined:new Date().toLocaleDateString('de-DE'),av:'🎴',ver:false,sales:0,buys:0,banned:false};
+  S.users.push(nu);S.user={...nu};S.regErr='';saveState();
+  addSysNotif('Konto erstellt','Willkommen '+un+'! Du hast 100€ Startguthaben erhalten. 🎉');
+  toast('Konto erstellt! 🎉','Willkommen '+un+'! 100€ Startguthaben gutgeschrieben','ok');
+  renderNav();go('home');
+}
+async function logout(){
+  if(_fbConfigured){try{await auth.signOut();}catch(e){}}
+  S.user=null;S.cart=[];saveState();renderNav();go('home');toast('Abgemeldet','Bis bald! 👋');
+}
+function addSysNotif(title,msg){
+  S.notifHistory.unshift({id:++_nid,title,msg,type:'ok',time:new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'}),read:false});
+}
+
+// ===================== CART & CHECKOUT =====================
+function addCart(id){
+  const c=S.cards.find(x=>x.id===id);
+  if(!c)return;
+  if(!S.user){toast('Login erforderlich','Bitte anmelden um zu kaufen','err');go('login');return;}
+  if(c.stock===0){toast('Nicht verfügbar','Diese Karte ist nicht mehr auf Lager','err');return;}
+  if(S.cart.find(i=>i.id===id)){toast('Bereits im Warenkorb',c.name+' ist schon drin');return;}
+  S.cart.push({id,price:c.price});saveState();
+  toast('Hinzugefügt ✓',c.name+' im Warenkorb','ok');
+  renderNav();
+}
+function rmCart(id){S.cart=S.cart.filter(i=>i.id!==id);S.appliedPromo=null;saveState();render();}
+function applyPromo(code){
+  const pc=S.promoCodes.find(p=>p.code===code.toUpperCase()&&p.active&&p.uses>0);
+  if(!pc){toast('Ungültiger Code','Dieser Promo-Code existiert nicht oder ist abgelaufen','err');return;}
+  S.appliedPromo={code:pc.code,discount:pc.discount};
+  pc.uses--;saveState();
+  toast('Promo-Code aktiviert! 🎉',pc.discount+'% Rabatt angewendet','ok');
+  render();
+}
+function removePromo(){S.appliedPromo=null;saveState();render();}
+function checkout(){
+  let total=S.cart.reduce((s,i)=>s+i.price,0);
+  const fee=total*(S.settings.fee/100);
+  total+=fee;
+  if(S.appliedPromo)total=total*(1-S.appliedPromo.discount/100);
+  if(!S.user){go('login');return;}
+  if(S.user.bal<total){toast('Guthaben reicht nicht','Bitte lade Guthaben auf','err');return;}
+  const oid='PM-'+Date.now().toString(36).toUpperCase();
+  const items=S.cart.map(i=>{const c=S.cards.find(x=>x.id===i.id);return{id:i.id,name:c.name,price:i.price,em:c.em,sellerId:c.sellerId};});
+  S.orders.push({id:oid,userId:S.user.id,items,total,status:'pending',date:new Date().toLocaleDateString('de-DE'),rated:false});
+  const ui=S.users.findIndex(u=>u.id===S.user.id);
+  S.users[ui].bal-=total;S.users[ui].buys+=S.cart.length;
+  S.user={...S.users[ui]};
+  S.cart.forEach(i=>{const ci=S.cards.findIndex(c=>c.id===i.id);if(ci!==-1)S.cards[ci].stock=Math.max(0,S.cards[ci].stock-1);});
+  S.cart=[];S.appliedPromo=null;saveState();
+  toast('Bestellung aufgegeben! 🎉','Bestellung '+oid+' bestätigt','ok');
+  addSysNotif('Bestellung bestätigt','Deine Bestellung '+oid+' wird bearbeitet.');
+  go('orders');
+}
+
+// ===================== WISHLIST =====================
+function toggleWishlist(id,e){
+  if(e){e.stopPropagation();}
+  if(!S.user){toast('Login erforderlich','Melde dich an um Karten zu merken','err');go('login');return;}
+  const idx=S.wishlist.indexOf(id);
+  if(idx===-1){S.wishlist.push(id);toast('Gemerkt ♥','Karte zur Merkliste hinzugefügt','ok');}
+  else{S.wishlist.splice(idx,1);toast('Entfernt','Karte von Merkliste entfernt');}
+  saveState();
+  const btn=document.querySelector(`.wl-btn[data-id="${id}"]`);
+  if(btn){btn.classList.toggle('active',S.wishlist.includes(id));btn.textContent=S.wishlist.includes(id)?'♥':'♡';}
+  renderNav();
+}
+
+// ===================== CARDS =====================
+function listCard(d){
+  if(!S.user){go('login');return;}
+  if(!S.settings.allowSellers&&S.user.role!=='admin'){toast('Nicht erlaubt','Verkäufe sind aktuell deaktiviert','err');return;}
+  if(d.price>S.settings.maxListPrice){toast('Preis zu hoch',`Max. Listenpreis: ${fmt(S.settings.maxListPrice)}`,'err');return;}
+  const nc={id:Date.now(),...d,seller:S.user.un,sellerId:S.user.id,feat:false,stock:1,views:0,likes:0};
+  S.cards.push(nc);
+  const ui=S.users.findIndex(u=>u.id===S.user.id);
+  S.users[ui].sales+=1;S.user={...S.users[ui]};
+  if(S.user.role==='user'){const idx=S.users.findIndex(u=>u.id===S.user.id);S.users[idx].role='seller';S.user.role='seller';}
+  saveState();
+  toast('Karte eingestellt! 🃏',d.name+' ist jetzt im Marktplatz','ok');
+  go('shop');
+}
+
+function filteredCards(){
+  let c=[...S.cards];
+  if(S.q){const q=S.q.toLowerCase();c=c.filter(x=>x.name.toLowerCase().includes(q)||x.set.toLowerCase().includes(q)||x.seller.toLowerCase().includes(q));}
+  if(S.fRarity!=='all')c=c.filter(x=>x.rarity===S.fRarity);
+  if(S.fType!=='all')c=c.filter(x=>x.type===S.fType);
+  if(S.fCond!=='all')c=c.filter(x=>x.condition.includes(S.fCond));
+  c=c.filter(x=>x.price<=S.priceMax);
+  if(S.sort==='price-asc')c.sort((a,b)=>a.price-b.price);
+  else if(S.sort==='price-desc')c.sort((a,b)=>b.price-a.price);
+  else if(S.sort==='newest')c.sort((a,b)=>b.id-a.id);
+  else if(S.sort==='popular')c.sort((a,b)=>b.views-a.views);
+  else c.sort((a,b)=>(b.feat?1:0)-(a.feat?1:0));
+  return c;
+}
+
+function rtag(r){const cfg=RC[r]||{c:'#888',bg:'#333'};return`<span class="tag" style="background:${cfg.bg};color:${cfg.c}">${r}</span>`;}
+function ttag(t){const cfg=TC[t]||{c:'#888',bg:'#333'};return`<span class="tag" style="background:${cfg.bg};color:${cfg.c}">${t}</span>`;}
+function ctag(c){const col=CC[c]||'#999';return`<span class="tag" style="background:${col}22;color:${col}">${c}</span>`;}
+
+function cbg(rarity){
+  if(rarity==='Rainbow Rare')return'style="background:linear-gradient(135deg,#1a0a2e,#0a1a3a,#0a2a1a,#2a1a0a);background-size:200% 200%;animation:holo 4s linear infinite"';
+  if(rarity==='Secret Rare')return'style="background:linear-gradient(135deg,#2a0808,#180808)"';
+  if(rarity==='Ultra Rare')return'style="background:linear-gradient(135deg,#2a1a00,#1a1000)"';
+  if(rarity==='Holo Rare')return'style="background:linear-gradient(135deg,#1a0a2e,0a0a1e)"';
+  return'style="background:var(--bg3)"';
+}
+
+function pCard(c){
+  const inWl=S.wishlist.includes(c.id);
+  return`<div class="pcard ${c.rarity==='Rainbow Rare'?'holo':''}" onclick="showCard(${c.id})">
+    ${c.feat?'<div class="fbadge">⭐ Featured</div>':''}
+    <div class="wl-btn ${inWl?'active':''}" data-id="${c.id}" onclick="toggleWishlist(${c.id},event)" title="Merken">${inWl?'♥':'♡'}</div>
+    <div class="cimg" ${cbg(c.rarity)}><span style="font-size:4.5rem">${c.em}</span></div>
+    <div class="cbody">
+      <div class="cname">${c.name}</div>
+      <div class="cset">${c.set}</div>
+      <div class="ctags">${rtag(c.rarity)}${ttag(c.type)}</div>
+      <div class="cftr"><div class="cprice">${fmt(c.price)}</div><div class="ccond">${c.stock===0?'<span style="color:var(--red)">Ausverkauft</span>':c.condition}</div></div>
+    </div>
+  </div>`;
+}
+
+function starsHtml(rating,interactive=false,target=''){
+  const stars=['⭐','⭐','⭐','⭐','⭐'];
+  return stars.map((s,i)=>`<span class="star ${interactive?'':'star-sm'}" ${interactive?`onclick="setRating(${i+1},${target})" onmouseover="hoverRating(${i+1})" onmouseout="resetRating()"`:''} style="opacity:${i<rating?'1':'0.25'}" id="${interactive?`star-${i+1}`:''}">${s}</span>`).join('');
+}
+function setRating(r){S.reviewRating=r;document.querySelectorAll('.star').forEach((s,i)=>s.style.opacity=i<r?'1':'0.25');}
+function hoverRating(r){document.querySelectorAll('.star').forEach((s,i)=>s.style.opacity=i<r?'1':'0.3');}
+function resetRating(){document.querySelectorAll('.star').forEach((s,i)=>s.style.opacity=i<S.reviewRating?'1':'0.25');}
+function sellerAvgRating(sellerId){
+  const r=S.reviews.filter(x=>x.sellerId===sellerId);
+  if(!r.length)return null;
+  return r.reduce((s,x)=>s+x.rating,0)/r.length;
+}
+function submitReview(sellerId){
+  if(!S.user){toast('Login erforderlich','','err');return;}
+  const txt=document.getElementById('rev-text')?.value||'';
+  S.reviews.push({id:Date.now(),userId:S.user.id,sellerId,rating:S.reviewRating,text:txt,user:S.user.un,date:new Date().toLocaleDateString('de-DE')});
+  saveState();
+  toast('Bewertung abgegeben! ⭐','Danke für deine Bewertung','ok');
+  render();
+}
+
+// ===================== MESSAGES =====================
+function openConv(id){S.selConv=id;go('messages');}
+function sendMsg(text){
+  if(!text.trim())return;
+  const conv=S.messages.find(m=>m.id===S.selConv);
+  if(!conv)return;
+  conv.msgs.push({from:'me',text:text.trim(),time:new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})});
+  saveState();render();
+  setTimeout(()=>{const ca=document.querySelector('.chat-msgs');if(ca)ca.scrollTop=ca.scrollHeight;},50);
+}
+function startConv(withName,withAv){
+  if(!S.user){toast('Login erforderlich','','err');go('login');return;}
+  let conv=S.messages.find(m=>m.with===withName);
+  if(!conv){conv={id:Date.now(),with:withName,withAv:withAv||'🎴',msgs:[]};S.messages.push(conv);}
+  S.selConv=conv.id;saveState();go('messages');
+}
+
+// ===================== ADMIN FUNCTIONS =====================
+function toggleBan(id){const u=S.users.find(x=>x.id===id);if(u){u.banned=!u.banned;if(S.user&&S.user.id===id)S.user.banned=u.banned;saveState();render();toast(u.banned?'Nutzer gesperrt':'Nutzer entsperrt',u.un,u.banned?'err':'ok');}}
+function toggleVerify(id){const u=S.users.find(x=>x.id===id);if(u){u.ver=!u.ver;if(S.user&&S.user.id===id)S.user.ver=u.ver;saveState();render();toast(u.ver?'Verifiziert ✓':'Verifizierung entfernt',u.un,'ok');}}
+function toggleFeat(id){const c=S.cards.find(x=>x.id===id);if(c){c.feat=!c.feat;saveState();render();toast(c.feat?'Featured ⭐':'Featured entfernt',c.name,'ok');}}
+function removeCard(id){const c=S.cards.find(x=>x.id===id);S.cards=S.cards.filter(x=>x.id!==id);saveState();render();toast('Karte gelöscht',c?c.name:'','err');}
+function setRole(id,role){const u=S.users.find(x=>x.id===id);if(u){u.role=role;if(S.user&&S.user.id===id)S.user.role=role;saveState();render();toast('Rolle geändert',u.un+' → '+role,'ok');}}
+function sendCredits(id,amt){
+  const u=S.users.find(x=>x.id===id);if(!u)return;
+  const a=parseFloat(amt)||0;
+  u.bal=Math.max(0,u.bal+a);
+  if(S.user&&S.user.id===id)S.user.bal=u.bal;
+  saveState();render();
+  toast(a>=0?'Guthaben hinzugefügt':'Guthaben abgezogen',u.un+(a>=0?` +${fmt(a)}`:`${fmt(a)}`),'ok');
+}
+function advOrder(id){
+  const cycle={pending:'shipped',shipped:'delivered'};
+  const o=S.orders.find(x=>x.id===id);
+  if(o&&cycle[o.status]){o.status=cycle[o.status];saveState();render();toast('Status aktualisiert','Bestellung '+id+' → '+o.status,'ok');}
+}
+function addPromoCode(code,discount,uses){
+  if(!code||!discount){toast('Fehlende Daten','Code und Rabatt erforderlich','err');return;}
+  if(S.promoCodes.find(p=>p.code===code.toUpperCase())){toast('Existiert bereits','Code bereits vorhanden','err');return;}
+  S.promoCodes.push({code:code.toUpperCase(),discount:parseFloat(discount),uses:parseInt(uses)||99,active:true});
+  saveState();render();toast('Promo-Code erstellt! 🎟️',code.toUpperCase()+' — '+discount+'% Rabatt','ok');
+}
+function togglePromo(code){const p=S.promoCodes.find(x=>x.code===code);if(p){p.active=!p.active;saveState();render();}}
+function deletePromo(code){S.promoCodes=S.promoCodes.filter(p=>p.code!==code);saveState();render();toast('Code gelöscht',code,'err');}
+function saveSettings(){
+  const fee=parseFloat(document.getElementById('set-fee')?.value||5);
+  const banner=document.getElementById('set-banner')?.value||'';
+  const maxPrice=parseFloat(document.getElementById('set-maxprice')?.value||9999);
+  S.settings.fee=fee;S.settings.banner=banner;S.settings.maxListPrice=maxPrice;
+  saveState();toast('Einstellungen gespeichert ✓','','ok');
+  document.getElementById('maint-bar').style.display=S.settings.maintenanceMode?'block':'none';
+}
+function toggleMaintenance(){
+  S.settings.maintenanceMode=!S.settings.maintenanceMode;
+  saveState();render();
+  document.getElementById('maint-bar').style.display=S.settings.maintenanceMode?'block':'none';
+  toast(S.settings.maintenanceMode?'Wartungsmodus AN':'Wartungsmodus AUS','','ok');
+}
+function toggleAllowSellers(){S.settings.allowSellers=!S.settings.allowSellers;saveState();render();toast(S.settings.allowSellers?'Verkäufe erlaubt':'Verkäufe deaktiviert','','ok');}
+
+// ===================== WALLET =====================
+function addFunds(amount){
+  if(!S.user)return;
+  const a=parseFloat(amount);
+  if(isNaN(a)||a<=0){toast('Ungültiger Betrag','','err');return;}
+  const ui=S.users.findIndex(u=>u.id===S.user.id);
+  S.users[ui].bal+=a;S.user.bal+=a;
+  saveState();
+  toast('Guthaben aufgeladen! 💰',fmt(a)+' hinzugefügt','ok');
+  addSysNotif('Guthaben aufgeladen',fmt(a)+' wurden deinem Konto gutgeschrieben.');
+  render();
+}
+
+// ===================== PROFILE =====================
+function saveAvatar(){
+  if(!S.tempAv)return;
+  const ui=S.users.findIndex(u=>u.id===S.user.id);
+  S.users[ui].av=S.tempAv;S.user.av=S.tempAv;
+  S.tempAv=null;saveState();render();
+  toast('Avatar gespeichert! ✓','','ok');
+}
+function changePassword(){
+  const oldPw=document.getElementById('pw-old')?.value;
+  const newPw=document.getElementById('pw-new')?.value;
+  if(!oldPw||!newPw){toast('Felder ausfüllen','','err');return;}
+  const ui=S.users.findIndex(u=>u.id===S.user.id);
+  if(S.users[ui].pw!==oldPw){toast('Altes Passwort falsch','','err');return;}
+  if(newPw.length<6){toast('Passwort mind. 6 Zeichen','','err');return;}
+  S.users[ui].pw=newPw;saveState();
+  toast('Passwort geändert! 🔒','','ok');
+}
+
+// ===================== PRICE ALERTS =====================
+function addAlert(cardId,price){
+  if(!S.user){toast('Login erforderlich','','err');return;}
+  const c=S.cards.find(x=>x.id===cardId);
+  S.priceAlerts=[...S.priceAlerts.filter(a=>a.cardId!==cardId),{cardId,price:parseFloat(price),cardName:c?.name||'Unbekannt',active:true}];
+  saveState();toast('Preisalarm gesetzt! 🔔',`Alarm bei ${fmt(parseFloat(price))} für ${c?.name}`,'ok');render();
+}
+function removeAlert(cardId){S.priceAlerts=S.priceAlerts.filter(a=>a.cardId!==cardId);saveState();render();}
+
+// ===================== PAGES =====================
+function pageHome(){
+  const feat=S.cards.filter(c=>c.feat).slice(0,6);
+  const hot=[...S.cards].sort((a,b)=>b.views-a.views).slice(0,8);
+  const tv=S.cards.reduce((s,c)=>s+c.price,0);
+  const rv=S.recentlyViewed.map(id=>S.cards.find(c=>c.id===id)).filter(Boolean).slice(0,8);
+  return`<div class="page-in">
+    ${S.settings.banner?`<div style="background:rgba(240,165,0,0.12);border-bottom:1px solid var(--bdrh);padding:0.5rem 1.5rem;text-align:center;font-size:0.82rem;color:var(--gold)">${S.settings.banner}</div>`:''}
+    <div class="hero">
+      <div class="hbg"></div><div class="hgrid"></div>
+      <div style="position:relative;z-index:1">
+        <div class="heyebrow">🃏 Deutschlands #1 TCG Marktplatz</div>
+        <h1 class="htitle">Kauf. Verkauf.<br><span class="g">Sammle Legenden.</span></h1>
+        <p class="hsub">Die premium Plattform für Pokémon-Kartensammler. Seltene Karten kaufen, sicher verkaufen, Wert aufbauen.</p>
+        <div class="hacts">
+          <button class="hbtnp" onclick="go('shop')">MARKTPLATZ ENTDECKEN</button>
+          <button class="hbtns" onclick="go('sell')">KARTE VERKAUFEN</button>
+        </div>
+        <div class="sbar">
+          <div class="sitem"><div class="snum">${S.cards.length}+</div><div class="slbl">Karten verfügbar</div></div>
+          <div class="sitem"><div class="snum">${S.users.length}</div><div class="slbl">Händler</div></div>
+          <div class="sitem"><div class="snum">${Math.round(tv/1000)}K€+</div><div class="slbl">Handelsvolumen</div></div>
+          <div class="sitem"><div class="snum">100%</div><div class="slbl">Käuferschutz</div></div>
+        </div>
+      </div>
+    </div>
+    ${rv.length?`<div style="background:var(--bg1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:3rem 2rem">
+      <div style="max-width:1400px;margin:0 auto">
+        <div class="sech"><h2 class="sect">🕐 Zuletzt <span>angesehen</span></h2></div>
+        <div class="hscroll">${rv.map(pCard).join('')}</div>
+      </div>
+    </div>`:''}
+    <div class="sec">
+      <div class="sech"><h2 class="sect">⭐ <span>Featured</span> Karten</h2><button class="btn btno" onclick="go('shop')">Alle ansehen →</button></div>
+      <div class="cgrid">${feat.map(pCard).join('')}</div>
+    </div>
+    <div style="background:var(--bg1);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:4rem 2rem">
+      <div style="max-width:1400px;margin:0 auto">
+        <div class="sech"><h2 class="sect">🔥 <span>Meist</span> angesehen</h2></div>
+        <div class="hscroll">${hot.map(pCard).join('')}</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="feats">
+        <div class="feat"><div class="feat-ic">🔒</div><div class="feat-t">Sicher & Geschützt</div><div class="feat-tx">Alle Transaktionen verschlüsselt. Käuferschutz bei jeder Bestellung garantiert.</div></div>
+        <div class="feat"><div class="feat-ic">✅</div><div class="feat-t">Verifizierte Händler</div><div class="feat-tx">Nur geprüfte Verkäufer. Echtheitszertifikate für PSA-Karten inklusive.</div></div>
+        <div class="feat"><div class="feat-ic">⚡</div><div class="feat-t">Schneller Versand</div><div class="feat-tx">Versand innerhalb 24h. Sendungsverfolgung für alle Bestellungen.</div></div>
+      </div>
+    </div>
+    <footer><div class="fbrand">POKÉMARKT DE</div>© 2025 PokéMarkt DE — Premium TCG Marktplatz · Alle Rechte vorbehalten · Kein offizieller Nintendo-Partner</footer>
+  </div>`;
+}
+
+function pageShop(){
+  const rarities=[...new Set(S.cards.map(c=>c.rarity))];
+  const types=[...new Set(S.cards.map(c=>c.type))];
+  const allCards=filteredCards();
+  const perPage=15;
+  const totalPages=Math.max(1,Math.ceil(allCards.length/perPage));
+  if(S.shopPage>totalPages)S.shopPage=1;
+  const cards=allCards.slice((S.shopPage-1)*perPage,S.shopPage*perPage);
+  return`<div class="page-in" style="padding-top:1.2rem">
+    <div class="shop-layout">
+      <aside class="fpanel">
+        <input class="sbox" type="text" placeholder="🔍 Karten, Sets, Händler..." value="${S.q}" oninput="S.q=this.value;S.shopPage=1;shopRefresh()">
+        <div class="ftitle">Seltenheit</div>
+        <div class="fopt ${S.fRarity==='all'?'act':''}" onclick="S.fRarity='all';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:#888"></span>Alle</div>
+        ${rarities.map(r=>{const cfg=RC[r]||{c:'#888'};return`<div class="fopt ${S.fRarity===r?'act':''}" onclick="S.fRarity='${r}';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:${cfg.c}"></span>${r}</div>`;}).join('')}
+        <div class="ftitle">Typ</div>
+        <div class="fopt ${S.fType==='all'?'act':''}" onclick="S.fType='all';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:#888"></span>Alle</div>
+        ${types.map(t=>{const cfg=TC[t]||{c:'#888'};return`<div class="fopt ${S.fType===t?'act':''}" onclick="S.fType='${t}';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:${cfg.c}"></span>${t}</div>`;}).join('')}
+        <div class="ftitle">Zustand</div>
+        ${['all','PSA','NM','LP','MP','HP'].map(c=>`<div class="fopt ${S.fCond===c?'act':''}" onclick="S.fCond='${c}';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:${c==='all'?'#888':CC[c]||'#888'}"></span>${c==='all'?'Alle':c}</div>`).join('')}
+        <div class="ftitle">Max. Preis</div>
+        <div style="padding:0 0.3rem">
+          <input type="range" class="rng" min="0" max="3000" value="${S.priceMax}" step="50" oninput="S.priceMax=+this.value;S.shopPage=1;document.getElementById('pdis').textContent=this.value+'€';shopRefresh()">
+          <div class="rngl"><span>0€</span><span id="pdis">${S.priceMax}€</span></div>
+        </div>
+        <hr class="divl">
+        <button class="btn btng" style="width:100%" onclick="S.q='';S.fRarity='all';S.fType='all';S.fCond='all';S.priceMax=3000;S.sort='featured';S.shopPage=1;go('shop')">Filter zurücksetzen</button>
+      </aside>
+      <div>
+        <div class="shop-hdr">
+          <div class="rcnt"><span class="ldot"></span>${allCards.length} Karten gefunden — Seite ${S.shopPage}/${totalPages}</div>
+          <select class="ssort" onchange="S.sort=this.value;S.shopPage=1;shopRefresh()">
+            <option value="featured" ${S.sort==='featured'?'selected':''}>Featured zuerst</option>
+            <option value="popular" ${S.sort==='popular'?'selected':''}>Beliebtheit</option>
+            <option value="price-asc" ${S.sort==='price-asc'?'selected':''}>Preis aufsteigend</option>
+            <option value="price-desc" ${S.sort==='price-desc'?'selected':''}>Preis absteigend</option>
+            <option value="newest" ${S.sort==='newest'?'selected':''}>Neueste zuerst</option>
+          </select>
+        </div>
+        ${cards.length===0?`<div class="empty"><div class="empty-ic">🔍</div><div class="empty-t">Keine Karten gefunden</div><div class="empty-tx">Versuche andere Filter oder Suchbegriffe</div></div>`:`<div class="cgrid" id="cg">${cards.map(pCard).join('')}</div>`}
+        ${totalPages>1?`<div class="pag">
+          <button class="pag-btn" onclick="S.shopPage=Math.max(1,S.shopPage-1);shopRefresh()" ${S.shopPage===1?'disabled':''}>← Zurück</button>
+          ${Array.from({length:totalPages},(_, i)=>`<button class="pag-btn ${S.shopPage===i+1?'act':''}" onclick="S.shopPage=${i+1};shopRefresh()">${i+1}</button>`).join('')}
+          <button class="pag-btn" onclick="S.shopPage=Math.min(${totalPages},S.shopPage+1);shopRefresh()" ${S.shopPage===totalPages?'disabled':''}>Weiter →</button>
+        </div>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function shopRefresh(){
+  const allCards=filteredCards();
+  const perPage=15;
+  const totalPages=Math.max(1,Math.ceil(allCards.length/perPage));
+  if(S.shopPage>totalPages)S.shopPage=1;
+  const cards=allCards.slice((S.shopPage-1)*perPage,S.shopPage*perPage);
+  const cg=document.getElementById('cg');
+  const rcnt=document.querySelector('.rcnt');
+  if(rcnt)rcnt.innerHTML=`<span class="ldot"></span>${allCards.length} Karten gefunden — Seite ${S.shopPage}/${totalPages}`;
+  if(cg)cg.innerHTML=cards.length===0?`<div class="empty" style="grid-column:1/-1"><div class="empty-ic">🔍</div><div class="empty-t">Keine Karten gefunden</div></div>`:cards.map(pCard).join('');
+}
+
+function pageCard(){
+  const c=S.cards.find(x=>x.id===S.selCard);
+  if(!c)return'<div class="sec">Karte nicht gefunden</div>';
+  const seller=S.users.find(u=>u.id===c.sellerId)||{av:'🎴',un:c.seller,ver:false,sales:0,joined:'2024'};
+  const inCart=S.cart.some(i=>i.id===c.id);
+  const inWl=S.wishlist.includes(c.id);
+  const related=S.cards.filter(x=>x.type===c.type&&x.id!==c.id).slice(0,4);
+  const alert=S.priceAlerts.find(a=>a.cardId===c.id);
+  const avgR=sellerAvgRating(c.sellerId);
+  const sellerRevs=S.reviews.filter(r=>r.sellerId===c.sellerId).slice(0,3);
+  // Generate fake price history sparkline
+  const pts=[];let p=c.price*0.7;
+  for(let i=0;i<20;i++){p+=((Math.random()-0.45)*c.price*0.08);p=Math.max(c.price*0.5,p);pts.push(p);}
+  pts.push(c.price);
+  const minP=Math.min(...pts),maxP=Math.max(...pts);
+  const svgPts=pts.map((v,i)=>`${(i/20)*280},${50-((v-minP)/(maxP-minP||1))*45}`).join(' ');
+  const hasPurchased=S.orders.some(o=>o.userId===S.user?.id&&o.items.some(i=>i.sellerId===c.sellerId));
+  const alreadyReviewed=S.reviews.some(r=>r.userId===S.user?.id&&r.sellerId===c.sellerId);
+  return`<div class="page-in">
+    <div class="cdl">
+      <div>
+        <div class="cdisplay ${c.rarity==='Rainbow Rare'?'holo':''}" ${cbg(c.rarity).replace('style=','style=')}>
+          <span class="cdisplay-em">${c.em}</span>
+          <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:rgba(255,255,255,0.45)">${c.set}</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem;margin-top:0.9rem">
+          <div style="font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.5rem">📈 Preisverlauf (30 Tage)</div>
+          <div class="sparkline">
+            <svg width="100%" height="60" viewBox="0 0 280 60" preserveAspectRatio="none">
+              <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F0A500" stop-opacity="0.3"/><stop offset="100%" stop-color="#F0A500" stop-opacity="0"/></linearGradient></defs>
+              <polygon points="${svgPts} 280,55 0,55" fill="url(#sg)"/>
+              <polyline points="${svgPts}" fill="none" stroke="#F0A500" stroke-width="2"/>
+            </svg>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:var(--tm);margin-top:0.3rem"><span>Tief: ${fmt(minP)}</span><span style="color:var(--gold);font-weight:700">Aktuell: ${fmt(c.price)}</span><span>Hoch: ${fmt(maxP)}</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;margin-top:0.9rem">
+          <div style="text-align:center;padding:0.9rem;background:var(--bg2);border-radius:8px;border:1px solid var(--bdr)"><div style="font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;color:var(--gold)">${c.views.toLocaleString()}</div><div style="font-size:0.62rem;color:var(--tm);margin-top:0.2rem;text-transform:uppercase;letter-spacing:1px">Aufrufe</div></div>
+          <div style="text-align:center;padding:0.9rem;background:var(--bg2);border-radius:8px;border:1px solid var(--bdr)"><div style="font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;color:#FF6B6B">${c.likes}</div><div style="font-size:0.62rem;color:var(--tm);margin-top:0.2rem;text-transform:uppercase;letter-spacing:1px">Likes</div></div>
+          <div style="text-align:center;padding:0.9rem;background:var(--bg2);border-radius:8px;border:1px solid var(--bdr)"><div style="font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;color:${c.stock===0?'var(--red)':'var(--green)'}">${c.stock===0?'Aus':c.stock}</div><div style="font-size:0.62rem;color:var(--tm);margin-top:0.2rem;text-transform:uppercase;letter-spacing:1px">Lager</div></div>
+        </div>
+      </div>
+      <div class="ci-panel">
+        <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.9rem">${rtag(c.rarity)}${ttag(c.type)}${ctag(c.condition)}</div>
+        <h1 class="cdn">${c.name}</h1>
+        <div class="cdset">${c.set}</div>
+        <div class="cdprice">${fmt(c.price)}</div>
+        <div class="cdpnote">inkl. MwSt. · zzgl. ${fmt(S.settings.fee/100*c.price)} Servicegebühr (${S.settings.fee}%)</div>
+        <div style="display:flex;gap:0.7rem;margin-bottom:1.8rem;flex-wrap:wrap">
+          <button class="btn ${inCart?'btng':'btnp'}" style="flex:1;padding:0.85rem" onclick="${inCart?`go('cart')`:`addCart(${c.id})`}" ${c.stock===0?'disabled style="opacity:0.5;cursor:not-allowed"':''}>${c.stock===0?'Ausverkauft':inCart?'→ Zum Warenkorb':'🛒 In den Warenkorb'}</button>
+          <button class="btn btno" style="padding:0.85rem 1rem" onclick="toggleWishlist(${c.id},null)">${inWl?'♥ Gemerkt':'♡ Merken'}</button>
+        </div>
+        ${alert?`<div class="alert-badge">🔔 Preisalarm bei ${fmt(alert.price)} aktiv <button class="abtn ab-rm" onclick="removeAlert(${c.id})">✕</button></div>`:`
+        ${S.user?`<div style="margin-bottom:1.3rem"><div style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ts);margin-bottom:0.4rem">🔔 Preisalarm setzen</div><div style="display:flex;gap:0.5rem"><input id="alert-price" class="fi" style="flex:1" type="number" placeholder="Zielpreis in €" step="0.01"><button class="btn btno" onclick="addAlert(${c.id},document.getElementById('alert-price').value)">Alarm</button></div></div>`:''}`}
+        <div class="cspecs">
+          <div><div class="spec-l">HP</div><div class="spec-v">${c.hp}</div></div>
+          <div><div class="spec-l">Angriff</div><div class="spec-v">${c.atk}</div></div>
+          <div><div class="spec-l">Typ</div><div class="spec-v">${c.type}</div></div>
+          <div><div class="spec-l">Seltenheit</div><div class="spec-v">${c.rarity}</div></div>
+          <div><div class="spec-l">Set</div><div class="spec-v">${c.set}</div></div>
+          <div><div class="spec-l">Zustand</div><div class="spec-v">${c.condition}</div></div>
+        </div>
+        <div class="sinfo" onclick="showSeller('${c.seller}')">
+          <div class="sav">${seller.av}</div>
+          <div>
+            <div class="snm">${seller.un} ${seller.ver?'<span style="font-size:0.65rem;color:var(--green)">✓</span>':''}</div>
+            <div class="smt">${seller.sales} Verkäufe${avgR?` · ⭐ ${avgR.toFixed(1)}`:''} · Mitglied seit ${seller.joined||'2024'}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.3rem;margin-left:auto;align-items:flex-end">
+            ${seller.ver?'<div class="svbadge">✓ Verifiziert</div>':''}
+            <button class="abtn ab-ok" onclick="event.stopPropagation();startConv('${seller.un}','${seller.av}')">💬 Nachricht</button>
+          </div>
+        </div>
+        ${sellerRevs.length?`<div style="margin-bottom:1.3rem"><div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.65rem">Händler-Bewertungen</div>
+          ${sellerRevs.map(r=>`<div class="review-box"><div class="review-hdr"><span class="review-user">${r.user}</span><div class="stars">${starsHtml(r.rating)}</div><span class="review-date">${r.date}</span></div>${r.text?`<div class="review-text">${r.text}</div>`:''}</div>`).join('')}
+        </div>`:''}
+        ${hasPurchased&&!alreadyReviewed?`<div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.1rem;margin-bottom:1.3rem">
+          <div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:0.7rem">⭐ Händler bewerten</div>
+          <div class="stars" style="margin-bottom:0.7rem">${starsHtml(S.reviewRating,true,'')}</div>
+          <textarea id="rev-text" class="fi" rows="2" placeholder="Deine Erfahrung (optional)..." style="resize:none;margin-bottom:0.7rem"></textarea>
+          <button class="btn btnp" style="width:100%" onclick="submitReview(${c.sellerId})">Bewertung abgeben</button>
+        </div>`:''}
+      </div>
+    </div>
+    ${related.length?`<div class="sec" style="padding-top:0">
+      <div class="sech"><h2 class="sect">Ähnliche <span>${c.type}</span> Karten</h2></div>
+      <div class="cgrid">${related.map(pCard).join('')}</div>
+    </div>`:''}
+  </div>`;
+}
+
+function pageCart(){
+  if(S.cart.length===0)return`<div class="page-in"><div class="empty"><div class="empty-ic">🛒</div><div class="empty-t">Warenkorb ist leer</div><div class="empty-tx">Entdecke Karten im Marktplatz</div><button class="btn btnp" onclick="go('shop')">Zum Marktplatz</button></div></div>`;
+  const sub=S.cart.reduce((s,i)=>s+i.price,0);
+  const fee=sub*(S.settings.fee/100);
+  let total=sub+fee;
+  let disc=0;
+  if(S.appliedPromo){disc=total*(S.appliedPromo.discount/100);total-=disc;}
+  return`<div class="page-in"><div class="cart-l">
+    <div>
+      <h1 style="font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;margin-bottom:1.3rem">Warenkorb <span style="color:var(--gold)">(${S.cart.length})</span></h1>
+      ${S.cart.map(i=>{const c=S.cards.find(x=>x.id===i.id);return c?`<div class="citem">
+        <div class="citem-em">${c.em}</div>
+        <div class="citem-info"><div class="citem-nm">${c.name}</div><div class="citem-mt">${c.set} · ${c.condition}</div></div>
+        <div class="citem-pr">${fmt(c.price)}</div>
+        <button class="btn btnd" style="padding:0.3rem 0.6rem;font-size:0.72rem;margin-left:0.9rem" onclick="rmCart(${i.id})">✕</button>
+      </div>`:''}).join('')}
+    </div>
+    <div>
+      <div class="osum">
+        <div class="osum-t">Bestellübersicht</div>
+        <div class="sline"><span>Zwischensumme</span><span>${fmt(sub)}</span></div>
+        <div class="sline"><span>Servicegebühr (${S.settings.fee}%)</span><span>${fmt(fee)}</span></div>
+        ${S.appliedPromo?`<div class="sline" style="color:var(--green)"><span>Rabatt (${S.appliedPromo.code})</span><span>-${fmt(disc)}</span></div>`:''}
+        <div class="sline tot"><span>Gesamt</span><span>${fmt(total)}</span></div>
+        ${S.user?`<div class="sline" style="font-size:0.78rem"><span style="color:var(--tm)">Dein Guthaben</span><span style="color:${S.user.bal>=total?'var(--green)':'var(--red)'}">${fmt(S.user.bal)}</span></div>`:''}
+        <hr class="divl">
+        ${S.appliedPromo?`<div class="promo-badge"><span>🎟️ ${S.appliedPromo.code} — ${S.appliedPromo.discount}% Rabatt</span><button onclick="removePromo()" style="background:none;border:none;color:var(--purple);cursor:pointer;font-size:0.75rem">Entfernen</button></div>`:
+        `<div class="promo-row"><input id="promo-in" class="promo-in" placeholder="Promo-Code eingeben..." onkeydown="if(event.key==='Enter')applyPromo(document.getElementById('promo-in').value)"><button class="btn btno" style="padding:0.45rem 0.8rem;font-size:0.78rem" onclick="applyPromo(document.getElementById('promo-in').value)">Anwenden</button></div>`}
+        <button class="btn btnp" style="width:100%;padding:0.85rem;margin-bottom:0.6rem" onclick="checkout()">💳 Jetzt bezahlen</button>
+        ${S.user&&S.user.bal<total?`<button class="btn btno" style="width:100%;padding:0.65rem" onclick="go('wallet')">💰 Guthaben aufladen</button>`:''}
+        <div style="font-size:0.72rem;color:var(--tm);text-align:center;margin-top:0.65rem">🔒 Sicher & verschlüsselt · Käuferschutz</div>
+      </div>
+    </div>
+  </div></div>`;
+}
+
+function pageLogin(){
+  return`<div class="page-in auth-pg"><div class="acard">
+    <div class="atitle">Anmelden</div>
+    <div class="asub">Willkommen zurück bei PokéMarkt DE</div>
+    ${S.loginErr?`<div class="aerr">⚠️ ${S.loginErr}</div>`:''}
+    <div class="fg"><label class="fl">E-Mail</label><input class="fi" id="lem" type="email" placeholder="deine@email.de" onkeydown="if(event.key==='Enter')loginUser(document.getElementById('lem').value,document.getElementById('lpw').value)"></div>
+    <div class="fg"><label class="fl">Passwort</label><input class="fi" id="lpw" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')loginUser(document.getElementById('lem').value,document.getElementById('lpw').value)"></div>
+    <button class="btn btnp" style="width:100%;padding:0.85rem;margin-bottom:1rem" onclick="loginUser(document.getElementById('lem').value,document.getElementById('lpw').value)">Anmelden</button>
+    <div style="text-align:center;font-size:0.82rem;color:var(--tm)">Noch kein Konto? <span style="color:var(--gold);cursor:pointer" onclick="go('register')">Registrieren</span></div>
+    <hr class="divl">
+    <div style="font-size:0.72rem;color:var(--tm);text-align:center;line-height:1.8">
+      <div style="font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.5rem">Demo-Zugänge</div>
+      <div style="cursor:pointer;padding:0.3rem;border-radius:4px;transition:background 0.13s" onmouseover="this.style.background='rgba(240,165,0,0.06)'" onmouseout="this.style.background=''" onclick="document.getElementById('lem').value='admin@pokemarkt.de';document.getElementById('lpw').value='admin123'"><span style="color:var(--gold)">👑 Admin:</span> admin@pokemarkt.de / admin123</div>
+      <div style="cursor:pointer;padding:0.3rem;border-radius:4px;transition:background 0.13s" onmouseover="this.style.background='rgba(240,165,0,0.06)'" onmouseout="this.style.background=''" onclick="document.getElementById('lem').value='vault@pokevault.de';document.getElementById('lpw').value='seller123'"><span style="color:var(--blue)">🏦 Seller:</span> vault@pokevault.de / seller123</div>
+      <div style="cursor:pointer;padding:0.3rem;border-radius:4px;transition:background 0.13s" onmouseover="this.style.background='rgba(240,165,0,0.06)'" onmouseout="this.style.background=''" onclick="document.getElementById('lem').value='water@pro.de';document.getElementById('lpw').value='user123'"><span style="color:var(--green)">💧 User:</span> water@pro.de / user123</div>
+    </div>
+  </div></div>`;
+}
+
+function pageRegister(){
+  return`<div class="page-in auth-pg"><div class="acard">
+    <div class="atitle">Registrieren</div>
+    <div class="asub">Werde Teil der PokéMarkt-Community</div>
+    ${S.regErr?`<div class="aerr">⚠️ ${S.regErr}</div>`:''}
+    <div class="fg"><label class="fl">Benutzername</label><input class="fi" id="run" placeholder="PokeTrainer123"></div>
+    <div class="fg"><label class="fl">E-Mail</label><input class="fi" id="rem" type="email" placeholder="deine@email.de"></div>
+    <div class="fg"><label class="fl">Passwort</label><input class="fi" id="rpw" type="password" placeholder="Mind. 6 Zeichen"></div>
+    <button class="btn btnp" style="width:100%;padding:0.85rem;margin-bottom:1rem" onclick="registerUser(document.getElementById('run').value,document.getElementById('rem').value,document.getElementById('rpw').value)">Konto erstellen & 100€ Startguthaben erhalten</button>
+    <div style="text-align:center;font-size:0.82rem;color:var(--tm)">Schon registriert? <span style="color:var(--gold);cursor:pointer" onclick="go('login')">Anmelden</span></div>
+  </div></div>`;
+}
+
+function pageSell(){
+  if(!S.user)return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Login erforderlich</div><button class="btn btnp" style="width:100%;padding:0.85rem" onclick="go('login')">Anmelden</button></div></div>`;
+  const rarities=Object.keys(RC);const types=Object.keys(TC);
+  const conds=['PSA 10','PSA 9','PSA 8','PSA 7','NM','LP','MP','HP'];
+  return`<div class="page-in"><div class="sell-pg">
+    <div class="sell-t">Karte <span style="color:var(--gold)">einstellen</span></div>
+    <div class="sell-s">Stelle deine Pokémon-Karten auf dem Marktplatz ein.</div>
+    <div style="display:flex;gap:1.5rem;align-items:flex-start">
+      <div class="sform" style="flex:1">
+        <div class="fg"><label class="fl">Kartenname</label><input class="fi" id="sn" placeholder="z.B. Charizard VMAX"></div>
+        <div class="fg"><label class="fl">Set / Edition</label><input class="fi" id="ss" placeholder="z.B. Champion's Path"></div>
+        <div class="fg"><label class="fl">Icon / Emoji für Karte</label>
+          <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem">
+            <span style="font-size:2rem" id="sel-em">${S.sellEm}</span>
+            <span style="font-size:0.8rem;color:var(--tm)">Gewähltes Icon</span>
+          </div>
+          <div class="em-picker">
+            ${['🔥','⚡','💧','🌿','👻','🐉','✨','🌙','💎','🏆','🦊','🔮','🕊️','💗','😱','👊','😴','🦅','🌱','⚙️','💿','🏅','🐢','🦋','🌊','🌩️','🪨','🌙','⭐','🎯'].map(em=>`<div class="em-opt ${S.sellEm===em?'sel':''}" onclick="S.sellEm='${em}';document.getElementById('sel-em').textContent='${em}';document.querySelectorAll('.em-opt').forEach(e=>e.classList.remove('sel'));this.classList.add('sel')">${em}</div>`).join('')}
+          </div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Seltenheit</label><select class="fsel" id="sr"><option value="">Wählen...</option>${rarities.map(r=>`<option>${r}</option>`).join('')}</select></div>
+          <div class="fg"><label class="fl">Typ</label><select class="fsel" id="st"><option value="">Wählen...</option>${types.map(t=>`<option>${t}</option>`).join('')}</select></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Zustand</label><select class="fsel" id="sc"><option value="">Wählen...</option>${conds.map(c=>`<option>${c}</option>`).join('')}</select></div>
+          <div class="fg"><label class="fl">Preis (€) <span style="color:var(--tm);font-size:0.7rem">max. ${fmt(S.settings.maxListPrice)}</span></label><input class="fi" id="sp" type="number" placeholder="99.99" step="0.01" min="0.01"></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">HP</label><input class="fi" id="shp" type="number" placeholder="220" min="10"></div>
+          <div class="fg"><label class="fl">Angriff</label><input class="fi" id="satk" placeholder="Max Wildfire"></div>
+        </div>
+        <button class="btn btnp" style="width:100%;padding:0.85rem;margin-top:0.5rem" onclick="doSell()">🃏 Karte einstellen</button>
+      </div>
+      <div style="flex-shrink:0;display:none" id="sell-preview-wrap">
+        <div style="font-size:0.7rem;color:var(--tm);text-align:center;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:1px">Vorschau</div>
+        <div class="pcard" style="width:190px;pointer-events:none">
+          <div class="cimg" style="background:var(--bg3)"><span id="prev-em" style="font-size:4.5rem">🎴</span></div>
+          <div class="cbody">
+            <div class="cname" id="prev-nm">Kartenname</div>
+            <div class="cset" id="prev-set">Set</div>
+            <div class="cftr"><div class="cprice" id="prev-pr">0,00 €</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>`;
+}
+
+function doSell(){
+  const n=document.getElementById('sn')?.value?.trim();
+  const s=document.getElementById('ss')?.value?.trim();
+  const r=document.getElementById('sr')?.value;
+  const t=document.getElementById('st')?.value;
+  const c=document.getElementById('sc')?.value;
+  const p=parseFloat(document.getElementById('sp')?.value);
+  const hp=parseInt(document.getElementById('shp')?.value)||100;
+  const atk=document.getElementById('satk')?.value?.trim()||'Angriff';
+  if(!n||!s||!r||!t||!c||!p){toast('Fehlende Angaben','Bitte alle Pflichtfelder ausfüllen','err');return;}
+  listCard({name:n,set:s,rarity:r,type:t,condition:c,price:p,em:S.sellEm,hp,atk});
+}
+
+function pageOrders(){
+  if(!S.user)return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Login erforderlich</div><button class="btn btnp" style="width:100%;padding:0.85rem" onclick="go('login')">Anmelden</button></div></div>`;
+  const myOrders=[...S.orders.filter(o=>o.userId===S.user.id)].reverse();
+  if(myOrders.length===0)return`<div class="page-in"><div class="empty"><div class="empty-ic">📦</div><div class="empty-t">Keine Bestellungen</div><div class="empty-tx">Kaufe deine ersten Karten im Marktplatz</div><button class="btn btnp" onclick="go('shop')">Zum Marktplatz</button></div></div>`;
+  return`<div class="page-in"><div class="opage">
+    <h1 style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;margin-bottom:1.8rem">Meine <span style="color:var(--gold)">Bestellungen</span></h1>
+    ${myOrders.map(o=>`<div class="ocrd">
+      <div class="ohdr">
+        <div><div class="oid">${o.id}</div><div class="odt">${o.date}</div></div>
+        <div style="display:flex;align-items:center;gap:0.8rem">
+          <span class="ost ${o.status==='pending'?'st-p':o.status==='shipped'?'st-s':'st-d'}">${o.status==='pending'?'⏳ Ausstehend':o.status==='shipped'?'🚚 Versendet':'✅ Zugestellt'}</span>
+          ${o.status!=='delivered'?`<button class="btn btno" style="padding:0.3rem 0.7rem;font-size:0.72rem" onclick="advOrder('${o.id}')">Status ▶</button>`:''}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        ${o.items.map(i=>`<div style="display:flex;align-items:center;gap:0.9rem;font-size:0.85rem">
+          <span style="font-size:1.5rem">${i.em}</span>
+          <span style="flex:1;color:var(--ts)">${i.name}</span>
+          <span style="font-family:'Orbitron',monospace;color:var(--gold);font-size:0.82rem">${fmt(i.price)}</span>
+        </div>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;padding-top:0.9rem;border-top:1px solid var(--bdr)">
+        <span style="font-size:0.78rem;color:var(--tm)">${o.items.length} Artikel · Gesamt inkl. Gebühren</span>
+        <span style="font-family:'Orbitron',monospace;font-weight:700;color:var(--gold)">${fmt(o.total)}</span>
+      </div>
+    </div>`).join('')}
+  </div></div>`;
+}
+
+function pageProfile(){
+  if(!S.user)return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Login erforderlich</div><button class="btn btnp" style="width:100%;padding:0.85rem" onclick="go('login')">Anmelden</button></div></div>`;
+  const myCards=S.cards.filter(c=>c.sellerId===S.user.id);
+  const myOrders=S.orders.filter(o=>o.userId===S.user.id);
+  const myAlerts=S.priceAlerts;
+  const avgR=sellerAvgRating(S.user.id);
+  return`<div class="page-in"><div class="ppage">
+    <div>
+      <div class="pcard2">
+        <div class="pav" onclick="S.tempAv=S.tempAv?null:'pick';render()" title="Avatar ändern">${S.tempAv&&S.tempAv!=='pick'?S.tempAv:S.user.av}</div>
+        ${S.tempAv?`<div class="av-grid" style="margin-bottom:0.9rem">${AVEMOJIS.map(em=>`<div class="av-opt ${S.tempAv===em?'sel':''}" onclick="S.tempAv='${em}';document.querySelector('.pav').textContent='${em}';document.querySelectorAll('.av-opt').forEach(e=>e.classList.remove('sel'));this.classList.add('sel')">${em}</div>`).join('')}</div>
+        <button class="btn btns" style="width:100%;margin-bottom:0.5rem" onclick="saveAvatar()">Avatar speichern</button>
+        <button class="btn btng" style="width:100%;margin-bottom:0.9rem" onclick="S.tempAv=null;render()">Abbrechen</button>`:''}
+        <div class="pun">${S.user.un}</div>
+        <div class="pem">${S.user.em}</div>
+        ${S.user.ver?'<div style="font-size:0.7rem;color:var(--green);background:rgba(0,200,117,0.1);padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:0.6rem">✓ Verifiziert</div>':''}
+        ${avgR?`<div style="display:flex;gap:0.3rem;justify-content:center;align-items:center;margin-bottom:0.6rem"><div class="stars">${starsHtml(Math.round(avgR))}</div><span style="font-size:0.82rem;color:var(--gold)">${avgR.toFixed(1)}</span></div>`:''}
+        <div class="pbal">${fmt(S.user.bal)}</div>
+        <div class="pbl">Guthaben</div>
+        <button class="btn btno" style="width:100%;margin-top:0.8rem" onclick="go('wallet')">💰 Guthaben aufladen</button>
+      </div>
+      <div class="psgrid">
+        <div class="ps"><div class="ps-n">${S.user.sales}</div><div class="ps-l">Verkäufe</div></div>
+        <div class="ps"><div class="ps-n">${S.user.buys}</div><div class="ps-l">Käufe</div></div>
+        <div class="ps"><div class="ps-n">${myCards.length}</div><div class="ps-l">Angebote</div></div>
+        <div class="ps"><div class="ps-n">${myOrders.length}</div><div class="ps-l">Bestellungen</div></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:1rem;margin-bottom:0.9rem">
+        <div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.65rem">Konto-Info</div>
+        <div style="font-size:0.82rem;color:var(--ts)">Mitglied seit: ${S.user.joined}</div>
+        <div style="font-size:0.82rem;color:var(--ts);margin-top:0.35rem">Rolle: <span class="rbadge ${S.user.role==='admin'?'ra':S.user.role==='seller'?'rs':'ru'}">${S.user.role}</span></div>
+        ${S.wishlist.length?`<div style="font-size:0.82rem;color:var(--ts);margin-top:0.35rem">Merkliste: ${S.wishlist.length} Karten</div>`:''}
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:1rem;margin-bottom:0.9rem">
+        <div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.65rem">🔒 Passwort ändern</div>
+        <input id="pw-old" class="fi" type="password" placeholder="Aktuelles Passwort" style="margin-bottom:0.5rem">
+        <input id="pw-new" class="fi" type="password" placeholder="Neues Passwort" style="margin-bottom:0.7rem">
+        <button class="btn btno" style="width:100%" onclick="changePassword()">Passwort ändern</button>
+      </div>
+      ${myAlerts.length?`<div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:1rem;margin-bottom:0.9rem">
+        <div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.65rem">🔔 Preisalarme</div>
+        ${myAlerts.map(a=>`<div class="alert-badge" style="margin-bottom:0.4rem">${a.cardName} — ${fmt(a.price)}<button class="abtn ab-rm" onclick="removeAlert(${a.cardId})">✕</button></div>`).join('')}
+      </div>`:''}
+      <button class="btn btng" style="width:100%" onclick="logout()">Abmelden</button>
+    </div>
+    <div>
+      <h2 style="font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;margin-bottom:1.3rem">Meine <span style="color:var(--gold)">Angebote</span></h2>
+      ${myCards.length===0?`<div class="empty" style="padding:3rem 0"><div class="empty-ic">🎴</div><div class="empty-t">Noch keine Karten</div><button class="btn btnp" onclick="go('sell')">Karte verkaufen</button></div>`:`<div class="cgrid">${myCards.map(pCard).join('')}</div>`}
+    </div>
+  </div></div>`;
+}
+
+function pageWishlist(){
+  const wlCards=S.wishlist.map(id=>S.cards.find(c=>c.id===id)).filter(Boolean);
+  return`<div class="page-in"><div style="max-width:1400px;margin:0 auto;padding:2.5rem 2rem">
+    <div class="sech"><h1 class="sect">♥ Meine <span>Merkliste</span></h1><span style="font-size:0.85rem;color:var(--ts)">${wlCards.length} Karten</span></div>
+    ${wlCards.length===0?`<div class="empty"><div class="empty-ic">♡</div><div class="empty-t">Merkliste ist leer</div><div class="empty-tx">Klicke auf ♡ auf einer Karte um sie zu merken</div><button class="btn btno" onclick="go('shop')">Marktplatz entdecken</button></div>`:`<div class="cgrid">${wlCards.map(pCard).join('')}</div>`}
+  </div></div>`;
+}
+
+function pageWallet(){
+  if(!S.user)return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Login erforderlich</div><button class="btn btnp" style="width:100%;padding:0.85rem" onclick="go('login')">Anmelden</button></div></div>`;
+  const methods=[{id:'card',em:'💳',nm:'Kreditkarte'},{id:'paypal',em:'🅿️',nm:'PayPal'},{id:'crypto',em:'₿',nm:'Krypto'}];
+  const amounts=[10,25,50,100,200,500];
+  return`<div class="page-in"><div class="wallet-page">
+    <h1 style="font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;margin-bottom:0.3rem">💰 Guthaben <span style="color:var(--gold)">aufladen</span></h1>
+    <div style="color:var(--tm);margin-bottom:1.8rem;font-size:0.88rem">Aktuelles Guthaben: <span style="color:var(--gold);font-weight:700">${fmt(S.user.bal)}</span></div>
+    <div class="sform">
+      <div class="ftitle" style="margin-top:0;padding-top:0;border-top:none">Zahlungsmethode</div>
+      <div class="wallet-methods">
+        ${methods.map(m=>`<div class="pay-method ${S.walletMethod===m.id?'sel':''}" onclick="S.walletMethod='${m.id}';render()">
+          <div class="pay-method-ic">${m.em}</div>
+          <div class="pay-method-nm">${m.nm}</div>
+        </div>`).join('')}
+      </div>
+      <div class="ftitle">Betrag wählen</div>
+      <div class="amounts">
+        ${amounts.map(a=>`<div class="amount-btn ${S.walletAmt===a?'sel':''}" onclick="S.walletAmt=${a};render()">${a} €</div>`).join('')}
+      </div>
+      <div class="fg"><label class="fl">Oder eigenen Betrag eingeben</label>
+        <input id="custom-amt" class="fi" type="number" placeholder="Eigener Betrag..." min="1" max="5000" step="0.01" oninput="S.walletAmt=+this.value">
+      </div>
+      ${S.walletMethod==='card'?`
+      <div class="fg"><label class="fl">Karteninhaber</label><input class="fi" placeholder="Max Mustermann"></div>
+      <div class="fg"><label class="fl">Kartennummer</label><input class="fi" placeholder="•••• •••• •••• ••••" maxlength="19"></div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Gültig bis</label><input class="fi" placeholder="MM/JJ"></div>
+        <div class="fg"><label class="fl">CVV</label><input class="fi" placeholder="•••" maxlength="3"></div>
+      </div>`:S.walletMethod==='paypal'?`
+      <div class="fg"><label class="fl">PayPal E-Mail</label><input class="fi" type="email" placeholder="paypal@email.de"></div>`:
+      `<div style="background:var(--bg3);border:1px solid var(--bdr);border-radius:9px;padding:1rem;text-align:center;margin-bottom:1rem">
+        <div style="font-size:2rem;margin-bottom:0.5rem">₿</div>
+        <div style="font-size:0.82rem;color:var(--tm)">Bitcoin-Adresse: <span style="font-family:monospace;color:var(--gold);font-size:0.72rem">bc1qxy2kg...x42m3a</span></div>
+      </div>`}
+      <button class="btn btnp" style="width:100%;padding:0.9rem;font-size:0.9rem" onclick="addFunds(${S.walletAmt||10})">
+        💰 ${S.walletAmt||10} € aufladen — Sofort verfügbar
+      </button>
+      <div style="font-size:0.72rem;color:var(--tm);text-align:center;margin-top:0.65rem">🔒 Demo-Modus — Keine echten Zahlungen · Sicher verschlüsselt</div>
+    </div>
+  </div></div>`;
+}
+
+function pageSeller(){
+  const nm=S.selSeller;
+  const seller=S.users.find(u=>u.un===nm)||{un:nm,av:'🎴',ver:false,sales:0,joined:'2024',bal:0,role:'seller'};
+  const cards=S.cards.filter(c=>c.seller===nm);
+  const reviews=S.reviews.filter(r=>r.sellerId===seller.id);
+  const avgR=reviews.length?reviews.reduce((s,r)=>s+r.rating,0)/reviews.length:null;
+  return`<div class="page-in"><div style="max-width:1100px;margin:0 auto;padding:2.5rem 2rem">
+    <div class="seller-hdr">
+      <div class="seller-av-big">${seller.av}</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap">
+          <h1 style="font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700">${seller.un}</h1>
+          ${seller.ver?'<span style="font-size:0.72rem;background:rgba(0,200,117,0.15);color:var(--green);padding:3px 9px;border-radius:4px;font-weight:700">✓ Verifizierter Händler</span>':''}
+          <span class="rbadge ${seller.role==='admin'?'ra':seller.role==='seller'?'rs':'ru'}">${seller.role}</span>
+        </div>
+        <div style="font-size:0.82rem;color:var(--tm);margin-top:0.3rem">Mitglied seit ${seller.joined}</div>
+        ${avgR?`<div class="avg-stars"><span class="avg-num">${avgR.toFixed(1)}</span><div class="stars">${starsHtml(Math.round(avgR))}</div><span style="font-size:0.78rem;color:var(--tm)">(${reviews.length} Bewertungen)</span></div>`:'<div style="font-size:0.82rem;color:var(--tm);margin-top:0.5rem">Noch keine Bewertungen</div>'}
+        <div class="seller-stats">
+          <div class="seller-stat"><div class="seller-stat-n">${seller.sales}</div><div class="seller-stat-l">Verkäufe</div></div>
+          <div class="seller-stat"><div class="seller-stat-n">${cards.length}</div><div class="seller-stat-l">Angebote</div></div>
+          <div class="seller-stat"><div class="seller-stat-n">${cards.filter(c=>c.feat).length}</div><div class="seller-stat-l">Featured</div></div>
+        </div>
+      </div>
+      <button class="btn btno" onclick="startConv('${seller.un}','${seller.av}')">💬 Nachricht senden</button>
+    </div>
+    <div class="sech"><h2 class="sect">🃏 Angebote von <span>${nm}</span></h2></div>
+    ${cards.length===0?`<div class="empty" style="padding:3rem 0"><div class="empty-ic">🎴</div><div class="empty-t">Keine Karten eingestellt</div></div>`:`<div class="cgrid">${cards.map(pCard).join('')}</div>`}
+    ${reviews.length?`<div style="margin-top:3rem"><h2 class="sect" style="margin-bottom:1.5rem">⭐ Bewertungen <span>(${reviews.length})</span></h2>${reviews.map(r=>`<div class="review-box"><div class="review-hdr"><span class="review-user">${r.user}</span><div class="stars">${starsHtml(r.rating)}</div><span class="review-date">${r.date}</span></div>${r.text?`<div class="review-text">${r.text}</div>`:''}</div>`).join('')}</div>`:''}
+  </div></div>`;
+}
+
+function pageMessages(){
+  if(!S.user)return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Login erforderlich</div><button class="btn btnp" style="width:100%;padding:0.85rem" onclick="go('login')">Anmelden</button></div></div>`;
+  const conv=S.selConv?S.messages.find(m=>m.id===S.selConv):null;
+  return`<div class="page-in"><div style="padding:1.5rem 2rem;max-width:880px;margin:0 auto">
+    <h1 style="font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;margin-bottom:1.3rem">💬 Nachrichten</h1>
+    <div class="msg-layout" style="padding:0">
+      <div class="conv-list">
+        <div style="padding:0.7rem 1rem;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--bdr)">Konversationen</div>
+        ${S.messages.map(m=>`<div class="conv-item ${S.selConv===m.id?'act':''}" onclick="S.selConv=${m.id};render()">
+          <div class="conv-av">${m.withAv||'🎴'}</div>
+          <div style="flex:1;min-width:0"><div class="conv-nm">${m.with}</div><div class="conv-prev">${m.msgs.slice(-1)[0]?.text||'—'}</div></div>
+        </div>`).join('')}
+        ${S.messages.length===0?'<div style="padding:1.5rem;text-align:center;color:var(--tm);font-size:0.82rem">Noch keine Nachrichten</div>':''}
+      </div>
+      <div class="chat-area">
+        ${conv?`
+          <div class="chat-hdr"><div style="font-size:1.2rem">${conv.withAv||'🎴'}</div><div><div style="font-weight:700">${conv.with}</div><div style="font-size:0.72rem;color:var(--green)"><span class="ldot"></span>Online</div></div></div>
+          <div class="chat-msgs">
+            ${conv.msgs.map(m=>`<div>
+              <div class="msg-bubble ${m.from==='me'?'msg-mine':'msg-theirs'}">${m.text}</div>
+              <div class="msg-time" style="${m.from==='me'?'text-align:right':''}">${m.time}</div>
+            </div>`).join('')}
+          </div>
+          <div class="chat-input">
+            <input id="chat-in" class="chat-in" placeholder="Nachricht eingeben..." onkeydown="if(event.key==='Enter'){sendMsg(this.value);this.value=''}">
+            <button class="btn btnp" style="padding:0.55rem 1rem" onclick="const i=document.getElementById('chat-in');sendMsg(i.value);i.value=''">Senden</button>
+          </div>`
+        :`<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:1rem;color:var(--tm)"><span style="font-size:2.5rem">💬</span><span>Konversation wählen</span></div>`}
+      </div>
+    </div>
+  </div></div>`;
+}
+
+function pageAdmin(){
+  if(!S.user||S.user.role!=='admin')return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Kein Zugriff</div><div class="asub">Diese Seite ist nur für Admins</div></div></div>`;
+  const totalRev=S.orders.reduce((s,o)=>s+o.total,0);
+  const tabs=['overview','users','cards','orders','settings'];
+  const tabLabels={overview:'📊 Übersicht',users:'👥 Nutzer',cards:'🃏 Karten',orders:'📦 Bestellungen',settings:'⚙️ Einstellungen'};
+  return`<div class="page-in"><div class="admin-l">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.7rem">
+      <div><div class="admin-t">⚡ Admin Dashboard</div><div style="font-size:0.82rem;color:var(--tm)">Eingeloggt als ${S.user.un} · ${new Date().toLocaleDateString('de-DE')}</div></div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn ${S.settings.maintenanceMode?'btnd':'btng'}" onclick="toggleMaintenance()">${S.settings.maintenanceMode?'🔧 Wartung AUS':'🔧 Wartungsmodus'}</button>
+      </div>
+    </div>
+    <div class="atabs">${tabs.map(t=>`<div class="atab ${S.adminTab===t?'act':''}" onclick="S.adminTab='${t}';render()">${tabLabels[t]}</div>`).join('')}</div>
+    ${S.adminTab==='overview'?`
+      <div class="sgrid">
+        <div class="sc"><div class="sc-l">Gesamtumsatz</div><div class="sc-n" style="color:var(--gold)">${fmt(totalRev)}</div><div class="sc-c" style="color:var(--green)">+12.4% dieser Monat</div></div>
+        <div class="sc"><div class="sc-l">Aktive Nutzer</div><div class="sc-n">${S.users.filter(u=>!u.banned).length}</div><div class="sc-c" style="color:var(--ts)">${S.users.filter(u=>u.banned).length} gesperrt</div></div>
+        <div class="sc"><div class="sc-l">Karten verfügbar</div><div class="sc-n">${S.cards.length}</div><div class="sc-c" style="color:var(--blue)">${S.cards.filter(c=>c.feat).length} featured</div></div>
+        <div class="sc"><div class="sc-l">Bestellungen</div><div class="sc-n">${S.orders.length}</div><div class="sc-c" style="color:var(--ts)">${S.orders.filter(o=>o.status==='pending').length} ausstehend</div></div>
+      </div>
+      <div class="sgrid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="sc"><div class="sc-l">Merklisten-Einträge</div><div class="sc-n" style="color:var(--purple)">${S.users.reduce((s)=>s,0)+S.wishlist.length}</div></div>
+        <div class="sc"><div class="sc-l">Bewertungen</div><div class="sc-n" style="color:#F59E0B">${S.reviews.length}</div></div>
+        <div class="sc"><div class="sc-l">Promo-Codes</div><div class="sc-n" style="color:var(--purple)">${S.promoCodes.filter(p=>p.active).length} aktiv</div></div>
+        <div class="sc"><div class="sc-l">Servicegebühr</div><div class="sc-n" style="color:var(--green)">${S.settings.fee}%</div></div>
+      </div>
+      <div class="tblw"><table class="dtbl"><thead><tr><th>Bestellungs-ID</th><th>Betrag</th><th>Status</th><th>Datum</th></tr></thead><tbody>
+        ${S.orders.slice(-5).reverse().map(o=>`<tr><td style="color:var(--gold);font-family:'Orbitron',monospace;font-size:0.7rem">${o.id}</td><td>${fmt(o.total)}</td><td><span class="ost ${o.status==='pending'?'st-p':o.status==='shipped'?'st-s':'st-d'}">${o.status==='pending'?'Ausstehend':o.status==='shipped'?'Versendet':'Zugestellt'}</span></td><td>${o.date}</td></tr>`).join('')}
+        ${S.orders.length===0?`<tr><td colspan="4" style="text-align:center;color:var(--tm);padding:2rem">Noch keine Bestellungen</td></tr>`:''}
+      </tbody></table></div>`
+    :S.adminTab==='users'?`
+      <div style="margin-bottom:1rem;font-size:0.82rem;color:var(--ts)">💡 Klick auf einen Nutzer-Avatar um das Profil zu sehen. Credits mit + für hinzufügen, - für abziehen.</div>
+      <div class="tblw"><table class="dtbl"><thead><tr><th>#</th><th>Nutzer</th><th>E-Mail</th><th>Rolle</th><th>Guthaben</th><th>Verkäufe</th><th>Status</th><th>Aktionen</th></tr></thead><tbody>
+        ${S.users.map(u=>`<tr>
+          <td style="color:var(--tm);font-size:0.72rem">${u.id}</td>
+          <td><div style="display:flex;align-items:center;gap:0.5rem"><span style="font-size:1.2rem">${u.av}</span><div><div style="color:var(--tp);font-weight:600">${u.un}${u.ver?' <span style="color:var(--green);font-size:0.65rem">✓</span>':''}</div></div></div></td>
+          <td style="font-size:0.78rem">${u.em}</td>
+          <td>
+            <select class="ssort" style="padding:2px 5px;font-size:0.72rem" onchange="setRole(${u.id},this.value)" ${u.id===1?'disabled':''}>
+              ${['user','seller','admin'].map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}
+            </select>
+          </td>
+          <td style="color:var(--gold)">${fmt(u.bal)}</td>
+          <td>${u.sales}</td>
+          <td><span style="color:${u.banned?'var(--red)':'var(--green)'};font-size:0.78rem;font-weight:600">${u.banned?'Gesperrt':'Aktiv'}</span></td>
+          <td style="display:flex;gap:0.3rem;flex-wrap:wrap">
+            ${u.id!==1?`<button class="abtn ${u.banned?'ab-ok':'ab-ban'}" onclick="toggleBan(${u.id})">${u.banned?'Freigeben':'Sperren'}</button>`:''}
+            <button class="abtn ab-ok" onclick="toggleVerify(${u.id})">${u.ver?'Entver.':'Verifizieren'}</button>
+            <span style="display:flex;gap:0.2rem;align-items:center">
+              <input id="cr-${u.id}" style="width:60px;background:var(--bg3);border:1px solid var(--bdr);border-radius:3px;padding:2px 5px;color:var(--tp);font-size:0.72rem;font-family:monospace" placeholder="±€" type="number" step="0.01">
+              <button class="abtn ab-cr" onclick="sendCredits(${u.id},document.getElementById('cr-${u.id}').value)">Credits</button>
+            </span>
+          </td>
+        </tr>`).join('')}
+      </tbody></table></div>`
+    :S.adminTab==='cards'?`
+      <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+        <button class="btn btnp" onclick="go('sell')">+ Karte einstellen</button>
+      </div>
+      <div class="tblw"><table class="dtbl"><thead><tr><th>Karte</th><th>Set</th><th>Seltenheit</th><th>Preis</th><th>Verkäufer</th><th>Lager</th><th>Aktionen</th></tr></thead><tbody>
+        ${S.cards.map(c=>`<tr>
+          <td><span style="font-size:1.2rem;margin-right:0.5rem">${c.em}</span><span style="color:var(--tp)">${c.name}</span></td>
+          <td>${c.set}</td>
+          <td>${rtag(c.rarity)}</td>
+          <td style="color:var(--gold)">${fmt(c.price)}</td>
+          <td style="cursor:pointer;color:var(--blue)" onclick="showSeller('${c.seller}')">${c.seller}</td>
+          <td style="color:${c.stock===0?'var(--red)':c.stock<3?'#F59E0B':'var(--green)'}">${c.stock}</td>
+          <td style="display:flex;gap:0.4rem">
+            <button class="abtn ab-ft" onclick="toggleFeat(${c.id})">${c.feat?'Unfeature':'Feature'}</button>
+            <button class="abtn ab-rm" onclick="removeCard(${c.id})">Löschen</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table></div>`
+    :S.adminTab==='orders'?`
+      <div class="tblw"><table class="dtbl"><thead><tr><th>Bestell-ID</th><th>Nutzer</th><th>Artikel</th><th>Gesamt</th><th>Datum</th><th>Status</th><th>Aktion</th></tr></thead><tbody>
+        ${S.orders.length===0?`<tr><td colspan="7" style="text-align:center;color:var(--tm);padding:2rem">Noch keine Bestellungen</td></tr>`:S.orders.map(o=>{const u=S.users.find(x=>x.id===o.userId)||{un:'Unbekannt'};return`<tr>
+          <td style="color:var(--gold);font-family:'Orbitron',monospace;font-size:0.7rem">${o.id}</td>
+          <td>${u.un}</td>
+          <td>${o.items.length} Karten</td>
+          <td>${fmt(o.total)}</td>
+          <td>${o.date}</td>
+          <td><span class="ost ${o.status==='pending'?'st-p':o.status==='shipped'?'st-s':'st-d'}">${o.status==='pending'?'Ausstehend':o.status==='shipped'?'Versendet':'Zugestellt'}</span></td>
+          <td>${o.status!=='delivered'?`<button class="abtn ab-ok" onclick="advOrder('${o.id}')">Weiter ▶</button>`:''}</td>
+        </tr>`;}).join('')}
+      </tbody></table></div>`
+    :`
+      <div class="settings-grid">
+        <div class="setting-box">
+          <div class="setting-label">Servicegebühr (%)</div>
+          <div class="setting-val">${S.settings.fee}%</div>
+          <input id="set-fee" class="fi" type="number" min="0" max="30" step="0.5" value="${S.settings.fee}" placeholder="z.B. 5">
+        </div>
+        <div class="setting-box">
+          <div class="setting-label">Max. Listenpreis (€)</div>
+          <div class="setting-val">${fmt(S.settings.maxListPrice)}</div>
+          <input id="set-maxprice" class="fi" type="number" min="0" step="1" value="${S.settings.maxListPrice}">
+        </div>
+        <div class="setting-box" style="grid-column:1/-1">
+          <div class="setting-label">Ankündigungsbanner</div>
+          <input id="set-banner" class="fi" placeholder="z.B. 🎉 Sommer-Sale: 20% auf alle PSA-Karten!" value="${S.settings.banner||''}">
+        </div>
+      </div>
+      <div style="display:flex;gap:0.7rem;margin-bottom:2rem;flex-wrap:wrap">
+        <button class="btn btnp" onclick="saveSettings()">Einstellungen speichern</button>
+        <div class="toggle" onclick="toggleMaintenance()"><div class="toggle-track ${S.settings.maintenanceMode?'on':''}"><div class="toggle-thumb"></div></div><span class="toggle-lbl">Wartungsmodus</span></div>
+        <div class="toggle" onclick="toggleAllowSellers()"><div class="toggle-track ${S.settings.allowSellers?'on':''}"><div class="toggle-thumb"></div></div><span class="toggle-lbl">Verkäufe erlaubt</span></div>
+      </div>
+      <h3 style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;margin-bottom:1.1rem;color:var(--gold)">🎟️ Promo-Codes</h3>
+      <div style="display:flex;gap:0.7rem;margin-bottom:1.1rem;flex-wrap:wrap">
+        <input id="pc-code" class="fi" style="flex:1;min-width:120px" placeholder="Code (z.B. SALE20)">
+        <input id="pc-disc" class="fi" style="width:80px" type="number" min="1" max="100" placeholder="% Rabatt">
+        <input id="pc-uses" class="fi" style="width:80px" type="number" min="1" placeholder="Max. Nutzungen">
+        <button class="btn btnp" onclick="addPromoCode(document.getElementById('pc-code').value,document.getElementById('pc-disc').value,document.getElementById('pc-uses').value)">Erstellen</button>
+      </div>
+      <div class="tblw"><table class="dtbl"><thead><tr><th>Code</th><th>Rabatt</th><th>Verbleibende Nutzungen</th><th>Status</th><th>Aktionen</th></tr></thead><tbody>
+        ${S.promoCodes.map(p=>`<tr>
+          <td style="font-family:monospace;font-weight:700;color:var(--purple)">${p.code}</td>
+          <td style="color:var(--gold)">${p.discount}%</td>
+          <td>${p.uses}</td>
+          <td><span style="color:${p.active?'var(--green)':'var(--red)'};font-size:0.78rem;font-weight:600">${p.active?'Aktiv':'Inaktiv'}</span></td>
+          <td style="display:flex;gap:0.3rem">
+            <button class="abtn ${p.active?'ab-ban':'ab-ok'}" onclick="togglePromo('${p.code}')">${p.active?'Deaktivieren':'Aktivieren'}</button>
+            <button class="abtn ab-rm" onclick="deletePromo('${p.code}')">Löschen</button>
+          </td>
+        </tr>`).join('')}
+      </tbody></table></div>`}
+  </div></div>`;
+}
+
+// ===================== NAV RENDER =====================
+function renderNav(){
+  const adminEl=document.getElementById('nl-admin');
+  if(adminEl)adminEl.style.display=S.user?.role==='admin'?'':'none';
+  const msgEl=document.getElementById('nl-messages');
+  if(msgEl)msgEl.style.display=S.user?'':'none';
+  const nr=document.getElementById('nright');
+  if(!nr)return;
+  const cartN=S.cart.length;
+  const unread=S.notifHistory.filter(n=>!n.read).length;
+  const notifDropHtml=S.showNotifDrop?`<div class="notif-drop">
+    <div class="notif-drop-hdr"><span class="notif-drop-t">🔔 Benachrichtigungen</span><button class="abtn ab-rm" onclick="S.notifHistory=[];saveState();closeNotifDrop()">Alle löschen</button></div>
+    <div class="notif-drop-items">
+      ${S.notifHistory.length===0?'<div style="padding:2rem;text-align:center;color:var(--tm);font-size:0.82rem">Keine Benachrichtigungen</div>':S.notifHistory.slice(0,12).map(n=>`<div class="ndrop-item ${n.read?'':'unread'}">
+        <div class="ndrop-ic">${n.type==='ok'?'✅':n.type==='err'?'❌':'🔔'}</div>
+        <div class="ndrop-body"><div class="ndrop-title">${n.title}</div><div class="ndrop-msg">${n.msg}</div><div class="ndrop-time">${n.time}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>`:'';
+  if(S.user){
+    nr.innerHTML=`
+      <div class="notif-bell" onclick="openNotifDrop()" style="position:relative">
+        <span class="notif-bell-ic">🔔</span>
+        <span id="bell-badge" class="cbadge" style="display:${unread>0?'flex':'none'}">${unread}</span>
+        ${notifDropHtml}
+      </div>
+      <button class="btn btng" style="position:relative;padding:0.45rem 0.9rem" onclick="go('cart')">🛒${cartN>0?`<span class="cbadge">${cartN}</span>`:''}
+      </button>
+      <div style="cursor:pointer;display:flex;align-items:center;gap:0.45rem;padding:0.45rem 0.85rem;border-radius:5px;background:var(--bg3);border:1px solid var(--bdr)" onclick="go('profile')">
+        <span style="font-size:1rem">${S.user.av}</span>
+        <span style="font-size:0.8rem;font-weight:600">${S.user.un}</span>
+        ${S.user.role==='admin'?'<span style="font-size:0.62rem;background:rgba(240,165,0,0.2);color:var(--gold);padding:1px 5px;border-radius:2px;font-weight:700">ADMIN</span>':''}
+      </div>`;
+  } else {
+    nr.innerHTML=`<button class="btn btno" onclick="go('login')">Anmelden</button><button class="btn btnp" onclick="go('register')">Registrieren</button>`;
+  }
+}
+
+const PAGES={home:pageHome,shop:pageShop,card:pageCard,cart:pageCart,login:pageLogin,register:pageRegister,sell:pageSell,orders:pageOrders,profile:pageProfile,admin:pageAdmin,wishlist:pageWishlist,wallet:pageWallet,seller:pageSeller,messages:pageMessages};
+
+function render(){
+  const fn=PAGES[S.page]||pageHome;
+  document.getElementById('content').innerHTML=fn();
+  document.querySelectorAll('.nl').forEach(el=>{el.classList.remove('act');if(el.id==='nl-'+S.page)el.classList.add('act');});
+  renderNav();
+  // scroll chat to bottom
+  if(S.page==='messages'){const ca=document.querySelector('.chat-msgs');if(ca)ca.scrollTop=ca.scrollHeight;}
+  // maintenance banner
+  document.getElementById('maint-bar').style.display=S.settings.maintenanceMode&&S.user?.role==='admin'?'block':'none';
+}
+
+// INIT
+renderNav();
+render();
+</script>
+</body>
+</html>
