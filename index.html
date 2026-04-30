@@ -496,6 +496,13 @@ function loadState(){
     const saved=localStorage.getItem('pokemarkt_state');
     if(saved){
       const d=JSON.parse(saved);
+      // Bilder wieder einhängen
+      try{
+        const imgs=JSON.parse(localStorage.getItem('pokemarkt_images')||'{}');
+        if(d.cards)d.cards.forEach(c=>{if(imgs['c_'+c.id])c.img=imgs['c_'+c.id];});
+        if(d.users)d.users.forEach(u=>{if(imgs['u_'+u.id])u.profileImg=imgs['u_'+u.id];});
+        if(d.user&&imgs['u_'+d.user.id])d.user.profileImg=imgs['u_'+d.user.id];
+      }catch(e){}
       return {
         page:'home',user:d.user||null,
         users:d.users||DEFAULT_USERS.map(u=>({...u})),
@@ -565,21 +572,36 @@ function initMessages(){
     {id:2,with:'RetroHolo',withAv:'💿',msgs:[{from:'them',text:'Deine Bestellung wurde heute versendet! 📦',time:'09:15'}]}
   ];
 }
-function saveState(){
+let _saveTimer=null;
+function saveState(immediate=false){
+  // Bilder separat speichern — Haupt-State bleibt dadurch winzig
   try{
-    const d={
-      user:S.user,users:S.users,cards:S.cards,
-      cart:S.cart,orders:S.orders,
-      wishlist:S.wishlist,recentlyViewed:S.recentlyViewed,
-      reviews:S.reviews,messages:S.messages,
-      notifHistory:S.notifHistory,priceAlerts:S.priceAlerts,
-      promoCodes:S.promoCodes,settings:S.settings,nid:S.nid,
-      offers:S.offers,shopView:S.shopView,likedCards:S.likedCards
-    };
-    localStorage.setItem('pokemarkt_state',JSON.stringify(d));
+    const images={};
+    S.users.forEach(u=>{if(u.profileImg)images['u_'+u.id]=u.profileImg;});
+    S.cards.forEach(c=>{if(c.img)images['c_'+c.id]=c.img;});
+    localStorage.setItem('pokemarkt_images',JSON.stringify(images));
   }catch(e){}
-  // Also sync to Firestore (debounced)
-  _scheduleFirestoreSave();
+
+  const write=()=>{
+    try{
+      const d={
+        user:S.user?{...S.user,profileImg:undefined}:null,
+        users:S.users.map(u=>({...u,profileImg:undefined})),
+        cards:S.cards.map(c=>({...c,img:undefined})),
+        cart:S.cart,orders:S.orders,
+        wishlist:S.wishlist,recentlyViewed:S.recentlyViewed,
+        reviews:S.reviews,messages:S.messages,
+        notifHistory:S.notifHistory,priceAlerts:S.priceAlerts,
+        promoCodes:S.promoCodes,settings:S.settings,nid:S.nid,
+        offers:S.offers,shopView:S.shopView,likedCards:S.likedCards
+      };
+      localStorage.setItem('pokemarkt_state',JSON.stringify(d));
+    }catch(e){}
+    _scheduleFirestoreSave();
+  };
+
+  if(immediate){clearTimeout(_saveTimer);write();}
+  else{clearTimeout(_saveTimer);_saveTimer=setTimeout(write,300);}
 }
 
 const S=loadState();
