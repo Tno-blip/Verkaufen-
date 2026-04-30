@@ -315,6 +315,67 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 .em-opt{font-size:1.3rem;padding:0.3rem;border-radius:5px;cursor:pointer;text-align:center;border:1px solid transparent;transition:all 0.13s}
 .em-opt:hover,.em-opt.sel{border-color:var(--gold);background:rgba(240,165,0,0.1)}
 
+/* ===== UPLOAD ZONE ===== */
+.upload-zone{border:2px dashed var(--bdr);border-radius:11px;padding:1.8rem 1rem;text-align:center;cursor:pointer;transition:all 0.2s;background:var(--bg3);position:relative;overflow:hidden}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--gold);background:rgba(240,165,0,0.06)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone-ic{font-size:1.8rem;margin-bottom:0.4rem}
+.upload-zone-lbl{font-size:0.82rem;color:var(--ts);font-weight:600;margin-bottom:0.2rem}
+.upload-zone-sub{font-size:0.68rem;color:var(--tm)}
+.upload-preview{position:relative;border-radius:9px;overflow:hidden;background:var(--bg2);border:1px solid var(--bdr)}
+.upload-preview img{width:100%;display:block;max-height:230px;object-fit:contain;background:var(--bg3)}
+.upload-clear{position:absolute;top:7px;right:7px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.8rem;transition:background 0.15s;z-index:3}
+.upload-clear:hover{background:rgba(255,64,64,0.7)}
+/* ===== LIGHTBOX ===== */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9900;display:flex;align-items:center;justify-content:center;animation:lbin 0.18s ease;cursor:zoom-out}
+@keyframes lbin{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
+@keyframes lbout{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(0.96)}}
+.lb-inner{position:relative;max-width:540px;width:90vw;cursor:default}
+.lb-inner img{width:100%;border-radius:14px;box-shadow:0 40px 100px rgba(0,0,0,0.8);display:block}
+.lb-em-big{font-size:11rem;text-align:center;display:block;filter:drop-shadow(0 0 50px rgba(240,165,0,0.35));line-height:1}
+.lb-close{position:absolute;top:-13px;right:-13px;width:30px;height:30px;border-radius:50%;background:var(--bg2);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;transition:all 0.15s}
+.lb-close:hover{background:var(--red);border-color:var(--red)}
+.lb-name{text-align:center;margin-top:0.9rem;font-family:'Orbitron',monospace;font-size:0.78rem;color:var(--ts);font-weight:700;letter-spacing:1px}
+/* ===== LIST VIEW ===== */
+.pcard-list{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;display:flex;align-items:center;gap:1rem;padding:0.7rem 1rem;cursor:pointer;transition:all 0.18s;position:relative}
+.pcard-list:hover{border-color:var(--bdrh);transform:translateX(3px);box-shadow:0 4px 20px rgba(240,165,0,0.08)}
+.lv-img{width:50px;height:50px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;overflow:hidden;background:var(--bg3)}
+.lv-img img{width:100%;height:100%;object-fit:cover}
+.lv-body{flex:1;min-width:0}
+.lv-name{font-family:'Orbitron',monospace;font-size:0.7rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lv-meta{font-size:0.72rem;color:var(--tm);margin-top:0.15rem}
+.lv-tags{display:flex;gap:0.3rem;margin-top:0.3rem;flex-wrap:wrap}
+.lv-price{font-family:'Orbitron',monospace;font-size:0.92rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.lv-seller{font-size:0.7rem;color:var(--tm);margin-top:0.18rem;text-align:right}
+.cgrid-list{display:flex;flex-direction:column;gap:0.45rem}
+/* ===== VIEW TOGGLE ===== */
+.view-toggle{display:flex;border:1px solid var(--bdr);border-radius:6px;overflow:hidden;flex-shrink:0}
+.vt-btn{padding:0.38rem 0.65rem;cursor:pointer;background:var(--bg3);color:var(--tm);font-size:0.95rem;transition:all 0.15s;border:none;line-height:1}
+.vt-btn.act{background:rgba(240,165,0,0.15);color:var(--gold)}
+/* ===== LIKES ===== */
+.like-btn{position:absolute;bottom:9px;right:9px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.78rem;cursor:pointer;transition:all 0.2s;z-index:2}
+.like-btn:hover{background:rgba(255,107,107,0.2);border-color:rgba(255,107,107,0.4);transform:scale(1.15)}
+.like-btn.liked{background:rgba(255,107,107,0.25);border-color:rgba(255,107,107,0.5)}
+/* ===== OFFERS ===== */
+.offer-row{background:var(--bg2);border:1px solid rgba(74,144,226,0.2);border-radius:9px;padding:0.9rem 1rem;display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;margin-bottom:0.6rem}
+.offer-em{font-size:1.6rem;flex-shrink:0}
+.offer-body{flex:1;min-width:120px}
+.offer-nm{font-size:0.82rem;font-weight:700}
+.offer-dt{font-size:0.72rem;color:var(--tm);margin-top:0.1rem}
+.offer-price{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:var(--blue);white-space:nowrap}
+.offer-list-price{font-size:0.68rem;color:var(--tm);text-decoration:line-through}
+.offer-status-p{color:var(--gold);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.offer-status-a{color:var(--green);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.offer-status-d{color:var(--red);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+/* ===== PROFILE IMG ===== */
+.pav-wrap{position:relative;display:inline-block;margin-bottom:0.9rem}
+.pav-img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr);display:block}
+.pav-emoji{font-size:3.5rem;cursor:pointer;transition:transform 0.2s;display:block;line-height:1}
+.pav-emoji:hover{transform:scale(1.08)}
+.pav-upload-lbl{position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#000;font-size:0.85rem;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid var(--bg1)}
+.pav-upload-lbl input{display:none}
+/* ===== CARD IMG IN DETAIL ===== */
+.cdisplay-img{width:100%;border-radius:11px;object-fit:contain;max-height:320px;display:block;cursor:zoom-in}
 @media(max-width:768px){.shop-layout,.cdl,.cart-l,.ppage,.frow,.settings-grid,.msg-layout{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr 1fr}.feats{grid-template-columns:1fr}.wallet-methods{grid-template-columns:1fr 1fr}}
 
 /* ===== Firebase Loading Overlay ===== */
@@ -461,6 +522,10 @@ function loadState(){
         reviewTarget:null,reviewRating:5,reviewText:'',
         promoTarget:'',
         sellEm:'🎴',
+        offers:d.offers||[],
+        shopView:d.shopView||'grid',
+        likedCards:d.likedCards||[],
+        sellImg:null,
       };
     }
   }catch(e){}
@@ -488,6 +553,10 @@ function loadState(){
     reviewTarget:null,reviewRating:5,reviewText:'',
     promoTarget:'',
     sellEm:'🎴',
+    offers:[],
+    shopView:'grid',
+    likedCards:[],
+    sellImg:null,
   };
 }
 function initMessages(){
@@ -504,7 +573,8 @@ function saveState(){
       wishlist:S.wishlist,recentlyViewed:S.recentlyViewed,
       reviews:S.reviews,messages:S.messages,
       notifHistory:S.notifHistory,priceAlerts:S.priceAlerts,
-      promoCodes:S.promoCodes,settings:S.settings,nid:S.nid
+      promoCodes:S.promoCodes,settings:S.settings,nid:S.nid,
+      offers:S.offers,shopView:S.shopView,likedCards:S.likedCards
     };
     localStorage.setItem('pokemarkt_state',JSON.stringify(d));
   }catch(e){}
@@ -717,15 +787,40 @@ function cbg(rarity){
 
 function pCard(c){
   const inWl=S.wishlist.includes(c.id);
+  const liked=S.likedCards.includes(c.id);
+  const imgHtml=c.img
+    ?`<img src="${c.img}" alt="${c.name}" style="width:100%;height:155px;object-fit:cover;display:block">`
+    :`<span style="font-size:4.5rem">${c.em}</span>`;
   return`<div class="pcard ${c.rarity==='Rainbow Rare'?'holo':''}" onclick="showCard(${c.id})">
     ${c.feat?'<div class="fbadge">⭐ Featured</div>':''}
     <div class="wl-btn ${inWl?'active':''}" data-id="${c.id}" onclick="toggleWishlist(${c.id},event)" title="Merken">${inWl?'♥':'♡'}</div>
-    <div class="cimg" ${cbg(c.rarity)}><span style="font-size:4.5rem">${c.em}</span></div>
+    <div class="like-btn ${liked?'liked':''}" data-id="${c.id}" onclick="toggleLike(${c.id},event)" title="Liken">${liked?'❤️':'🤍'}</div>
+    <div class="cimg" ${c.img?'style="padding:0;overflow:hidden"':cbg(c.rarity)}>${imgHtml}</div>
     <div class="cbody">
       <div class="cname">${c.name}</div>
       <div class="cset">${c.set}</div>
       <div class="ctags">${rtag(c.rarity)}${ttag(c.type)}</div>
       <div class="cftr"><div class="cprice">${fmt(c.price)}</div><div class="ccond">${c.stock===0?'<span style="color:var(--red)">Ausverkauft</span>':c.condition}</div></div>
+    </div>
+  </div>`;
+}
+function pCardList(c){
+  const inWl=S.wishlist.includes(c.id);
+  const liked=S.likedCards.includes(c.id);
+  return`<div class="pcard-list" onclick="showCard(${c.id})">
+    <div class="lv-img">${c.img?`<img src="${c.img}" alt="${c.name}">`:`<span>${c.em}</span>`}</div>
+    <div class="lv-body">
+      <div class="lv-name">${c.name}</div>
+      <div class="lv-meta">${c.set} · ${c.condition}</div>
+      <div class="lv-tags">${rtag(c.rarity)}${ttag(c.type)}</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0">
+      <div class="lv-price">${fmt(c.price)}</div>
+      <div class="lv-seller">${c.seller}</div>
+      <div style="display:flex;gap:0.4rem;justify-content:flex-end;margin-top:0.4rem">
+        <div class="wl-btn ${inWl?'active':''}" data-id="${c.id}" onclick="toggleWishlist(${c.id},event)" style="position:relative;top:auto;right:auto" title="Merken">${inWl?'♥':'♡'}</div>
+        <div class="like-btn ${liked?'liked':''}" data-id="${c.id}" onclick="toggleLike(${c.id},event)" style="position:relative;bottom:auto;right:auto" title="Liken">${liked?'❤️':'🤍'}</div>
+      </div>
     </div>
   </div>`;
 }
@@ -936,15 +1031,21 @@ function pageShop(){
       <div>
         <div class="shop-hdr">
           <div class="rcnt"><span class="ldot"></span>${allCards.length} Karten gefunden — Seite ${S.shopPage}/${totalPages}</div>
-          <select class="ssort" onchange="S.sort=this.value;S.shopPage=1;shopRefresh()">
-            <option value="featured" ${S.sort==='featured'?'selected':''}>Featured zuerst</option>
-            <option value="popular" ${S.sort==='popular'?'selected':''}>Beliebtheit</option>
-            <option value="price-asc" ${S.sort==='price-asc'?'selected':''}>Preis aufsteigend</option>
-            <option value="price-desc" ${S.sort==='price-desc'?'selected':''}>Preis absteigend</option>
-            <option value="newest" ${S.sort==='newest'?'selected':''}>Neueste zuerst</option>
-          </select>
+          <div style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap">
+            <select class="ssort" onchange="S.sort=this.value;S.shopPage=1;shopRefresh()">
+              <option value="featured" ${S.sort==='featured'?'selected':''}>Featured zuerst</option>
+              <option value="popular" ${S.sort==='popular'?'selected':''}>Beliebtheit</option>
+              <option value="price-asc" ${S.sort==='price-asc'?'selected':''}>Preis aufsteigend</option>
+              <option value="price-desc" ${S.sort==='price-desc'?'selected':''}>Preis absteigend</option>
+              <option value="newest" ${S.sort==='newest'?'selected':''}>Neueste zuerst</option>
+            </select>
+            <div class="view-toggle">
+              <button class="vt-btn ${S.shopView==='grid'?'act':''}" onclick="S.shopView='grid';shopRefresh()" title="Rasteransicht">⊞</button>
+              <button class="vt-btn ${S.shopView==='list'?'act':''}" onclick="S.shopView='list';shopRefresh()" title="Listenansicht">☰</button>
+            </div>
+          </div>
         </div>
-        ${cards.length===0?`<div class="empty"><div class="empty-ic">🔍</div><div class="empty-t">Keine Karten gefunden</div><div class="empty-tx">Versuche andere Filter oder Suchbegriffe</div></div>`:`<div class="cgrid" id="cg">${cards.map(pCard).join('')}</div>`}
+        ${cards.length===0?`<div class="empty"><div class="empty-ic">🔍</div><div class="empty-t">Keine Karten gefunden</div><div class="empty-tx">Versuche andere Filter oder Suchbegriffe</div></div>`:S.shopView==='list'?`<div class="cgrid-list" id="cg">${cards.map(pCardList).join('')}</div>`:`<div class="cgrid" id="cg">${cards.map(pCard).join('')}</div>`}
         ${totalPages>1?`<div class="pag">
           <button class="pag-btn" onclick="S.shopPage=Math.max(1,S.shopPage-1);shopRefresh()" ${S.shopPage===1?'disabled':''}>← Zurück</button>
           ${Array.from({length:totalPages},(_, i)=>`<button class="pag-btn ${S.shopPage===i+1?'act':''}" onclick="S.shopPage=${i+1};shopRefresh()">${i+1}</button>`).join('')}
@@ -964,7 +1065,11 @@ function shopRefresh(){
   const cg=document.getElementById('cg');
   const rcnt=document.querySelector('.rcnt');
   if(rcnt)rcnt.innerHTML=`<span class="ldot"></span>${allCards.length} Karten gefunden — Seite ${S.shopPage}/${totalPages}`;
-  if(cg)cg.innerHTML=cards.length===0?`<div class="empty" style="grid-column:1/-1"><div class="empty-ic">🔍</div><div class="empty-t">Keine Karten gefunden</div></div>`:cards.map(pCard).join('');
+  if(cg){
+    if(cards.length===0){cg.className='cgrid';cg.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-ic">🔍</div><div class="empty-t">Keine Karten gefunden</div></div>`;}
+    else if(S.shopView==='list'){cg.className='cgrid-list';cg.innerHTML=cards.map(pCardList).join('');}
+    else{cg.className='cgrid';cg.innerHTML=cards.map(pCard).join('');}
+  }
 }
 
 function pageCard(){
@@ -988,9 +1093,11 @@ function pageCard(){
   return`<div class="page-in">
     <div class="cdl">
       <div>
-        <div class="cdisplay ${c.rarity==='Rainbow Rare'?'holo':''}" ${cbg(c.rarity).replace('style=','style=')}>
-          <span class="cdisplay-em">${c.em}</span>
-          <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:rgba(255,255,255,0.45)">${c.set}</div>
+        <div class="cdisplay ${c.rarity==='Rainbow Rare'?'holo':''}" ${c.img?'style="padding:0;overflow:hidden;cursor:zoom-in"':cbg(c.rarity).replace('style=','style=')} onclick="openLightbox(${c.id})">
+          ${c.img
+            ?`<img src="${c.img}" alt="${c.name}" class="cdisplay-img">`
+            :`<span class="cdisplay-em">${c.em}</span>`}
+          <div style="font-family:'Orbitron',monospace;font-size:0.75rem;color:rgba(255,255,255,0.45);padding:0.5rem 0 0">${c.img?'':''}${c.set}</div>
         </div>
         <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem;margin-top:0.9rem">
           <div style="font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.5rem">📈 Preisverlauf (30 Tage)</div>
@@ -1015,10 +1122,29 @@ function pageCard(){
         <div class="cdset">${c.set}</div>
         <div class="cdprice">${fmt(c.price)}</div>
         <div class="cdpnote">inkl. MwSt. · zzgl. ${fmt(S.settings.fee/100*c.price)} Servicegebühr (${S.settings.fee}%)</div>
-        <div style="display:flex;gap:0.7rem;margin-bottom:1.8rem;flex-wrap:wrap">
+        <div style="display:flex;gap:0.7rem;margin-bottom:1.3rem;flex-wrap:wrap">
           <button class="btn ${inCart?'btng':'btnp'}" style="flex:1;padding:0.85rem" onclick="${inCart?`go('cart')`:`addCart(${c.id})`}" ${c.stock===0?'disabled style="opacity:0.5;cursor:not-allowed"':''}>${c.stock===0?'Ausverkauft':inCart?'→ Zum Warenkorb':'🛒 In den Warenkorb'}</button>
           <button class="btn btno" style="padding:0.85rem 1rem" onclick="toggleWishlist(${c.id},null)">${inWl?'♥ Gemerkt':'♡ Merken'}</button>
         </div>
+        ${S.user&&c.sellerId!==S.user.id&&c.stock>0?(()=>{
+          const myOffer=S.offers.find(o=>o.cardId===c.id&&o.buyerId===S.user.id&&o.status==='pending');
+          return myOffer
+            ?`<div class="offer-row" style="margin-bottom:1.3rem"><div class="offer-em">💬</div><div class="offer-body"><div class="offer-nm">Dein Angebot läuft</div><div class="offer-dt">Gesendet am ${myOffer.date}</div></div><div style="text-align:right"><div class="offer-price">${fmt(myOffer.amount)}</div><div class="offer-status-p">⏳ Ausstehend</div></div></div>`
+            :`<div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem;margin-bottom:1.3rem">
+              <div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:0.6rem">💬 Preisangebot machen</div>
+              <div style="display:flex;gap:0.5rem">
+                <input id="offer-amt" class="fi" style="flex:1" type="number" placeholder="Dein Angebot in €" step="0.01" min="1">
+                <button class="btn btno" style="border-color:var(--blue);color:var(--blue)" onclick="makeOffer(${c.id},document.getElementById('offer-amt').value)">Anbieten</button>
+              </div>
+              <div style="font-size:0.68rem;color:var(--tm);margin-top:0.4rem">Listenpreis: ${fmt(c.price)} — Mach dem Verkäufer ein faires Angebot</div>
+            </div>`;
+        })():''}
+        ${S.user&&c.sellerId===S.user.id?(()=>{
+          const incoming=S.offers.filter(o=>o.cardId===c.id&&o.status==='pending');
+          return incoming.length?`<div style="margin-bottom:1.3rem"><div style="font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem">📨 Eingehende Angebote (${incoming.length})</div>
+            ${incoming.map(o=>`<div class="offer-row"><div class="offer-em">👤</div><div class="offer-body"><div class="offer-nm">${o.buyerName}</div><div class="offer-dt">${o.date}</div></div><div style="text-align:right"><div class="offer-price">${fmt(o.amount)}</div><div class="offer-list-price">${fmt(o.listPrice)}</div></div><div style="display:flex;gap:0.4rem;margin-left:0.5rem"><button class="abtn ab-ok" onclick="respondOffer('${o.id}',true)">✓</button><button class="abtn ab-ban" onclick="respondOffer('${o.id}',false)">✕</button></div></div>`).join('')}
+          </div>`:'';
+        })():''}
         ${alert?`<div class="alert-badge">🔔 Preisalarm bei ${fmt(alert.price)} aktiv <button class="abtn ab-rm" onclick="removeAlert(${c.id})">✕</button></div>`:`
         ${S.user?`<div style="margin-bottom:1.3rem"><div style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ts);margin-bottom:0.4rem">🔔 Preisalarm setzen</div><div style="display:flex;gap:0.5rem"><input id="alert-price" class="fi" style="flex:1" type="number" placeholder="Zielpreis in €" step="0.01"><button class="btn btno" onclick="addAlert(${c.id},document.getElementById('alert-price').value)">Alarm</button></div></div>`:''}`}
         <div class="cspecs">
@@ -1135,8 +1261,20 @@ function pageSell(){
     <div class="sell-s">Stelle deine Pokémon-Karten auf dem Marktplatz ein.</div>
     <div style="display:flex;gap:1.5rem;align-items:flex-start">
       <div class="sform" style="flex:1">
-        <div class="fg"><label class="fl">Kartenname</label><input class="fi" id="sn" placeholder="z.B. Charizard VMAX"></div>
-        <div class="fg"><label class="fl">Set / Edition</label><input class="fi" id="ss" placeholder="z.B. Champion's Path"></div>
+        <div class="fg"><label class="fl">Kartenname</label><input class="fi" id="sn" placeholder="z.B. Charizard VMAX" oninput="updateSellPreview()"></div>
+        <div class="fg"><label class="fl">Set / Edition</label><input class="fi" id="ss" placeholder="z.B. Champion's Path" oninput="updateSellPreview()"></div>
+        <div class="fg"><label class="fl">📸 Kartenfoto hochladen</label>
+          <div id="sell-img-zone" class="upload-zone" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="this.classList.remove('drag');handleSellImgDrop(event)">
+            <input type="file" accept="image/*" onchange="handleSellImg(this)">
+            <div class="upload-zone-ic">📷</div>
+            <div class="upload-zone-lbl">Foto hierher ziehen oder klicken</div>
+            <div class="upload-zone-sub">JPG, PNG, WEBP · max. 2 MB</div>
+          </div>
+          <div id="sell-img-preview" class="upload-preview" style="display:${S.sellImg?'block':'none'}">
+            <img src="${S.sellImg||''}" alt="Vorschau">
+            <div class="upload-clear" onclick="clearSellImg()">✕</div>
+          </div>
+        </div>
         <div class="fg"><label class="fl">Icon / Emoji für Karte</label>
           <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem">
             <span style="font-size:2rem" id="sel-em">${S.sellEm}</span>
@@ -1185,7 +1323,8 @@ function doSell(){
   const hp=parseInt(document.getElementById('shp')?.value)||100;
   const atk=document.getElementById('satk')?.value?.trim()||'Angriff';
   if(!n||!s||!r||!t||!c||!p){toast('Fehlende Angaben','Bitte alle Pflichtfelder ausfüllen','err');return;}
-  listCard({name:n,set:s,rarity:r,type:t,condition:c,price:p,em:S.sellEm,hp,atk});
+  listCard({name:n,set:s,rarity:r,type:t,condition:c,price:p,em:S.sellEm,hp,atk,img:S.sellImg||null});
+  S.sellImg=null;
 }
 
 function pageOrders(){
@@ -1226,7 +1365,14 @@ function pageProfile(){
   return`<div class="page-in"><div class="ppage">
     <div>
       <div class="pcard2">
-        <div class="pav" onclick="S.tempAv=S.tempAv?null:'pick';render()" title="Avatar ändern">${S.tempAv&&S.tempAv!=='pick'?S.tempAv:S.user.av}</div>
+        <div class="pav-wrap">
+          ${S.user.profileImg
+            ?`<img src="${S.user.profileImg}" class="pav-img" alt="Profilbild">`
+            :`<div class="pav-emoji" onclick="S.tempAv=S.tempAv?null:'pick';render()" title="Avatar ändern">${S.tempAv&&S.tempAv!=='pick'?S.tempAv:S.user.av}</div>`}
+          <label class="pav-upload-lbl" title="Foto hochladen">
+            📷<input type="file" accept="image/*" onchange="handleProfileImg(this)">
+          </label>
+        </div>
         ${S.tempAv?`<div class="av-grid" style="margin-bottom:0.9rem">${AVEMOJIS.map(em=>`<div class="av-opt ${S.tempAv===em?'sel':''}" onclick="S.tempAv='${em}';document.querySelector('.pav').textContent='${em}';document.querySelectorAll('.av-opt').forEach(e=>e.classList.remove('sel'));this.classList.add('sel')">${em}</div>`).join('')}</div>
         <button class="btn btns" style="width:100%;margin-bottom:0.5rem" onclick="saveAvatar()">Avatar speichern</button>
         <button class="btn btng" style="width:100%;margin-bottom:0.9rem" onclick="S.tempAv=null;render()">Abbrechen</button>`:''}
@@ -1265,6 +1411,18 @@ function pageProfile(){
     <div>
       <h2 style="font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;margin-bottom:1.3rem">Meine <span style="color:var(--gold)">Angebote</span></h2>
       ${myCards.length===0?`<div class="empty" style="padding:3rem 0"><div class="empty-ic">🎴</div><div class="empty-t">Noch keine Karten</div><button class="btn btnp" onclick="go('sell')">Karte verkaufen</button></div>`:`<div class="cgrid">${myCards.map(pCard).join('')}</div>`}
+      ${(()=>{
+        const sentOffers=S.offers.filter(o=>o.buyerId===S.user.id);
+        const recvOffers=S.offers.filter(o=>o.sellerId===S.user.id);
+        const pending=recvOffers.filter(o=>o.status==='pending');
+        if(!sentOffers.length&&!recvOffers.length)return'';
+        return`<div style="margin-top:2.5rem">
+          ${pending.length?`<h2 style="font-family:'Orbitron',monospace;font-size:0.9rem;font-weight:700;margin-bottom:1rem;color:var(--gold)">📨 Eingehende Angebote (${pending.length})</h2>
+          ${pending.map(o=>`<div class="offer-row"><div class="offer-em">${o.cardEm}</div><div class="offer-body"><div class="offer-nm">${o.cardName}</div><div class="offer-dt">Von ${o.buyerName} · ${o.date}</div></div><div style="text-align:right;margin-right:0.5rem"><div class="offer-price">${fmt(o.amount)}</div><div class="offer-list-price">${fmt(o.listPrice)}</div></div><div style="display:flex;gap:0.4rem"><button class="abtn ab-ok" onclick="respondOffer('${o.id}',true)">✓ Ann.</button><button class="abtn ab-ban" onclick="respondOffer('${o.id}',false)">✕ Abl.</button></div></div>`).join('')}`:''}
+          ${sentOffers.length?`<h2 style="font-family:'Orbitron',monospace;font-size:0.9rem;font-weight:700;margin-bottom:1rem;margin-top:${pending.length?'2rem':'0'}">💬 Gesendete Angebote</h2>
+          ${sentOffers.map(o=>`<div class="offer-row"><div class="offer-em">${o.cardEm}</div><div class="offer-body"><div class="offer-nm">${o.cardName}</div><div class="offer-dt">An ${o.sellerName} · ${o.date}</div></div><div style="text-align:right"><div class="offer-price">${fmt(o.amount)}</div><div class="${o.status==='pending'?'offer-status-p':o.status==='accepted'?'offer-status-a':'offer-status-d'}">${o.status==='pending'?'⏳ Offen':o.status==='accepted'?'✅ Angenommen':'❌ Abgelehnt'}</div></div>${o.status==='accepted'?`<button class="abtn ab-ok" onclick="go('cart')" style="margin-left:0.5rem">🛒</button>`:''}</div>`).join('')}`:''}
+        </div>`;
+      })()}
     </div>
   </div></div>`;
 }
@@ -1561,6 +1719,143 @@ function render(){
   if(S.page==='messages'){const ca=document.querySelector('.chat-msgs');if(ca)ca.scrollTop=ca.scrollHeight;}
   // maintenance banner
   document.getElementById('maint-bar').style.display=S.settings.maintenanceMode&&S.user?.role==='admin'?'block':'none';
+}
+
+// ===================== IMAGE UPLOAD =====================
+function handleSellImg(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){toast('Bild zu groß','Maximal 2 MB erlaubt','err');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    S.sellImg=e.target.result;
+    const preview=document.getElementById('sell-img-preview');
+    const zone=document.getElementById('sell-img-zone');
+    if(preview){preview.style.display='block';preview.querySelector('img').src=S.sellImg;}
+    if(zone)zone.style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+function handleSellImgDrop(e){
+  e.preventDefault();
+  const file=e.dataTransfer.files[0];
+  if(!file||!file.type.startsWith('image/'))return;
+  const fakeInput={files:[file]};
+  handleSellImg(fakeInput);
+}
+function clearSellImg(){
+  S.sellImg=null;
+  const preview=document.getElementById('sell-img-preview');
+  const zone=document.getElementById('sell-img-zone');
+  if(preview)preview.style.display='none';
+  if(zone)zone.style.display='block';
+}
+function handleProfileImg(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>2*1024*1024){toast('Bild zu groß','Maximal 2 MB erlaubt','err');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const ui=S.users.findIndex(u=>u.id===S.user.id);
+    if(ui!==-1)S.users[ui].profileImg=e.target.result;
+    S.user.profileImg=e.target.result;
+    saveState();render();
+    toast('Profilbild aktualisiert! 📸','','ok');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===================== LIGHTBOX =====================
+function openLightbox(cardId){
+  const c=S.cards.find(x=>x.id===cardId);
+  if(!c)return;
+  const existing=document.getElementById('lightbox');
+  if(existing)existing.remove();
+  const lb=document.createElement('div');
+  lb.className='lightbox';lb.id='lightbox';
+  lb.onclick=ev=>{if(ev.target===lb)closeLightbox();};
+  lb.innerHTML=`<div class="lb-inner">
+    <div class="lb-close" onclick="closeLightbox()">✕</div>
+    ${c.img?`<img src="${c.img}" alt="${c.name}">`:`<span class="lb-em-big">${c.em}</span>`}
+    <div class="lb-name">${c.name} · ${c.set}</div>
+  </div>`;
+  document.body.appendChild(lb);
+}
+function closeLightbox(){
+  const lb=document.getElementById('lightbox');
+  if(lb){lb.style.animation='lbout 0.15s ease forwards';setTimeout(()=>lb.remove(),150);}
+}
+
+// ===================== LIKES =====================
+function toggleLike(cardId,e){
+  if(e)e.stopPropagation();
+  if(!S.user){toast('Login erforderlich','','err');go('login');return;}
+  const idx=S.likedCards.indexOf(cardId);
+  const c=S.cards.find(x=>x.id===cardId);
+  if(idx===-1){
+    S.likedCards.push(cardId);
+    if(c)c.likes=(c.likes||0)+1;
+    toast('Geliked! ❤️',c?c.name:'','ok');
+  }else{
+    S.likedCards.splice(idx,1);
+    if(c)c.likes=Math.max(0,(c.likes||1)-1);
+  }
+  saveState();
+  const btn=document.querySelector(`.like-btn[data-id="${cardId}"]`);
+  if(btn){const liked=S.likedCards.includes(cardId);btn.classList.toggle('liked',liked);btn.textContent=liked?'❤️':'🤍';}
+}
+
+// ===================== OFFERS =====================
+function makeOffer(cardId,amount){
+  if(!S.user){toast('Login erforderlich','','err');go('login');return;}
+  const c=S.cards.find(x=>x.id===cardId);
+  if(!c)return;
+  const a=parseFloat(amount);
+  if(isNaN(a)||a<=0){toast('Ungültiger Betrag','','err');return;}
+  if(a>=c.price){toast('Angebot zu hoch','Dann lieber direkt kaufen 😄','err');return;}
+  if(S.offers.find(o=>o.cardId===cardId&&o.buyerId===S.user.id&&o.status==='pending')){toast('Angebot läuft bereits','Du hast schon ein offenes Angebot für diese Karte','err');return;}
+  S.offers.push({
+    id:'OF-'+Date.now().toString(36).toUpperCase(),
+    cardId,cardName:c.name,cardEm:c.em,
+    buyerId:S.user.id,buyerName:S.user.un,
+    sellerId:c.sellerId,sellerName:c.seller,
+    amount:a,listPrice:c.price,
+    date:new Date().toLocaleDateString('de-DE'),
+    status:'pending'
+  });
+  saveState();
+  toast('Angebot gesendet! 💬',`${fmt(a)} für ${c.name}`,'ok');
+  addSysNotif('Angebot gesendet',`Dein Angebot von ${fmt(a)} für ${c.name} wurde übermittelt.`);
+  render();
+}
+function respondOffer(offerId,accept){
+  const o=S.offers.find(x=>x.id===offerId);
+  if(!o)return;
+  o.status=accept?'accepted':'declined';
+  if(accept){
+    S.cart=S.cart.filter(i=>i.id!==o.cardId);
+    S.cart.push({id:o.cardId,price:o.amount});
+    saveState();
+    toast('Angebot angenommen! 🤝',`${o.cardName} für ${fmt(o.amount)} im Warenkorb`,'ok');
+    addSysNotif('Angebot angenommen',`Angebot von ${o.buyerName} für ${fmt(o.amount)} akzeptiert.`);
+  }else{
+    saveState();
+    toast('Angebot abgelehnt',o.cardName,'err');
+  }
+  renderNav();render();
+}
+
+// ===================== SELL PREVIEW =====================
+function updateSellPreview(){
+  const w=document.getElementById('sell-preview-wrap');
+  const nm=document.getElementById('sn')?.value||'Kartenname';
+  const st=document.getElementById('ss')?.value||'Set';
+  const pr=parseFloat(document.getElementById('sp')?.value)||0;
+  if(w){
+    w.style.display='block';
+    const pnm=document.getElementById('prev-nm');const pst=document.getElementById('prev-set');const ppr=document.getElementById('prev-pr');
+    if(pnm)pnm.textContent=nm;if(pst)pst.textContent=st;if(ppr)ppr.textContent=fmt(pr);
+  }
 }
 
 // ===================== onAuthStateChanged =====================
