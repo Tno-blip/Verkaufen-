@@ -585,7 +585,6 @@ async function loginUser(em,pw){
   toast('Willkommen zurück! 👋','Hallo '+u.un,'ok');
   renderNav();go('home');
 }
-}
 async function registerUser(un,em,pw){
   if(S.users.find(u=>u.un===un)){S.regErr='Benutzername bereits vergeben';render();return;}
   if(pw.length<6){S.regErr='Passwort mind. 6 Zeichen';render();return;}
