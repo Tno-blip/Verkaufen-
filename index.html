@@ -3,13 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PokéMarkt DE – Der Premium Marktplatz für Pokémon Trading Cards. Kaufe, verkaufe und tausche PSA-bewertete Karten sicher und einfach.">
+<meta name="theme-color" content="#060609">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="PokéMarkt DE — Premium TCG Marktplatz">
+<meta property="og:description" content="Kaufe & verkaufe Pokémon Karten auf dem größten deutschen TCG-Marktplatz.">
+<meta property="og:type" content="website">
 <title>PokéMarkt DE — Premium TCG Marktplatz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg0:#060609;--bg1:#0d0d14;--bg2:#13131e;--bg3:#1a1a2a;--bg4:#222235;--gold:#F0A500;--goldd:#C87800;--goldl:#FFD060;--tp:#F0EDE8;--ts:#A09898;--tm:#5A5565;--bdr:rgba(240,165,0,0.15);--bdrh:rgba(240,165,0,0.4);--red:#FF4040;--green:#00C875;--blue:#4A90E2;--purple:#8B5CF6}
+:root{--bg0:#060609;--bg1:#0d0d14;--bg2:#13131e;--bg3:#1a1a2a;--bg4:#222235;--gold:#F0A500;--goldd:#C87800;--goldl:#FFD060;--tp:#F5F2ED;--ts:#D2D2D2;--tm:#B0BAC8;--bdr:rgba(240,165,0,0.15);--bdrh:rgba(240,165,0,0.4);--red:#FF4040;--green:#00C875;--blue:#4A90E2;--purple:#8B5CF6}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min-height:100vh;overflow-x:hidden}
+::selection{background:rgba(240,165,0,0.3);color:var(--tp)}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min-height:100vh;overflow-x:hidden;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg1)}::-webkit-scrollbar-thumb{background:var(--goldd);border-radius:3px}
 #nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,6,9,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);height:60px;display:flex;align-items:center;padding:0 1.5rem;gap:1.5rem}
 .nlogo{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:900;color:var(--gold);cursor:pointer;letter-spacing:2px;flex-shrink:0}
@@ -29,10 +38,10 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .hero{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden}
 .hbg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(240,165,0,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(139,92,246,0.05) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(74,144,226,0.05) 0%,transparent 50%)}
 .hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(240,165,0,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(240,165,0,0.025) 1px,transparent 1px);background-size:60px 60px}
-.heyebrow{font-size:0.72rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;font-weight:600}
+.heyebrow{font-size:0.78rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;font-weight:600}
 .htitle{font-family:'Orbitron',monospace;font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:1.5rem}
 .htitle .g{color:var(--gold)}
-.hsub{font-size:1.1rem;color:var(--ts);max-width:580px;margin:0 auto 2.5rem;font-weight:400;line-height:1.6}
+.hsub{font-size:1.15rem;color:var(--ts);max-width:580px;margin:0 auto 2.5rem;font-weight:400;line-height:1.7}
 .hacts{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem}
 .hbtnp{background:var(--gold);color:#000;padding:0.85rem 2.2rem;border-radius:7px;border:none;font-family:'Orbitron',monospace;font-weight:700;font-size:0.78rem;letter-spacing:2px;cursor:pointer;transition:all 0.2s}
 .hbtnp:hover{background:var(--goldl);transform:translateY(-2px)}
@@ -40,33 +49,36 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .hbtns:hover{border-color:var(--gold);color:var(--gold)}
 .sbar{display:flex;gap:3.5rem;justify-content:center;flex-wrap:wrap}
 .sitem{text-align:center}
-.snum{font-family:'Orbitron',monospace;font-size:1.7rem;font-weight:700;color:var(--gold)}
-.slbl{font-size:0.7rem;color:var(--tm);text-transform:uppercase;letter-spacing:2px;margin-top:0.25rem}
+.snum{font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:700;color:var(--gold)}
+.slbl{font-size:0.73rem;color:var(--tm);text-transform:uppercase;letter-spacing:2px;margin-top:0.25rem;font-weight:500}
 .sec{padding:5rem 2rem;max-width:1400px;margin:0 auto}
 .sech{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem}
 .sect{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700} .sect span{color:var(--gold)}
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.1rem}
-.pcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;cursor:pointer;transition:all 0.22s;position:relative}
+.pcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;cursor:pointer;transition:all 0.22s;position:relative;contain:layout style;will-change:transform}
 .pcard:hover{transform:translateY(-5px);border-color:var(--bdrh);box-shadow:0 14px 45px rgba(240,165,0,0.13)}
 .cimg{height:155px;display:flex;align-items:center;justify-content:center;font-size:4.5rem;position:relative;overflow:hidden}
 .cbody{padding:0.9rem}
-.cname{font-family:'Orbitron',monospace;font-size:0.68rem;font-weight:700;color:var(--tp);margin-bottom:0.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cset{font-size:0.72rem;color:var(--tm);margin-bottom:0.45rem}
+.cname{font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;color:var(--tp);margin-bottom:0.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cset{font-size:0.78rem;color:var(--tm);margin-bottom:0.45rem;font-weight:500}
 .ctags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-bottom:0.65rem}
-.tag{font-size:0.6rem;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px}
+.tag{font-size:0.65rem;font-weight:700;padding:3px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px}
 .cftr{display:flex;align-items:center;justify-content:space-between}
-.cprice{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;color:var(--gold)}
-.ccond{font-size:0.68rem;color:var(--tm);font-weight:600}
-.fbadge{position:absolute;top:9px;left:9px;background:var(--gold);color:#000;font-size:0.58rem;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:1px;text-transform:uppercase}
+.cprice{font-family:'Orbitron',monospace;font-size:0.98rem;font-weight:700;color:var(--gold)}
+.ccond{font-size:0.73rem;color:var(--tm);font-weight:600}
+.fbadge{position:absolute;top:9px;left:9px;background:var(--gold);color:#000;font-size:0.58rem;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;z-index:2}
 /* Wishlist heart button */
 .wl-btn{position:absolute;top:9px;right:9px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;transition:all 0.2s;z-index:2}
 .wl-btn:hover{background:rgba(255,64,64,0.2);border-color:rgba(255,64,64,0.4);transform:scale(1.15)}
 .wl-btn.active{background:rgba(255,64,64,0.25);border-color:rgba(255,64,64,0.5)}
+/* Delete Button für eigene Angebote */
+.del-btn {position:absolute;top:45px;right:9px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.7);border:1px solid rgba(255,64,64,0.4);display:flex;align-items:center;justify-content:center;font-size:0.85rem;cursor:pointer;transition:all 0.2s;z-index:3}
+.del-btn:hover {background:rgba(255,64,64,0.9);transform:scale(1.15)}
 .shop-layout{display:grid;grid-template-columns:250px 1fr;gap:2rem;max-width:1400px;margin:0 auto;padding:1.5rem 2rem}
 .fpanel{background:var(--bg1);border:1px solid var(--bdr);border-radius:11px;padding:1.4rem;height:fit-content;position:sticky;top:78px}
-.ftitle{font-family:'Orbitron',monospace;font-size:0.65rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--bdr)}
+.ftitle{font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:0.8rem;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid var(--bdr)}
 .ftitle:first-child{margin-top:0;padding-top:0;border-top:none}
-.fopt{display:flex;align-items:center;gap:0.45rem;padding:0.35rem 0.45rem;border-radius:5px;cursor:pointer;font-size:0.82rem;color:var(--ts);transition:all 0.13s}
+.fopt{display:flex;align-items:center;gap:0.45rem;padding:0.35rem 0.45rem;border-radius:5px;cursor:pointer;font-size:0.85rem;color:var(--ts);transition:all 0.13s;font-weight:500}
 .fopt:hover,.fopt.act{background:rgba(240,165,0,0.08);color:var(--gold)}
 .fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .sbox{width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.7rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.92rem;outline:none;transition:border-color 0.18s}
@@ -83,8 +95,8 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .cdprice{font-family:'Orbitron',monospace;font-size:2.3rem;font-weight:900;color:var(--gold);margin-bottom:0.3rem}
 .cdpnote{font-size:0.77rem;color:var(--tm);margin-bottom:1.8rem}
 .cspecs{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:1.8rem;background:var(--bg2);border-radius:9px;border:1px solid var(--bdr);padding:1rem}
-.spec-l{font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.15rem}
-.spec-v{font-size:0.88rem;font-weight:600;color:var(--tp)}
+.spec-l{font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.15rem}
+.spec-v{font-size:0.9rem;font-weight:600;color:var(--tp)}
 .sinfo{background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem;display:flex;align-items:center;gap:0.9rem;margin-bottom:1.4rem;cursor:pointer;transition:border-color 0.18s}
 .sinfo:hover{border-color:var(--bdrh)}
 .sav{width:38px;height:38px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid var(--bdr)}
@@ -107,7 +119,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .atitle{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;text-align:center;margin-bottom:0.4rem}
 .asub{text-align:center;color:var(--tm);font-size:0.82rem;margin-bottom:1.8rem}
 .fg{margin-bottom:1.1rem}
-.fl{display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ts);margin-bottom:0.4rem}
+.fl{display:block;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ts);margin-bottom:0.4rem}
 .fi{width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:0.7rem 0.9rem;color:var(--tp);font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.18s}
 .fi:focus{border-color:var(--gold)}.fi::placeholder{color:var(--tm)}
 .aerr{background:rgba(255,64,64,0.1);border:1px solid rgba(255,64,64,0.3);border-radius:7px;padding:0.7rem 0.9rem;color:var(--red);font-size:0.82rem;margin-bottom:1.1rem}
@@ -122,12 +134,12 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .sc-l{font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);margin-bottom:0.65rem}
 .sc-n{font-family:'Orbitron',monospace;font-size:1.7rem;font-weight:700}
 .sc-c{font-size:0.77rem;margin-top:0.45rem}
-.dtbl{width:100%;border-collapse:collapse;font-size:0.82rem}
-.dtbl th{background:var(--bg2);padding:0.7rem 0.9rem;text-align:left;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--bdr)}
+.dtbl{width:100%;border-collapse:collapse;font-size:0.85rem}
+.dtbl th{background:var(--bg2);padding:0.7rem 0.9rem;text-align:left;font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--bdr)}
 .dtbl td{padding:0.85rem 0.9rem;border-bottom:1px solid rgba(240,165,0,0.04);color:var(--ts)}
 .dtbl tr:hover td{background:rgba(240,165,0,0.02)}
 .tblw{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;overflow-x:auto}
-.rbadge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.rbadge{display:inline-block;padding:3px 8px;border-radius:3px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
 .ra{background:rgba(240,165,0,0.15);color:var(--gold)}
 .rs{background:rgba(74,144,226,0.15);color:var(--blue)}
 .ru{background:rgba(160,152,152,0.15);color:var(--ts)}
@@ -140,8 +152,8 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 #notifs{position:fixed;bottom:1.8rem;right:1.8rem;z-index:9999;display:flex;flex-direction:column;gap:0.65rem;pointer-events:none}
 .notif{background:var(--bg2);border:1px solid var(--bdr);border-radius:9px;padding:0.9rem 1.1rem;max-width:300px;display:flex;align-items:flex-start;gap:0.65rem;pointer-events:all;animation:slin 0.28s ease;border-left:3px solid var(--gold)}
 .notif.ok{border-left-color:var(--green)}.notif.err{border-left-color:var(--red)}
-.ni{font-size:1rem;flex-shrink:0}.nt{font-size:0.82rem;flex:1}
-.ntit{font-weight:700;margin-bottom:0.12rem}.nmsg{color:var(--tm);font-size:0.77rem}
+.ni{font-size:1rem;flex-shrink:0}.nt{font-size:0.85rem;flex:1}
+.ntit{font-weight:700;margin-bottom:0.12rem;color:var(--tp)}.nmsg{color:var(--tm);font-size:0.8rem}
 @keyframes slin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 .ppage{max-width:970px;margin:0 auto;padding:2.5rem 2rem;display:grid;grid-template-columns:270px 1fr;gap:2rem}
 .pcard2{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.8rem;text-align:center;margin-bottom:1.1rem}
@@ -151,7 +163,7 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .pbal{font-family:'Orbitron',monospace;font-size:1.4rem;color:var(--gold);font-weight:700}
 .pbl{font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-top:0.2rem}
 .psgrid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:0.9rem}
-.ps{background:var(--bg3);border-radius:7px;padding:0.65rem;text-align:center}
+.ps{background:var(--bg3);border:radius:7px;padding:0.65rem;text-align:center}
 .ps-n{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700}
 .ps-l{font-size:0.62rem;text-transform:uppercase;letter-spacing:1px;color:var(--tm);margin-top:0.18rem}
 .sell-pg{max-width:680px;margin:0 auto;padding:2.5rem 2rem}
@@ -181,12 +193,17 @@ body{font-family:'Rajdhani',sans-serif;background:var(--bg0);color:var(--tp);min
 .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
 .feat{background:var(--bg2);border:1px solid var(--bdr);border-radius:15px;padding:1.8rem;text-align:center}
 .feat-ic{font-size:2.3rem;margin-bottom:0.9rem}
-.feat-t{font-family:'Orbitron',monospace;font-size:0.82rem;font-weight:700;margin-bottom:0.65rem}
-.feat-tx{font-size:0.82rem;color:var(--tm);line-height:1.6}
-footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem;text-align:center;color:var(--tm);font-size:0.78rem;margin-top:5rem}
+.feat-t{font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;margin-bottom:0.65rem}
+.feat-tx{font-size:0.88rem;color:var(--tm);line-height:1.7}
+footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem;text-align:center;color:var(--tm);font-size:0.82rem;margin-top:5rem;line-height:1.8}
 .fbrand{font-family:'Orbitron',monospace;font-size:0.95rem;color:var(--gold);margin-bottom:0.4rem;font-weight:700}
 .page-in{animation:fin 0.22s ease}
 @keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* Auth loading screen */
+.auth-loading{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem}
+.auth-loading-spinner{width:48px;height:48px;border:3px solid var(--bdr);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite}
+.auth-loading-text{font-family:'Orbitron',monospace;font-size:0.78rem;letter-spacing:3px;color:var(--tm);text-transform:uppercase}
+@keyframes spin{to{transform:rotate(360deg)}}
 .rng{width:100%;accent-color:var(--gold);cursor:pointer}
 .rngl{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--tm);margin-top:0.45rem}
 .divl{border:none;border-top:1px solid var(--bdr);margin:1.3rem 0}
@@ -211,9 +228,9 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 .ndrop-item.unread{background:rgba(240,165,0,0.03)}
 .ndrop-ic{font-size:1.1rem;flex-shrink:0;margin-top:0.1rem}
 .ndrop-body{flex:1}
-.ndrop-title{font-size:0.82rem;font-weight:700;margin-bottom:0.12rem}
-.ndrop-msg{font-size:0.75rem;color:var(--tm)}
-.ndrop-time{font-size:0.68rem;color:var(--tm);margin-top:0.2rem}
+.ndrop-title{font-size:0.85rem;font-weight:700;margin-bottom:0.12rem;color:var(--tp)}
+.ndrop-msg{font-size:0.78rem;color:var(--tm)}
+.ndrop-time{font-size:0.72rem;color:var(--tm);margin-top:0.2rem}
 
 /* Stars rating */
 .stars{display:flex;gap:0.2rem}
@@ -256,9 +273,9 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 /* Review section */
 .review-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:11px;padding:1.3rem;margin-bottom:0.8rem}
 .review-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
-.review-user{font-weight:700;font-size:0.85rem}
-.review-date{font-size:0.72rem;color:var(--tm)}
-.review-text{font-size:0.82rem;color:var(--ts);margin-top:0.5rem;line-height:1.5}
+.review-user{font-weight:700;font-size:0.9rem;color:var(--tp)}
+.review-date{font-size:0.75rem;color:var(--tm)}
+.review-text{font-size:0.85rem;color:var(--ts);margin-top:0.5rem;line-height:1.6}
 .avg-stars{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem}
 .avg-num{font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:700;color:var(--gold)}
 
@@ -342,11 +359,11 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 .lv-img{width:50px;height:50px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;overflow:hidden;background:var(--bg3)}
 .lv-img img{width:100%;height:100%;object-fit:cover}
 .lv-body{flex:1;min-width:0}
-.lv-name{font-family:'Orbitron',monospace;font-size:0.7rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lv-meta{font-size:0.72rem;color:var(--tm);margin-top:0.15rem}
+.lv-name{font-family:'Orbitron',monospace;font-size:0.75rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lv-meta{font-size:0.78rem;color:var(--tm);margin-top:0.15rem}
 .lv-tags{display:flex;gap:0.3rem;margin-top:0.3rem;flex-wrap:wrap}
-.lv-price{font-family:'Orbitron',monospace;font-size:0.92rem;font-weight:700;color:var(--gold);white-space:nowrap}
-.lv-seller{font-size:0.7rem;color:var(--tm);margin-top:0.18rem;text-align:right}
+.lv-price{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.lv-seller{font-size:0.75rem;color:var(--tm);margin-top:0.18rem;text-align:right}
 .cgrid-list{display:flex;flex-direction:column;gap:0.45rem}
 /* ===== VIEW TOGGLE ===== */
 .view-toggle{display:flex;border:1px solid var(--bdr);border-radius:6px;overflow:hidden;flex-shrink:0}
@@ -360,13 +377,13 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 .offer-row{background:var(--bg2);border:1px solid rgba(74,144,226,0.2);border-radius:9px;padding:0.9rem 1rem;display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;margin-bottom:0.6rem}
 .offer-em{font-size:1.6rem;flex-shrink:0}
 .offer-body{flex:1;min-width:120px}
-.offer-nm{font-size:0.82rem;font-weight:700}
-.offer-dt{font-size:0.72rem;color:var(--tm);margin-top:0.1rem}
+.offer-nm{font-size:0.85rem;font-weight:700;color:var(--tp)}
+.offer-dt{font-size:0.75rem;color:var(--tm);margin-top:0.1rem}
 .offer-price{font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;color:var(--blue);white-space:nowrap}
-.offer-list-price{font-size:0.68rem;color:var(--tm);text-decoration:line-through}
-.offer-status-p{color:var(--gold);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
-.offer-status-a{color:var(--green);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
-.offer-status-d{color:var(--red);font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.offer-list-price{font-size:0.72rem;color:var(--tm);text-decoration:line-through}
+.offer-status-p{color:var(--gold);font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.offer-status-a{color:var(--green);font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.offer-status-d{color:var(--red);font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
 /* ===== PROFILE IMG ===== */
 .pav-wrap{position:relative;display:inline-block;margin-bottom:0.9rem}
 .pav-img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--bdr);display:block}
@@ -376,18 +393,55 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 .pav-upload-lbl input{display:none}
 /* ===== CARD IMG IN DETAIL ===== */
 .cdisplay-img{width:100%;border-radius:11px;object-fit:contain;max-height:320px;display:block;cursor:zoom-in}
-@media(max-width:768px){.shop-layout,.cdl,.cart-l,.ppage,.frow,.settings-grid,.msg-layout{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr 1fr}.feats{grid-template-columns:1fr}.wallet-methods{grid-template-columns:1fr 1fr}}
+/* mobile: see improved @media blocks below */
 
 /* ===== Firebase Loading Overlay ===== */
 .fb-loading{min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem}
 .fb-spinner{width:44px;height:44px;border:3px solid var(--bdr);border-top-color:var(--gold);border-radius:50%;animation:fbspin 0.8s linear infinite}
 @keyframes fbspin{to{transform:rotate(360deg)}}
 .fb-loading-txt{font-family:'Orbitron',monospace;font-size:0.75rem;color:var(--tm);letter-spacing:2px;text-transform:uppercase}
-.fb-cfg-banner{background:rgba(255,64,64,0.1);border:1px solid rgba(255,64,64,0.35);border-radius:9px;padding:1.1rem 1.4rem;max-width:560px;margin:1rem auto;font-size:0.82rem;line-height:1.7;color:var(--red)}
+.fb-cfg-banner{background:rgba(255,64,64,0.1);border:1px solid rgba(255,64,64,0.35);border-radius:9px;padding:1.1rem 1.4rem;max-width:560px;margin:1rem auto;font-size:0.85rem;line-height:1.7;color:var(--red)}
 .fb-cfg-banner code{background:rgba(255,255,255,0.07);border-radius:4px;padding:1px 5px;font-size:0.78rem;color:var(--goldl)}
+
+/* ===== SCROLL TO TOP ===== */
+#scroll-top{position:fixed;bottom:1.8rem;left:1.8rem;width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1px solid var(--bdrh);color:var(--gold);font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:8888;opacity:0;transform:translateY(12px);transition:all 0.25s;pointer-events:none}
+#scroll-top.vis{opacity:1;transform:translateY(0);pointer-events:all}
+#scroll-top:hover{background:var(--gold);color:#000;box-shadow:0 4px 20px rgba(240,165,0,0.35)}
+
+/* ===== FOCUS ACCESSIBILITY ===== */
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+
+/* ===== IMPROVED MOBILE ===== */
+@media(max-width:900px){
+  .shop-layout{grid-template-columns:1fr}
+  .fpanel{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:0.5rem 1.5rem}
+  .fpanel .ftitle{margin-top:0;padding-top:0;border-top:none;grid-column:1/-1}
+}
+@media(max-width:768px){
+  .cdl,.cart-l,.ppage,.frow,.settings-grid,.msg-layout{grid-template-columns:1fr}
+  .sgrid{grid-template-columns:1fr 1fr}
+  .feats{grid-template-columns:1fr}
+  .wallet-methods{grid-template-columns:1fr 1fr}
+  .sbar{gap:2rem}
+  .snum{font-size:1.4rem}
+  .htitle{font-size:clamp(1.8rem,7vw,4.5rem)}
+  .cgrid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .msg-layout{grid-template-columns:1fr}
+  .cart-l{grid-template-columns:1fr}
+  .seller-hdr{flex-direction:column;text-align:center}
+  .nlinks{gap:0}
+  .nl{padding:0.4rem 0.6rem;font-size:0.75rem}
+  #notifs{right:1rem;bottom:1rem}
+  .notif{max-width:calc(100vw - 2rem)}
+}
+@media(max-width:480px){
+  .nlinks .nl:not(#nl-home):not(#nl-shop){display:none}
+  .cgrid{grid-template-columns:repeat(2,1fr)}
+  .hacts{flex-direction:column;align-items:center}
+  .sgrid{grid-template-columns:1fr}
+}
 </style>
 </head>
-<!-- Firebase SDK (Compat v10) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -411,6 +465,7 @@ footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:2.5rem 2rem
 <div id="content"></div>
 <div id="notifs"></div>
 <div id="notif-overlay" onclick="closeNotifDrop()" style="display:none;position:fixed;inset:0;z-index:998"></div>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Nach oben">▲</button>
 
 <script>
 // ===================== FIREBASE INIT =====================
@@ -432,6 +487,9 @@ try {
 } catch(e) {
   console.warn("Firebase nicht verfügbar, Fallback auf localStorage.", e);
 }
+
+// true solange Firebase noch den Auth-State ermittelt → Ladespinner zeigen
+let _authLoading = _fbConfigured;
 
 let _fsTimer = null;
 function _scheduleFirestoreSave() {
@@ -511,7 +569,7 @@ function loadState(){
         wishlist:d.wishlist||[],
         recentlyViewed:d.recentlyViewed||[],
         reviews:d.reviews||[],
-        messages:d.messages||initMessages(),
+        messages:d.messages||[],
         notifHistory:d.notifHistory||[],
         priceAlerts:d.priceAlerts||[],
         promoCodes:d.promoCodes||[{code:'WELCOME10',discount:10,uses:99,active:true},{code:'POKEFREAK',discount:20,uses:5,active:true},{code:'HOLO50',discount:50,uses:1,active:true}],
@@ -533,6 +591,7 @@ function loadState(){
         shopView:d.shopView||'grid',
         likedCards:d.likedCards||[],
         sellImg:null,
+        lastSeenConvs:d.lastSeenConvs||{},
       };
     }
   }catch(e){}
@@ -543,7 +602,7 @@ function loadState(){
     cart:[],orders:[],
     wishlist:[],recentlyViewed:[],
     reviews:[],
-    messages:initMessages(),
+    messages:[],
     notifHistory:[],priceAlerts:[],
     promoCodes:[{code:'WELCOME10',discount:10,uses:99,active:true},{code:'POKEFREAK',discount:20,uses:5,active:true},{code:'HOLO50',discount:50,uses:1,active:true}],
     settings:{fee:5,banner:'',maintenanceMode:false,allowSellers:true,maxListPrice:9999},
@@ -564,13 +623,8 @@ function loadState(){
     shopView:'grid',
     likedCards:[],
     sellImg:null,
+    lastSeenConvs:{},
   };
-}
-function initMessages(){
-  return [
-    {id:1,with:'PokeVault_DE',withAv:'🏦',msgs:[{from:'them',text:'Hey! Ich sehe du interessierst dich für meinen Charizard VMAX.',time:'14:32'},{from:'me',text:'Ja, ist der Preis noch verhandelbar?',time:'14:35'},{from:'them',text:'Für 370€ könnte ich einen Deal machen 🤝',time:'14:37'}]},
-    {id:2,with:'RetroHolo',withAv:'💿',msgs:[{from:'them',text:'Deine Bestellung wurde heute versendet! 📦',time:'09:15'}]}
-  ];
 }
 let _saveTimer=null;
 function saveState(immediate=false){
@@ -593,7 +647,8 @@ function saveState(immediate=false){
         reviews:S.reviews,messages:S.messages,
         notifHistory:S.notifHistory,priceAlerts:S.priceAlerts,
         promoCodes:S.promoCodes,settings:S.settings,nid:S.nid,
-        offers:S.offers,shopView:S.shopView,likedCards:S.likedCards
+        offers:S.offers,shopView:S.shopView,likedCards:S.likedCards,
+        lastSeenConvs:S.lastSeenConvs||{}
       };
       localStorage.setItem('pokemarkt_state',JSON.stringify(d));
     }catch(e){}
@@ -704,6 +759,8 @@ async function registerUser(un,em,pw){
   renderNav();go('home');
 }
 async function logout(){
+  unsubscribeAll();
+  S.lastSeenConvs={};
   if(_fbConfigured){try{await auth.signOut();}catch(e){}}
   S.user=null;S.cart=[];saveState();renderNav();go('home');toast('Abgemeldet','Bis bald! 👋');
 }
@@ -780,6 +837,21 @@ function listCard(d){
   go('shop');
 }
 
+function deleteMyCard(id) {
+  if (!S.user) return;
+  const cardIndex = S.cards.findIndex(x => x.id === id);
+  if (cardIndex !== -1 && (S.cards[cardIndex].sellerId === S.user.id || S.user.role === 'admin')) {
+    if (confirm('Möchtest du dieses Angebot wirklich löschen?')) {
+      S.cards.splice(cardIndex, 1);
+      saveState();
+      toast('Angebot gelöscht', 'Die Karte wurde entfernt.', 'ok');
+      if (S.page === 'shop') shopRefresh(); else if (S.page === 'profile') render(); else render();
+    }
+  } else {
+    toast('Fehler', 'Du kannst nur deine eigenen Angebote löschen.', 'err');
+  }
+}
+
 function filteredCards(){
   let c=[...S.cards];
   if(S.q){const q=S.q.toLowerCase();c=c.filter(x=>x.name.toLowerCase().includes(q)||x.set.toLowerCase().includes(q)||x.seller.toLowerCase().includes(q));}
@@ -810,11 +882,14 @@ function cbg(rarity){
 function pCard(c){
   const inWl=S.wishlist.includes(c.id);
   const liked=S.likedCards.includes(c.id);
+  const isMine = S.user && (S.user.id === c.sellerId || S.user.role === 'admin');
+  const delBtn = isMine ? `<div class="del-btn" onclick="deleteMyCard(${c.id}); event.stopPropagation();" title="Angebot löschen">🗑️</div>` : '';
   const imgHtml=c.img
     ?`<img src="${c.img}" alt="${c.name}" style="width:100%;height:155px;object-fit:cover;display:block">`
     :`<span style="font-size:4.5rem">${c.em}</span>`;
   return`<div class="pcard ${c.rarity==='Rainbow Rare'?'holo':''}" onclick="showCard(${c.id})">
     ${c.feat?'<div class="fbadge">⭐ Featured</div>':''}
+    ${delBtn}
     <div class="wl-btn ${inWl?'active':''}" data-id="${c.id}" onclick="toggleWishlist(${c.id},event)" title="Merken">${inWl?'♥':'♡'}</div>
     <div class="like-btn ${liked?'liked':''}" data-id="${c.id}" onclick="toggleLike(${c.id},event)" title="Liken">${liked?'❤️':'🤍'}</div>
     <div class="cimg" ${c.img?'style="padding:0;overflow:hidden"':cbg(c.rarity)}>${imgHtml}</div>
@@ -829,6 +904,7 @@ function pCard(c){
 function pCardList(c){
   const inWl=S.wishlist.includes(c.id);
   const liked=S.likedCards.includes(c.id);
+  const isMine = S.user && (S.user.id === c.sellerId || S.user.role === 'admin');
   return`<div class="pcard-list" onclick="showCard(${c.id})">
     <div class="lv-img">${c.img?`<img src="${c.img}" alt="${c.name}">`:`<span>${c.em}</span>`}</div>
     <div class="lv-body">
@@ -840,6 +916,7 @@ function pCardList(c){
       <div class="lv-price">${fmt(c.price)}</div>
       <div class="lv-seller">${c.seller}</div>
       <div style="display:flex;gap:0.4rem;justify-content:flex-end;margin-top:0.4rem">
+        ${isMine ? `<div class="wl-btn" style="position:relative;top:auto;right:auto;background:rgba(255,64,64,0.2);border-color:rgba(255,64,64,0.4)" onclick="deleteMyCard(${c.id}); event.stopPropagation();" title="Löschen">🗑️</div>` : ''}
         <div class="wl-btn ${inWl?'active':''}" data-id="${c.id}" onclick="toggleWishlist(${c.id},event)" style="position:relative;top:auto;right:auto" title="Merken">${inWl?'♥':'♡'}</div>
         <div class="like-btn ${liked?'liked':''}" data-id="${c.id}" onclick="toggleLike(${c.id},event)" style="position:relative;bottom:auto;right:auto" title="Liken">${liked?'❤️':'🤍'}</div>
       </div>
@@ -868,21 +945,332 @@ function submitReview(sellerId){
   render();
 }
 
-// ===================== MESSAGES =====================
-function openConv(id){S.selConv=id;go('messages');}
-function sendMsg(text){
+// ===================== MESSAGES — FIRESTORE REALTIME =====================
+let _convUnsub = null;  // unsubscribe fn: conversation list
+let _msgUnsub  = null;  // unsubscribe fn: active conv messages
+let _fsConvs   = [];    // live convs from Firestore
+let _fsMsgs    = [];    // live messages from active conv
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function _convDocId(a,b){return[a,b].sort().join('__');}
+function _fmtTs(ts){
+  if(!ts)return'';
+  try{const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});}catch{return'';}
+}
+
+// ── Subscribe to all conversations where current user is participant ──
+function subscribeConvs(uid){
+  if(_convUnsub){_convUnsub();_convUnsub=null;}
+  if(!_fbConfigured||!db)return;
+  try{
+    _convUnsub=db.collection('conversations')
+      .where('participants','array-contains',uid)
+      .orderBy('updatedAt','desc')
+      .onSnapshot(snap=>{
+        _fsConvs=snap.docs.map(d=>({id:d.id,...d.data()}));
+        renderNav(); // Badge im Nav aktualisieren
+        if(S.page==='messages') _rerenderConvList();
+      },e=>console.warn('convs listener:',e));
+  }catch(e){console.warn('subscribeConvs:',e);}
+}
+
+// ── Zählt ungelesene Konversationen (Firestore + localStorage) ──
+function countUnreadConvs(){
+  const myUid=S.user?.id;
+  const myUn=S.user?.un;
+  if(!myUid)return 0;
+  const useFS=_fbConfigured&&typeof myUid==='string';
+  if(useFS){
+    return _fsConvs.filter(c=>{
+      if(c.lastMsgFrom===myUid)return false; // eigene letzte Nachricht
+      const updAt=c.updatedAt?.toMillis?c.updatedAt.toMillis():(c.updatedAt||0);
+      const seen=S.lastSeenConvs?.[c.id]||0;
+      return updAt>seen;
+    }).length;
+  }
+  return S.messages
+    .filter(m=>m.ownerId===myUid||m.with===myUn||!m.ownerId)
+    .reduce((s,m)=>s+m.msgs.filter(x=>x.from!=='me'&&!x.read).length,0);
+}
+
+// ── Subscribe to messages in the active conversation ──
+function subscribeConvMsgs(convId){
+  if(_msgUnsub){_msgUnsub();_msgUnsub=null;}
+  _fsMsgs=[];
+  if(!_fbConfigured||!db||!convId)return;
+  let _prevMsgCount=0;
+  try{
+    _msgUnsub=db.collection('conversations').doc(convId)
+      .collection('messages')
+      .orderBy('createdAt','asc')
+      .onSnapshot(snap=>{
+        const newMsgs=snap.docs.map(d=>({id:d.id,...d.data()}));
+        // Toast bei neuer eingehender Nachricht (nicht wenn man gerade im Chat ist)
+        if(_prevMsgCount>0&&newMsgs.length>_prevMsgCount){
+          const latest=newMsgs[newMsgs.length-1];
+          if(latest.from!==S.user?.id){
+            const senderName=latest.fromName||'Jemand';
+            if(S.page!=='messages'||S.selConv!==convId){
+              toast('💬 Neue Nachricht',senderName+': '+latest.text.slice(0,60));
+            }
+          }
+        }
+        _prevMsgCount=newMsgs.length;
+        _fsMsgs=newMsgs;
+        if(S.page==='messages'&&S.selConv===convId){
+          // User schaut gerade auf diesen Chat → als gesehen markieren
+          S.lastSeenConvs[convId]=Date.now();
+          saveState();
+          _rerenderChatArea();
+        }
+        renderNav(); // Badge aktualisieren
+      },e=>console.warn('msgs listener:',e));
+  }catch(e){console.warn('subscribeConvMsgs:',e);}
+}
+
+function unsubscribeAll(){
+  if(_convUnsub){_convUnsub();_convUnsub=null;}
+  if(_msgUnsub){_msgUnsub();_msgUnsub=null;}
+  _fsConvs=[];_fsMsgs=[];
+}
+
+// Baut die HTML-Elemente der Konversationsliste
+function _buildConvListItems(convs,useFS){
+  if(convs.length===0)return`<div style="padding:2rem;text-align:center;color:var(--tm);font-size:0.85rem"><div style="font-size:2rem;margin-bottom:0.7rem">💬</div>Noch keine Nachrichten.<br><span onclick="openNewConvModal()" style="color:var(--gold);cursor:pointer;font-weight:600">Konversation starten →</span></div>`;
+  return convs.map(conv=>{
+    const isActive=S.selConv===conv.id;
+    if(useFS){
+      const myUid=S.user?.id;
+      const otherUid=conv.participants?.find(p=>p!==myUid)||'';
+      const otherName=conv.names?.[otherUid]||'Unbekannt';
+      const otherAv=conv.avs?.[otherUid]||'🎴';
+      // Unread: letzte Nachricht nicht von mir, und updatedAt > lastSeen
+      const updAt=conv.updatedAt?.toMillis?conv.updatedAt.toMillis():(conv.updatedAt||0);
+      const seen=S.lastSeenConvs?.[conv.id]||0;
+      const unread=conv.lastMsgFrom!==myUid&&updAt>seen;
+      return`<div class="conv-item${isActive?' act':''}" data-id="${conv.id}" onclick="selectConv('${conv.id}')" style="${isActive?'border-left:3px solid var(--gold)':'border-left:3px solid transparent'}">
+        <div class="conv-av" style="position:relative">${otherAv}${unread?`<span style="position:absolute;top:0;right:0;width:9px;height:9px;background:var(--red);border-radius:50%;border:2px solid var(--bg1)"></span>`:''}
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="conv-nm" style="${unread?'color:var(--tp);font-weight:800':''}">${escHtml(otherName)}</div>
+            ${unread?`<span style="background:var(--red);color:#fff;font-size:0.6rem;font-weight:800;min-width:8px;height:8px;border-radius:50%;display:inline-block"></span>`:''}
+          </div>
+          <div class="conv-prev" style="${unread?'color:var(--ts)':''}">${escHtml(conv.lastMsg||'—')}</div>
+        </div>
+      </div>`;
+    }else{
+      const lastMsg=conv.msgs?.[conv.msgs.length-1];
+      const unread=conv.msgs?.filter(x=>x.from!=='me'&&!x.read).length||0;
+      return`<div class="conv-item${isActive?' act':''}" data-id="${conv.id}" onclick="S.selConv=${conv.id};renderMessages()" style="${isActive?'border-left:3px solid var(--gold)':'border-left:3px solid transparent'}">
+        <div class="conv-av">${conv.withAv||'🎴'}</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="conv-nm">${escHtml(conv.with||'')}</div>
+            ${unread>0?`<span style="background:var(--red);color:#fff;font-size:0.62rem;font-weight:800;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px">${unread}</span>`:''}
+          </div>
+          <div class="conv-prev">${escHtml(lastMsg?.text||'—')}</div>
+        </div>
+      </div>`;
+    }
+  }).join('');
+}
+
+// Re-rendert nur die Konversationsliste (ohne vollen page reload)
+function _rerenderConvList(){
+  const listEl=document.querySelector('.conv-list-inner');
+  if(!listEl)return;
+  const useFS=_fbConfigured&&typeof S.user?.id==='string';
+  const convs=useFS?_fsConvs:S.messages.filter(m=>m.ownerId===S.user?.id||m.with===S.user?.un||!m.ownerId).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+  listEl.innerHTML=_buildConvListItems(convs,useFS);
+}
+
+// Re-rendert nur den Chat-Nachrichten-Bereich
+function _rerenderChatArea(){
+  const area=document.getElementById('chat-msgs-area');
+  if(!area)return;
+  const useFS=_fbConfigured&&typeof S.user?.id==='string';
+  if(useFS){
+    area.innerHTML=_buildFsChatMessages();
+  }else{
+    const conv=S.messages.find(m=>m.id===S.selConv);
+    area.innerHTML=conv&&conv.msgs.length>0
+      ?conv.msgs.map(m=>`<div><div class="msg-bubble ${m.from==='me'?'msg-mine':'msg-theirs'}">${escHtml(m.text)}</div><div class="msg-time" style="${m.from==='me'?'text-align:right':''}">${m.time}</div></div>`).join('')
+      :`<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:0.7rem;color:var(--tm);font-size:0.85rem"><span style="font-size:2rem">👋</span>Schreib eine erste Nachricht!</div>`;
+  }
+  area.scrollTop=area.scrollHeight;
+}
+
+function _buildFsChatMessages(){
+  const myUid=S.user?.id;
+  if(!_fsMsgs.length)return`<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:0.7rem;color:var(--tm);font-size:0.85rem"><span style="font-size:2rem">👋</span>Schreib eine erste Nachricht!</div>`;
+  return _fsMsgs.map(m=>{
+    const mine=m.from===myUid;
+    const time=_fmtTs(m.createdAt);
+    return`<div><div class="msg-bubble ${mine?'msg-mine':'msg-theirs'}">${escHtml(m.text)}</div><div class="msg-time" style="${mine?'text-align:right':''}">${time}</div></div>`;
+  }).join('');
+}
+
+function openConv(id){
+  S.selConv=id;
+  S.lastSeenConvs[id]=Date.now();
+  if(_fbConfigured&&typeof S.user?.id==='string') subscribeConvMsgs(id);
+  saveState();
+  go('messages');
+}
+
+// ── Select a conversation (click in list) ──
+function selectConv(id){
+  S.selConv=id;
+  S.lastSeenConvs[id]=Date.now();
+  saveState();
+  const useFS=_fbConfigured&&typeof S.user?.id==='string';
+  if(useFS){subscribeConvMsgs(id);}
+  // Re-render just the right panel
+  const content=document.getElementById('content');
+  if(content){content.innerHTML=pageMessages();const m=document.getElementById('chat-msgs-area');if(m)m.scrollTop=m.scrollHeight;}
+  document.getElementById('chat-in')?.focus();
+}
+
+// ── Start or resume a conversation ──
+async function startConv(withName,withAv){
+  if(!S.user){toast('Login erforderlich','','err');go('login');return;}
+  if(withName===S.user.un){toast('Fehler','Du kannst dir nicht selbst schreiben','err');return;}
+
+  const myUid   = typeof S.user.id==='string' ? S.user.id : null;
+  const other   = S.users.find(u=>u.un===withName);
+  const withUid = other&&typeof other.id==='string' ? other.id : null;
+
+  if(_fbConfigured&&myUid&&withUid){
+    // ── Firestore path: both users are Firebase users ──
+    const cid=_convDocId(myUid,withUid);
+    try{
+      await db.collection('conversations').doc(cid).set({
+        participants:[myUid,withUid],
+        names:{[myUid]:S.user.un,[withUid]:withName},
+        avs:{[myUid]:S.user.av||'🎴',[withUid]:withAv||'🎴'},
+        updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
+        lastMsg:''
+      },{merge:true});
+      S.selConv=cid;saveState();
+      subscribeConvMsgs(cid);
+      go('messages');
+    }catch(e){
+      console.error('startConv Firestore Fehler:', e.code, e.message);
+      // Firestore blockiert (z.B. Security Rules) → localStorage Fallback
+      toast('Info','Firestore nicht verfügbar – lokaler Modus');
+      _localStartConv(withName,withAv);
+    }
+    return;
+  }
+
+  // ── localStorage fallback (demo users without Firebase UID) ──
+  _localStartConv(withName,withAv);
+}
+
+function _localStartConv(withName,withAv){
+  if(!S.user)return;
+  let conv=S.messages.find(m=>
+    (m.with===withName&&m.ownerId===S.user.id)||
+    (m.ownerId===withName&&m.with===S.user.un)||
+    (m.with===withName&&!m.ownerId)
+  );
+  if(!conv){
+    conv={id:Date.now(),ownerId:S.user.id,with:withName,withAv:withAv||'🎴',msgs:[],updatedAt:Date.now()};
+    S.messages.push(conv);
+  }
+  S.selConv=conv.id;saveState();go('messages');
+}
+
+// ── Send a message ──
+async function sendMsg(text){
   if(!text.trim())return;
+  // Input sofort leeren (kein Focus-Verlust)
+  const inp=document.getElementById('chat-in');
+  if(inp){inp.value='';inp.focus();}
+
+  const useFS=_fbConfigured&&typeof S.user?.id==='string'&&S.selConv&&typeof S.selConv==='string';
+
+  if(useFS){
+    try{
+      const msgData={
+        from:S.user.id,
+        fromName:S.user.un,
+        text:text.trim(),
+        createdAt:firebase.firestore.FieldValue.serverTimestamp()
+      };
+      await db.collection('conversations').doc(S.selConv)
+        .collection('messages').add(msgData);
+      await db.collection('conversations').doc(S.selConv).set({
+        lastMsg:text.trim(),
+        lastMsgFrom:S.user.id,
+        updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+      },{merge:true});
+    }catch(e){
+      toast('Fehler','Nachricht konnte nicht gesendet werden','err');
+      console.error('sendMsg Firestore:',e);
+    }
+    return;
+  }
+
+  // localStorage fallback
   const conv=S.messages.find(m=>m.id===S.selConv);
   if(!conv)return;
-  conv.msgs.push({from:'me',text:text.trim(),time:new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})});
-  saveState();render();
-  setTimeout(()=>{const ca=document.querySelector('.chat-msgs');if(ca)ca.scrollTop=ca.scrollHeight;},50);
+  const time=new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
+  const msg={from:'me',text:text.trim(),time};
+  conv.msgs.push(msg);
+  conv.updatedAt=Date.now();
+  saveState();
+  // Partial DOM update — kein komplettes render()
+  const msgs=document.querySelector('.chat-msgs');
+  if(msgs){
+    const div=document.createElement('div');
+    div.innerHTML=`<div class="msg-bubble msg-mine">${escHtml(msg.text)}</div><div class="msg-time" style="text-align:right">${msg.time}</div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop=msgs.scrollHeight;
+  }
+  const prevEl=document.querySelector(`.conv-item[data-id="${S.selConv}"] .conv-prev`);
+  if(prevEl)prevEl.textContent=msg.text;
 }
-function startConv(withName,withAv){
-  if(!S.user){toast('Login erforderlich','','err');go('login');return;}
-  let conv=S.messages.find(m=>m.with===withName);
-  if(!conv){conv={id:Date.now(),with:withName,withAv:withAv||'🎴',msgs:[]};S.messages.push(conv);}
-  S.selConv=conv.id;saveState();go('messages');
+function openNewConvModal(){
+  const existing=document.getElementById('new-conv-modal');
+  if(existing){existing.remove();return;}
+  const sellers=S.users.filter(u=>u.id!==S.user?.id&&(u.role==='seller'||u.role==='admin'));
+  const modal=document.createElement('div');
+  modal.id='new-conv-modal';
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9000;display:flex;align-items:center;justify-content:center;padding:1rem';
+  modal.innerHTML=`<div style="background:var(--bg1);border:1px solid var(--bdr);border-radius:15px;padding:1.5rem;width:100%;max-width:420px;max-height:80vh;display:flex;flex-direction:column">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem">
+      <div style="font-family:'Orbitron',monospace;font-size:0.85rem;font-weight:700;color:var(--gold)">💬 Neue Konversation</div>
+      <span onclick="document.getElementById('new-conv-modal').remove()" style="cursor:pointer;color:var(--tm);font-size:1.2rem;line-height:1">✕</span>
+    </div>
+    <input id="user-search" class="sbox" placeholder="🔍 Händler suchen..." oninput="filterConvUsers(this.value)" style="margin-bottom:1rem">
+    <div id="conv-user-list" style="overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:0.4rem">
+      ${sellers.map(u=>`<div onclick="document.getElementById('new-conv-modal').remove();startConv('${u.un}','${u.av}')" style="display:flex;align-items:center;gap:0.8rem;padding:0.75rem 0.9rem;border-radius:9px;border:1px solid var(--bdr);cursor:pointer;transition:all 0.15s;background:var(--bg2)" onmouseover="this.style.borderColor='var(--bdrh)'" onmouseout="this.style.borderColor='var(--bdr)'">
+        <span style="font-size:1.4rem">${u.av}</span>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:0.88rem;color:var(--tp)">${u.un}${u.ver?' <span style="color:var(--green);font-size:0.7rem">✓</span>':''}</div>
+          <div style="font-size:0.75rem;color:var(--tm)">${u.sales} Verkäufe · ${u.role}</div>
+        </div>
+        <span style="color:var(--gold);font-size:0.8rem">→</span>
+      </div>`).join('')}
+      ${sellers.length===0?'<div style="text-align:center;color:var(--tm);padding:2rem;font-size:0.85rem">Keine Händler gefunden</div>':''}
+    </div>
+  </div>`;
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.remove();});
+  document.body.appendChild(modal);
+  document.getElementById('user-search')?.focus();
+}
+function filterConvUsers(q){
+  const list=document.getElementById('conv-user-list');
+  if(!list)return;
+  const sellers=S.users.filter(u=>u.id!==S.user?.id&&(u.role==='seller'||u.role==='admin'));
+  const filtered=q?sellers.filter(u=>u.un.toLowerCase().includes(q.toLowerCase())):sellers;
+  list.innerHTML=filtered.map(u=>`<div onclick="document.getElementById('new-conv-modal').remove();startConv('${u.un}','${u.av}')" style="display:flex;align-items:center;gap:0.8rem;padding:0.75rem 0.9rem;border-radius:9px;border:1px solid var(--bdr);cursor:pointer;transition:all 0.15s;background:var(--bg2)" onmouseover="this.style.borderColor='var(--bdrh)'" onmouseout="this.style.borderColor='var(--bdr)'">
+    <span style="font-size:1.4rem">${u.av}</span>
+    <div style="flex:1"><div style="font-weight:700;font-size:0.88rem;color:var(--tp)">${u.un}${u.ver?' <span style="color:var(--green);font-size:0.7rem">✓</span>':''}</div><div style="font-size:0.75rem;color:var(--tm)">${u.sales} Verkäufe · ${u.role}</div></div>
+    <span style="color:var(--gold);font-size:0.8rem">→</span>
+  </div>`).join('')||(q?'<div style="text-align:center;color:var(--tm);padding:2rem;font-size:0.85rem">Niemand gefunden</div>':'');
 }
 
 // ===================== ADMIN FUNCTIONS =====================
@@ -969,6 +1357,15 @@ function addAlert(cardId,price){
 }
 function removeAlert(cardId){S.priceAlerts=S.priceAlerts.filter(a=>a.cardId!==cardId);saveState();render();}
 
+// ===================== DEBOUNCE SEARCH =====================
+let _searchTimer;
+function debounceSearch(val) {
+  S.q = val;
+  S.shopPage = 1;
+  clearTimeout(_searchTimer);
+  _searchTimer = setTimeout(() => { shopRefresh(); }, 300);
+}
+
 // ===================== PAGES =====================
 function pageHome(){
   const feat=S.cards.filter(c=>c.feat).slice(0,6);
@@ -1033,7 +1430,7 @@ function pageShop(){
   return`<div class="page-in" style="padding-top:1.2rem">
     <div class="shop-layout">
       <aside class="fpanel">
-        <input class="sbox" type="text" placeholder="🔍 Karten, Sets, Händler..." value="${S.q}" oninput="S.q=this.value;S.shopPage=1;shopRefresh()">
+        <input class="sbox" type="text" placeholder="🔍 Karten, Sets, Händler..." value="${S.q}" oninput="debounceSearch(this.value)">
         <div class="ftitle">Seltenheit</div>
         <div class="fopt ${S.fRarity==='all'?'act':''}" onclick="S.fRarity='all';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:#888"></span>Alle</div>
         ${rarities.map(r=>{const cfg=RC[r]||{c:'#888'};return`<div class="fopt ${S.fRarity===r?'act':''}" onclick="S.fRarity='${r}';S.shopPage=1;shopRefresh()"><span class="fdot" style="background:${cfg.c}"></span>${r}</div>`;}).join('')}
@@ -1532,35 +1929,90 @@ function pageSeller(){
 
 function pageMessages(){
   if(!S.user)return`<div class="page-in auth-pg"><div class="acard"><div class="atitle">Login erforderlich</div><button class="btn btnp" style="width:100%;padding:0.85rem" onclick="go('login')">Anmelden</button></div></div>`;
-  const conv=S.selConv?S.messages.find(m=>m.id===S.selConv):null;
-  return`<div class="page-in"><div style="padding:1.5rem 2rem;max-width:880px;margin:0 auto">
-    <h1 style="font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700;margin-bottom:1.3rem">💬 Nachrichten</h1>
-    <div class="msg-layout" style="padding:0">
-      <div class="conv-list">
-        <div style="padding:0.7rem 1rem;font-size:0.65rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--bdr)">Konversationen</div>
-        ${S.messages.map(m=>`<div class="conv-item ${S.selConv===m.id?'act':''}" onclick="S.selConv=${m.id};render()">
-          <div class="conv-av">${m.withAv||'🎴'}</div>
-          <div style="flex:1;min-width:0"><div class="conv-nm">${m.with}</div><div class="conv-prev">${m.msgs.slice(-1)[0]?.text||'—'}</div></div>
-        </div>`).join('')}
-        ${S.messages.length===0?'<div style="padding:1.5rem;text-align:center;color:var(--tm);font-size:0.82rem">Noch keine Nachrichten</div>':''}
+
+  const useFS=_fbConfigured&&typeof S.user.id==='string';
+  const myUid=S.user.id;
+
+  // Konversationsliste: Firestore oder localStorage
+  const convs=useFS
+    ?_fsConvs
+    :S.messages.filter(m=>m.ownerId===S.user.id||m.with===S.user.un||!m.ownerId).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+
+  // Aktive Konversation bestimmen (OHNE als gelesen zu markieren)
+  let activeConvId=S.selConv||null;
+  if(!activeConvId&&convs.length>0)activeConvId=convs[0].id;
+  if(activeConvId!==S.selConv){S.selConv=activeConvId;}
+
+  // Chat-Header: Name + Avatar des Gesprächspartners
+  let chatHeader='',chatBody='',chatInput='';
+  if(activeConvId){
+    let otherName='',otherAv='🎴';
+    if(useFS){
+      const fc=_fsConvs.find(c=>c.id===activeConvId);
+      if(fc){
+        const otherUid=fc.participants?.find(p=>p!==myUid)||'';
+        otherName=fc.names?.[otherUid]||'Unbekannt';
+        otherAv=fc.avs?.[otherUid]||'🎴';
+      }
+    }else{
+      const lc=S.messages.find(m=>m.id===activeConvId);
+      if(lc){otherName=lc.with||'';otherAv=lc.withAv||'🎴';}
+    }
+    const msgItems=useFS
+      ?_buildFsChatMessages()
+      :(()=>{const lc=S.messages.find(m=>m.id===activeConvId);return lc&&lc.msgs.length>0?lc.msgs.map(m=>`<div><div class="msg-bubble ${m.from==='me'?'msg-mine':'msg-theirs'}">${escHtml(m.text)}</div><div class="msg-time" style="${m.from==='me'?'text-align:right':''}">${m.time}</div></div>`).join(''):`<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:0.7rem;color:var(--tm);font-size:0.85rem"><span style="font-size:2rem">👋</span>Schreib eine erste Nachricht!</div>`;})();
+    const delBtn=useFS
+      ?`<button class="btn btng" style="font-size:0.75rem;padding:0.35rem 0.75rem" onclick="if(confirm('Konversation löschen?')){db.collection('conversations').doc('${activeConvId}').delete().then(()=>{_fsConvs=_fsConvs.filter(c=>c.id!=='${activeConvId}');S.selConv=null;if(_msgUnsub){_msgUnsub();_msgUnsub=null;}_fsMsgs=[];render();}).catch(e=>console.error(e))}">🗑️</button>`
+      :`<button class="btn btng" style="font-size:0.75rem;padding:0.35rem 0.75rem" onclick="if(confirm('Konversation löschen?')){S.messages=S.messages.filter(m=>m.id!=='${activeConvId}');S.selConv=null;saveState();render()}">🗑️</button>`;
+    chatHeader=`<div class="chat-hdr" style="border-radius:12px 12px 0 0">
+      <div style="font-size:1.3rem">${otherAv}</div>
+      <div style="flex:1"><div style="font-weight:700;font-size:0.92rem">${escHtml(otherName)}</div><div style="font-size:0.73rem;color:var(--green)"><span class="ldot"></span>Online</div></div>
+      ${delBtn}
+    </div>`;
+    chatBody=`<div class="chat-msgs" id="chat-msgs-area">${msgItems}</div>`;
+    chatInput=`<div class="chat-input" style="border-radius:0 0 12px 12px">
+      <input id="chat-in" class="chat-in" placeholder="Nachricht schreiben... (Enter zum Senden)"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();const v=this.value.trim();if(v){sendMsg(v);}}"
+        autofocus>
+      <button class="btn btnp" style="padding:0.55rem 1.1rem;white-space:nowrap"
+        onclick="const i=document.getElementById('chat-in');if(i.value.trim()){sendMsg(i.value);}">Senden ↑</button>
+    </div>`;
+  }
+
+  return`<div class="page-in"><div style="padding:1.5rem 2rem 2.5rem;max-width:920px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.3rem;flex-wrap:wrap;gap:0.6rem">
+      <h1 style="font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:700">💬 Nachrichten</h1>
+      <button class="btn btno" onclick="openNewConvModal()">✏️ Neue Konversation</button>
+    </div>
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:1.2rem;min-height:500px">
+      <!-- Konversationsliste -->
+      <div class="conv-list" style="border-radius:12px;overflow:hidden;height:fit-content;max-height:560px;display:flex;flex-direction:column">
+        <div style="padding:0.7rem 1rem;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--tm);border-bottom:1px solid var(--bdr);flex-shrink:0">Konversationen (${convs.length})</div>
+        <div class="conv-list-inner" style="overflow-y:auto;flex:1">${_buildConvListItems(convs,useFS)}</div>
       </div>
-      <div class="chat-area">
-        ${conv?`
-          <div class="chat-hdr"><div style="font-size:1.2rem">${conv.withAv||'🎴'}</div><div><div style="font-weight:700">${conv.with}</div><div style="font-size:0.72rem;color:var(--green)"><span class="ldot"></span>Online</div></div></div>
-          <div class="chat-msgs">
-            ${conv.msgs.map(m=>`<div>
-              <div class="msg-bubble ${m.from==='me'?'msg-mine':'msg-theirs'}">${m.text}</div>
-              <div class="msg-time" style="${m.from==='me'?'text-align:right':''}">${m.time}</div>
-            </div>`).join('')}
-          </div>
-          <div class="chat-input">
-            <input id="chat-in" class="chat-in" placeholder="Nachricht eingeben..." onkeydown="if(event.key==='Enter'){sendMsg(this.value);this.value=''}">
-            <button class="btn btnp" style="padding:0.55rem 1rem" onclick="const i=document.getElementById('chat-in');sendMsg(i.value);i.value=''">Senden</button>
-          </div>`
-        :`<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:1rem;color:var(--tm)"><span style="font-size:2.5rem">💬</span><span>Konversation wählen</span></div>`}
+      <!-- Chat-Bereich -->
+      <div class="chat-area" style="border-radius:12px;min-height:500px">
+        ${activeConvId
+          ?chatHeader+chatBody+chatInput
+          :`<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:1.2rem;color:var(--tm)">
+              <span style="font-size:3rem">💬</span>
+              <span style="font-size:0.92rem">${convs.length===0?'Starte deine erste Konversation':'Konversation aus der Liste wählen'}</span>
+              ${convs.length===0?`<button class="btn btnp" onclick="openNewConvModal()">✏️ Konversation starten</button>`:''}
+            </div>`}
       </div>
     </div>
   </div></div>`;
+}
+
+function renderMessages(){
+  // Nur die Nachrichten-Seite neu rendern ohne komplettes page reload
+  const content=document.getElementById('content');
+  if(S.page==='messages'&&content){
+    content.innerHTML=pageMessages();
+    const msgs=document.getElementById('chat-msgs-area');
+    if(msgs)msgs.scrollTop=msgs.scrollHeight;
+    document.querySelectorAll('.nl').forEach(el=>{el.classList.remove('act');if(el.id==='nl-messages')el.classList.add('act');});
+  }
 }
 
 function pageAdmin(){
@@ -1697,7 +2149,11 @@ function renderNav(){
   const adminEl=document.getElementById('nl-admin');
   if(adminEl)adminEl.style.display=S.user?.role==='admin'?'':'none';
   const msgEl=document.getElementById('nl-messages');
-  if(msgEl)msgEl.style.display=S.user?'':'none';
+  if(msgEl){
+    msgEl.style.display=S.user?'':'none';
+    const unreadMsgs=countUnreadConvs();
+    msgEl.innerHTML=`💬 Nachrichten${unreadMsgs>0?` <span style="background:var(--red);color:#fff;font-size:0.6rem;padding:1px 5px;border-radius:9px;font-weight:800;margin-left:2px">${unreadMsgs}</span>`:''}`;
+  }
   const nr=document.getElementById('nright');
   if(!nr)return;
   const cartN=S.cart.length;
@@ -1733,12 +2189,17 @@ function renderNav(){
 const PAGES={home:pageHome,shop:pageShop,card:pageCard,cart:pageCart,login:pageLogin,register:pageRegister,sell:pageSell,orders:pageOrders,profile:pageProfile,admin:pageAdmin,wishlist:pageWishlist,wallet:pageWallet,seller:pageSeller,messages:pageMessages};
 
 function render(){
+  if(_authLoading){
+    document.getElementById('content').innerHTML=`<div class="auth-loading"><div class="auth-loading-spinner"></div><div class="auth-loading-text">Wird geladen…</div></div>`;
+    renderNav();
+    return;
+  }
   const fn=PAGES[S.page]||pageHome;
   document.getElementById('content').innerHTML=fn();
   document.querySelectorAll('.nl').forEach(el=>{el.classList.remove('act');if(el.id==='nl-'+S.page)el.classList.add('act');});
   renderNav();
   // scroll chat to bottom
-  if(S.page==='messages'){const ca=document.querySelector('.chat-msgs');if(ca)ca.scrollTop=ca.scrollHeight;}
+  if(S.page==='messages'){const ca=document.getElementById('chat-msgs-area');if(ca)ca.scrollTop=ca.scrollHeight;}
   // maintenance banner
   document.getElementById('maint-bar').style.display=S.settings.maintenanceMode&&S.user?.role==='admin'?'block':'none';
 }
@@ -1883,6 +2344,7 @@ function updateSellPreview(){
 // ===================== onAuthStateChanged =====================
 if (_fbConfigured) {
   auth.onAuthStateChanged(async (firebaseUser) => {
+    _authLoading = false;   // Auth-Status bekannt → Ladespinner weg
     if (firebaseUser) {
       // Nutzer ist eingeloggt — Daten laden und State aktualisieren
       let idx = S.users.findIndex(x => x.em === firebaseUser.email);
@@ -1927,6 +2389,7 @@ if (_fbConfigured) {
       S.user = { ...u };
       S.loginErr = '';
       saveState();
+      subscribeConvs(firebaseUser.uid);  // Echtzeit-Konversationen abonnieren
 
       if (_freshLogin) {
         // Frischer Login → Toast + Weiterleitung
@@ -1941,6 +2404,7 @@ if (_fbConfigured) {
       }
     } else {
       // Abgemeldet — nur Firebase-Nutzer (id = string/uid) betroffen
+      unsubscribeAll();
       if (S.user && typeof S.user.id === 'string') {
         S.user = null;
         S.cart = [];
@@ -1955,6 +2419,39 @@ if (_fbConfigured) {
 // INIT
 renderNav();
 render();
+
+// ===== SCROLL TO TOP =====
+(function(){
+  const btn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('vis', window.scrollY > 400);
+  }, {passive: true});
+})();
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (S.showNotifDrop) closeNotifDrop();
+  }
+  // Ctrl+K or "/" → jump to shop search
+  if ((e.key === '/' || (e.ctrlKey && e.key === 'k')) && S.page === 'shop') {
+    e.preventDefault();
+    const sb = document.querySelector('.sbox');
+    if (sb) { sb.focus(); sb.select(); }
+  }
+});
+
+// ===== PASSIVE SCROLL OPTIMIZATION =====
+// All scroll listeners use passive:true (set above)
+
+// ===== PERF: prerender hint for shop page =====
+if (typeof document !== 'undefined') {
+  const link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.href = '#shop';
+  document.head.appendChild(link);
+}
+
 </script>
 </body>
 </html>
